@@ -4,9 +4,9 @@ import android.util.Log
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-import java.net.URLConnection
 
 fun stringToUrl(urlString: String): URL? {
     val url: URL
@@ -19,18 +19,19 @@ fun stringToUrl(urlString: String): URL? {
     return url
 }
 
-fun connectToSite(url: URL): URLConnection?{
-    val testConnection: URLConnection
+fun connectToSite(url: URL): HttpURLConnection? {
+    //val testConnection: HttpURLConnection
     try{
-        testConnection = url.openConnection()
+        val testConnection = url.openConnection() as HttpURLConnection
+        return testConnection
     } catch (e: IOException){
         Log.e("From: connectToURl", e.toString())
         return null
     }
-    return testConnection
+
 }
 
-fun readDataFromConnection(connection: URLConnection): String {
+fun readDataFromConnection(connection: HttpURLConnection): String {
     val stringBuilder = StringBuilder()
     try {
         connection.connect()
