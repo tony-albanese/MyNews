@@ -1,7 +1,9 @@
 package com.tony.albanese.mynews.controller
 
 import android.util.Log
+import java.io.BufferedReader
 import java.io.IOException
+import java.io.InputStreamReader
 import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLConnection
@@ -26,4 +28,25 @@ fun connectToSite(url: URL): URLConnection?{
         return null
     }
     return testConnection
+}
+
+fun readDataFromConnection(connection: URLConnection): String {
+    val stringBuilder = StringBuilder()
+    try {
+        connection.connect()
+    } catch (e: Exception) {
+        Log.e("readDataFromConnection", e.toString())
+        return e.toString()
+    }
+
+    var inStream = connection.getInputStream()
+    var reader = BufferedReader(InputStreamReader(inStream))
+
+    while (true) {
+        var line = reader.readLine()
+        if (line == null) break
+        stringBuilder.append(line)
+    }
+
+    return stringBuilder.toString()
 }
