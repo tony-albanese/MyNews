@@ -36,7 +36,7 @@ fun readDataFromConnection(connection: URLConnection): String {
         connection.connect()
     } catch (e: Exception) {
         Log.e("readDataFromConnection", e.toString())
-        return e.toString()
+        return "Error connecting."
     }
 
     var inStream = connection.getInputStream()
