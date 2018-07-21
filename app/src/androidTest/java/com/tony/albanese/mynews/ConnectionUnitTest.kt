@@ -2,10 +2,14 @@ package com.tony.albanese.mynews
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import com.tony.albanese.mynews.controller.connectToSite
 import com.tony.albanese.mynews.controller.stringToUrl
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNull
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.net.URL
+import java.net.URLConnection
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -33,4 +37,19 @@ class ConnectionUnitTest {
         assertEquals(null, stringToUrl(badUrl))
     }
 
+    @Test
+    fun testGoodConnection(){
+        val website = "http://www.google.de"
+        val url = stringToUrl(website)
+        val connection = connectToSite(url!!)
+        assertEquals(connection.toString(), url.openConnection().toString())
+    }
+
+    @Test
+    fun testBadConnection(){
+        val badSite = "hrr www ff"
+        val badUrl: URL? = stringToUrl(badSite)
+        val badConnection: URLConnection? = badUrl?.openConnection()
+        assertNull(badConnection)
+    }
 }
