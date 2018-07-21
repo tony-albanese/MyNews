@@ -35,19 +35,21 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
     val stringBuilder = StringBuilder()
     try {
         connection.connect()
+
+        var inStream = connection.getInputStream()
+        var reader = BufferedReader(InputStreamReader(inStream))
+
+        while (true) {
+            var line = reader.readLine()
+            if (line == null) break
+            stringBuilder.append(line)
+        }
+
+        return stringBuilder.toString()
     } catch (e: Exception) {
         Log.e("readDataFromConnection", e.toString())
         return "Error connecting."
     }
 
-    var inStream = connection.getInputStream()
-    var reader = BufferedReader(InputStreamReader(inStream))
 
-    while (true) {
-        var line = reader.readLine()
-        if (line == null) break
-        stringBuilder.append(line)
-    }
-
-    return stringBuilder.toString()
 }
