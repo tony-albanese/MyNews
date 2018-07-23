@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyNews</string>
+    <string name="API_KEY">8768b5f889974203a05b462b8b7dc800</string>
+    <string name="AUTHORITY">api.nytimes.com</string>
+    <string name="MOST_READ_PATH">svc/mostpopular/v2/mostviewed/all-sections/1.json</string>
+    <string name="TOP_STORIES_PATH">svc/topstories/v2/home.json</string>
+    <string name="TOP_SCIENCE_PATH">svc/mostpopular/v2/mostviewed/Science/1.json</string>
 </resources>
