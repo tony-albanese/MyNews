@@ -29,24 +29,4 @@ class JvmConnectionTest {
         val result = stringToUrl(badUrl)
         assertNull(result)
     }
-
-    @Test
-    fun testTopStoriesUrl() {
-
-    }
-
-    @Test
-    fun testMostPopularUrl() {
-
-    }
-
-    @Test
-    fun testScienceUrl() {
-
-    }
-
-    @Test
-    fun testCustomSearchUrl() {
-
-    }
 }
