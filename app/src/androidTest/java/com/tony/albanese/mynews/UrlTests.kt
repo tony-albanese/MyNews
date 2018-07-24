@@ -54,12 +54,14 @@ class UrlTests {
     fun testCustomSearchUrl() {
         val parameters = createSearchParametersJson("us trade deficit", "20161010", "20171010", "Business Foreign")
         val url = generateSearchUrl(appContext, 4, parameters)
-        assertEquals("Method 4 called.", url)
-        //TODO Actually test the url produced with assert.
+        val expectedUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=8768b5f889974203a05b462b8b7dc800&q=us%20trade%20deficit&fq=Business%20Foreign&begin_date=20161010&end_date=20171010"
+        assertEquals(expectedUrl, url)
     }
 
     @Test
     fun testJsonObjectFunction() {
         //TODO: Implement test for the function that generates the JSON.
     }
+
+    //TODO: Also implement desk case for when user does not enter values for date, section, and search terms.
 }
