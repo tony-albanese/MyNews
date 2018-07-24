@@ -38,7 +38,7 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
             builder.appendEncodedPath(path)
             builder.appendQueryParameter("api-key", KEY)
 
-            //TODO: Implement the method that extracts the information from JSON.
+            //TODO: Implement safety checks to make sure values exist and for defaults.
             val startDate = parameters.getString("start_date")
             val endDate = parameters.getString("end_date")
             val terms = parameters.getString("search_terms")
