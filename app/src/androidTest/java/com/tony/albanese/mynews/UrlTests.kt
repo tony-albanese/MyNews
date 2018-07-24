@@ -3,6 +3,7 @@ package com.tony.albanese.mynews
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
+import com.tony.albanese.mynews.controller.createSearchParametersJson
 import com.tony.albanese.mynews.controller.generateSearchUrl
 import com.tony.albanese.mynews.controller.stringToUrl
 import org.junit.Assert
@@ -51,6 +52,14 @@ class UrlTests {
 
     @Test
     fun testCustomSearchUrl() {
+        val parameters = createSearchParametersJson("us trade deficit", "20161010", "20171010", "Business Foreign")
+        val url = generateSearchUrl(appContext, 4, parameters)
+        assertEquals("Method 4 called.", url)
+        //TODO Actually test the url produced with assert.
+    }
 
+    @Test
+    fun testJsonObjectFunction() {
+        //TODO: Implement test for the function that generates the JSON.
     }
 }

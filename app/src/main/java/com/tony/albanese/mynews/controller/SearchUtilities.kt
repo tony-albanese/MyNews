@@ -3,6 +3,7 @@ package com.tony.albanese.mynews.controller
 import android.content.Context
 import android.net.Uri
 import com.tony.albanese.mynews.R
+import org.json.JSONException
 import org.json.JSONObject
 
 fun generateSearchUrl(c: Context, searchType: Int, searchTerms: JSONObject = JSONObject()): String {
@@ -42,4 +43,19 @@ fun generateSearchUrl(c: Context, searchType: Int, searchTerms: JSONObject = JSO
     }
 }
 
-
+/*This is one function that gets called when the user clicks the "Search" button.
+It will accept the search terms, dates, and news desk settings and packages them as a JSON Object.
+This JSON Object will get passed to the generate search URL.
+ */
+fun createSearchParametersJson(terms: String, startDate: String = "", endDate: String = "", desks: String = ""): JSONObject {
+    var json = JSONObject()
+    try {
+        json.put("search_terms", terms)
+        json.put("start_date", startDate)
+        json.put("end_date", endDate)
+        json.put("news_desks", desks)
+    } catch (e: JSONException) {
+        e.printStackTrace()
+    }
+    return json
+}
