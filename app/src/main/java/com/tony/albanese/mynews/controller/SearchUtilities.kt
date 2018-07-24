@@ -6,7 +6,7 @@ import com.tony.albanese.mynews.R
 import org.json.JSONException
 import org.json.JSONObject
 
-fun generateSearchUrl(c: Context, searchType: Int, searchTerms: JSONObject = JSONObject()): String {
+fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSONObject()): String {
     val SCHEME = "https"
     val AUTHORITY = c.getString(R.string.AUTHORITY)
     val KEY = c.getString(R.string.API_KEY)
@@ -36,8 +36,18 @@ fun generateSearchUrl(c: Context, searchType: Int, searchTerms: JSONObject = JSO
         4 -> {
             val path = c.getString(R.string.ARTICLE_SEARCH_PATH)
             builder.appendEncodedPath(path)
+            builder.appendQueryParameter("api-key", KEY)
+
             //TODO: Implement the method that extracts the information from JSON.
-            return "Method 4 called."
+            val startDate = parameters.getString("start_date")
+            val endDate = parameters.getString("end_date")
+            val terms = parameters.getString("search_terms")
+            val desks = parameters.getString("news_desks")
+            builder.appendQueryParameter("q", terms)
+            builder.appendQueryParameter("fq", desks)
+            builder.appendQueryParameter("begin_date", startDate)
+            builder.appendQueryParameter("end_date", endDate)
+            return builder.toString()
         }
         else -> return "Invalid search type."
     }
