@@ -11,7 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
+//These tests check functions that build the search urls to query the API.
 @RunWith(AndroidJUnit4::class)
 class UrlTests {
     val appContext = InstrumentationRegistry.getTargetContext()
@@ -29,21 +29,21 @@ class UrlTests {
         Assert.assertNull(result)
     }
 
-    @Test
+    @Test //Test for search url. Test case: User selects TopStories search.
     fun testTopStoriesUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 2)
         assertEquals(expectedUrl, url)
     }
 
-    @Test
+    @Test //Test for search url. Test case: User selects MostPopular search.
     fun testMostPopularUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 1)
         assertEquals(expectedUrl, url)
     }
 
-    @Test
+    @Test //Test for search url. Test case: User selects Science stories search.
     fun testScienceUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/Science/1.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 3)
@@ -51,17 +51,14 @@ class UrlTests {
     }
 
     @Test
-    fun testCustomSearchUrl() {
+    fun testCustomSearchUrl() {//Test for search url. Test case: user enters search terms for article search with start and end date.
         val parameters = createSearchParametersJson("us trade deficit", "20161010", "20171010", "Business Foreign")
         val url = generateSearchUrl(appContext, 4, parameters)
         val expectedUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=8768b5f889974203a05b462b8b7dc800&q=us%20trade%20deficit&fq=Business%20Foreign&begin_date=20161010&end_date=20171010"
         assertEquals(expectedUrl, url)
     }
 
-    @Test
-    fun testJsonObjectFunction() {
-        //TODO: Implement test for the function that generates the JSON.
-    }
-
     //TODO: Also implement desk case for when user does not enter values for date, section, and search terms.
+    //TODO: Need test cases for different search criteria entered by the user.
+    //TODO: Need test case for when user enters nonesense.
 }

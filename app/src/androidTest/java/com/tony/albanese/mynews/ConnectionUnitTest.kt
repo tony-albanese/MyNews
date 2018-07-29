@@ -17,6 +17,8 @@ import java.net.URLConnection
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+
+//These tests are to check the functions that implement connecting to servers.
 @RunWith(AndroidJUnit4::class)
 class ConnectionUnitTest {
 
@@ -28,19 +30,19 @@ class ConnectionUnitTest {
         assertEquals("com.tony.albanese.mynews", appContext.packageName)
     }
 
-    @Test
+    @Test //Validates output of stringToUrl() function. Test case: valid url.
     fun validUrlTest(){
         val urlString = "http://www.google.de"
         assertEquals(urlString, stringToUrl(urlString).toString())
     }
 
-    @Test
+    @Test //Test stringToUrl() Test case: invalid url
     fun badUrlTest(){
         val badUrl = "htt www.goo com"
         assertEquals(null, stringToUrl(badUrl))
     }
 
-    @Test
+    @Test //Test connection: Test case: connecting with valid url.
     fun testGoodConnection(){
         val website = testWebSite
         val url = stringToUrl(website)
@@ -48,7 +50,7 @@ class ConnectionUnitTest {
         assertEquals(connection.toString(), url.openConnection().toString())
     }
 
-    @Test
+    @Test //Test connection. Test case: connecting with invalid url.
     fun testBadConnection(){
         val badSite = "hrr www ff"
         val badUrl: URL? = stringToUrl(badSite)
@@ -56,7 +58,7 @@ class ConnectionUnitTest {
         assertNull(badConnection)
     }
 
-    @Test //This function tests the function that reads the response from the server.
+    @Test //This function tests the function that reads the response from the server with a valid REST api.
     fun testReaderResponse() {
         val url = stringToUrl("http://echo.jsontest.com/key/value/one/two")
         val connection = connectToSite(url!!)
