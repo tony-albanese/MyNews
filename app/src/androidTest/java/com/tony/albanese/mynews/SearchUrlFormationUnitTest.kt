@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 
 //These tests check functions that build the search urls to query the API.
 @RunWith(AndroidJUnit4::class)
-class UrlTests {
+class SearchUrlFormationUnitTest {
     val appContext = InstrumentationRegistry.getTargetContext()
 
     @Test
