@@ -8,6 +8,7 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
+//Converts a string to a URL object.
 fun stringToUrl(urlString: String): URL? {
     val url: URL
     try {
@@ -19,6 +20,7 @@ fun stringToUrl(urlString: String): URL? {
     return url
 }
 
+//Accepts a URL and returns an HttpURLConnection.
 fun connectToSite(url: URL): HttpURLConnection? {
     //val testConnection: HttpURLConnection
     try {
@@ -31,6 +33,7 @@ fun connectToSite(url: URL): HttpURLConnection? {
 
 }
 
+//Reads the data from connection and builds a JSON response string and returns it.
 fun readDataFromConnection(connection: HttpURLConnection): String {
     val stringBuilder = StringBuilder()
     try {

@@ -6,6 +6,7 @@ import com.tony.albanese.mynews.R
 import org.json.JSONException
 import org.json.JSONObject
 
+//Generates
 fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSONObject()): String {
     val SCHEME = "https"
     val AUTHORITY = c.getString(R.string.AUTHORITY)
@@ -57,6 +58,7 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
 It will accept the search terms, dates, and news desk settings and packages them as a JSON Object.
 This JSON Object will get passed to the generate search URL.
  */
+//TODO: write test cases for this function by itself.
 fun createSearchParametersJson(terms: String, startDate: String = "", endDate: String = "", desks: String = ""): JSONObject {
     var json = JSONObject()
     try {

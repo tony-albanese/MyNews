@@ -16,13 +16,13 @@ import org.junit.runner.RunWith
 class SearchUrlFormationUnitTest {
     val appContext = InstrumentationRegistry.getTargetContext()
 
-    @Test
+    @Test //Test case: user enters a valid url.
     fun testValidUrl() {
         val goodUrl = "http://www.google.de"
         Assert.assertEquals(goodUrl, stringToUrl(goodUrl).toString())
     }
 
-    @Test
+    @Test //Ensure result of bad url test case.
     fun badUrlTest() {
         val badUrl = "htt www.foo" //A malformed url.
         val result = stringToUrl(badUrl)
@@ -50,8 +50,8 @@ class SearchUrlFormationUnitTest {
         assertEquals(expectedUrl, url)
     }
 
-    @Test
-    fun testCustomSearchUrl() {//Test for search url. Test case: user enters search terms for article search with start and end date.
+    @Test //Test for search url. Test case: user enters search terms for article search with start and end date.
+    fun testCustomSearchUrl() {
         val parameters = createSearchParametersJson("us trade deficit", "20161010", "20171010", "Business Foreign")
         val url = generateSearchUrl(appContext, 4, parameters)
         val expectedUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=8768b5f889974203a05b462b8b7dc800&q=us%20trade%20deficit&fq=Business%20Foreign&begin_date=20161010&end_date=20171010"
