@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews.controller
+package com.tony.albanese.mynews.controller.utilities
 
 import android.content.Context
 import android.net.Uri

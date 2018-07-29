@@ -2,9 +2,9 @@ package com.tony.albanese.mynews
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.tony.albanese.mynews.controller.connectToSite
-import com.tony.albanese.mynews.controller.readDataFromConnection
-import com.tony.albanese.mynews.controller.stringToUrl
+import com.tony.albanese.mynews.controller.utilities.connectToSite
+import com.tony.albanese.mynews.controller.utilities.readDataFromConnection
+import com.tony.albanese.mynews.controller.utilities.stringToUrl
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

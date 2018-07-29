@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews.controller
+package com.tony.albanese.mynews.controller.utilities
 
 import android.util.Log
 import java.io.BufferedReader
@@ -10,9 +10,9 @@ import java.net.URL
 
 fun stringToUrl(urlString: String): URL? {
     val url: URL
-    try{
+    try {
         url = URL(urlString)
-    } catch (exception: MalformedURLException){
+    } catch (exception: MalformedURLException) {
         Log.e("From stringToUrl()", "Malformed URL.")
         return null
     }
@@ -21,10 +21,10 @@ fun stringToUrl(urlString: String): URL? {
 
 fun connectToSite(url: URL): HttpURLConnection? {
     //val testConnection: HttpURLConnection
-    try{
+    try {
         val testConnection = url.openConnection() as HttpURLConnection
         return testConnection
-    } catch (e: IOException){
+    } catch (e: IOException) {
         Log.e("From: connectToURl", e.toString())
         return null
     }
@@ -36,7 +36,7 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
     try {
         connection.connect()
 
-        var inStream = connection.getInputStream()
+        var inStream = connection.inputStream
         var reader = BufferedReader(InputStreamReader(inStream))
 
         while (true) {

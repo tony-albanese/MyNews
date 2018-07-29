@@ -1,6 +1,6 @@
 package com.tony.albanese.mynews
 
-import com.tony.albanese.mynews.controller.stringToUrl
+import com.tony.albanese.mynews.controller.utilities.stringToUrl
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test

@@ -3,9 +3,9 @@ package com.tony.albanese.mynews
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
-import com.tony.albanese.mynews.controller.createSearchParametersJson
-import com.tony.albanese.mynews.controller.generateSearchUrl
-import com.tony.albanese.mynews.controller.stringToUrl
+import com.tony.albanese.mynews.controller.utilities.createSearchParametersJson
+import com.tony.albanese.mynews.controller.utilities.generateSearchUrl
+import com.tony.albanese.mynews.controller.utilities.stringToUrl
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
