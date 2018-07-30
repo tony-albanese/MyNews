@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews
+package com.tony.albanese.mynews.unit_tests
 
 //This class is for testing the JsonController.
 

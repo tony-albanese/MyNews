@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews
+package com.tony.albanese.mynews.unit_tests
 
 import android.support.test.runner.AndroidJUnit4
 import com.tony.albanese.mynews.controller.utilities.connectToSite

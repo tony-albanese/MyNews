@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews
+package com.tony.albanese.mynews.unit_tests
 
 
 import android.support.test.InstrumentationRegistry

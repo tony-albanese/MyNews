@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews
+package com.tony.albanese.mynews.unit_tests
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -30,7 +30,7 @@ class ConnectionUnitTest {
     }
 
     @Test //Test case: connecting with valid url.
-    fun testGoodConnection(){
+    fun testGoodConnection() {
         val website = testWebSite
         val url = stringToUrl(website)
         val connection = connectToSite(url!!)
@@ -38,7 +38,7 @@ class ConnectionUnitTest {
     }
 
     @Test //Test case: connecting with invalid url.
-    fun testBadConnection(){
+    fun testBadConnection() {
         val badSite = "hrr www ff"
         val badUrl: URL? = stringToUrl(badSite)
         val badConnection: URLConnection? = badUrl?.openConnection()
