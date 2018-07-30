@@ -16,41 +16,41 @@ import org.junit.runner.RunWith
 class SearchUrlFormationUnitTest {
     val appContext = InstrumentationRegistry.getTargetContext()
 
-    @Test //Test case: user enters a valid url.
+    @Test //Test case: user enters a valid url string.
     fun testValidUrl() {
         val goodUrl = "http://www.google.de"
         Assert.assertEquals(goodUrl, stringToUrl(goodUrl).toString())
     }
 
-    @Test //Ensure result of bad url test case.
+    @Test //Test case: user enters invalid url
     fun badUrlTest() {
         val badUrl = "htt www.foo" //A malformed url.
         val result = stringToUrl(badUrl)
         Assert.assertNull(result)
     }
 
-    @Test //Test for search url. Test case: User selects TopStories search.
+    @Test //Test case: User selects TopStories search.
     fun testTopStoriesUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 2)
         assertEquals(expectedUrl, url)
     }
 
-    @Test //Test for search url. Test case: User selects MostPopular search.
+    @Test //Test case: User selects MostPopular search.
     fun testMostPopularUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 1)
         assertEquals(expectedUrl, url)
     }
 
-    @Test //Test for search url. Test case: User selects Science stories search.
+    @Test //Test case: User selects Science stories search.
     fun testScienceUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/Science/1.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 3)
         assertEquals(expectedUrl, url)
     }
 
-    @Test //Test for search url. Test case: user enters search terms for article search with start and end date.
+    @Test //Test case: user enters search terms for article search with start and end date.
     fun testCustomSearchUrl() {
         val parameters = createSearchParametersJson("us trade deficit", "20161010", "20171010", "Business Foreign")
         val url = generateSearchUrl(appContext, 4, parameters)
