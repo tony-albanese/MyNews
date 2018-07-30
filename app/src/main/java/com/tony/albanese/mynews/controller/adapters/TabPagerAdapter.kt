@@ -1,8 +1,10 @@
 package com.tony.albanese.mynews.controller.adapters
 
+import android.content.res.Resources
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.MostPopularFragment
 import com.tony.albanese.mynews.controller.fragments.TopScienceStoriesFragment
 import com.tony.albanese.mynews.controller.fragments.TopStoriesFragment
@@ -22,4 +24,13 @@ class TabPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(f
     }
 
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        when (position) {
+            0 -> return Resources.getSystem().getString(R.string.top_stories_tab_title)
+            1 -> return Resources.getSystem().getString(R.string.most_read_tab_title)
+            2 -> return Resources.getSystem().getString(R.string.science_tab_title)
+            else -> return "No title found."
+
+        }
+    }
 }
