@@ -6,4 +6,7 @@
     <string name="TOP_STORIES_PATH">svc/topstories/v2/home.json</string>
     <string name="TOP_SCIENCE_PATH">svc/mostpopular/v2/mostviewed/Science/1.json</string>
     <string name="ARTICLE_SEARCH_PATH">svc/search/v2/articlesearch.json</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
