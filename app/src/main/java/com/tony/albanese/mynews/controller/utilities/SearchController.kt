@@ -3,7 +3,6 @@ package com.tony.albanese.mynews.controller.utilities
 import android.content.Context
 import android.net.Uri
 import com.tony.albanese.mynews.R
-import org.json.JSONException
 import org.json.JSONObject
 
 //Generates
@@ -40,6 +39,7 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
             builder.appendQueryParameter("api-key", KEY)
 
             //TODO: Implement safety checks to make sure values exist and for defaults.
+            //TODO: Move this functionality to JsonController
             val startDate = parameters.getString("start_date")
             val endDate = parameters.getString("end_date")
             val terms = parameters.getString("search_terms")
@@ -54,20 +54,3 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
     }
 }
 
-/*This is one function that gets called when the user clicks the "Search" button.
-It will accept the search terms, dates, and news desk settings and packages them as a JSON Object.
-This JSON Object will get passed to the generate search URL.
- */
-//TODO: write test cases for this function by itself.
-fun createSearchParametersJson(terms: String, startDate: String = "", endDate: String = "", desks: String = ""): JSONObject {
-    var json = JSONObject()
-    try {
-        json.put("search_terms", terms)
-        json.put("start_date", startDate)
-        json.put("end_date", endDate)
-        json.put("news_desks", desks)
-    } catch (e: JSONException) {
-        e.printStackTrace()
-    }
-    return json
-}
