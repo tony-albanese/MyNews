@@ -23,16 +23,16 @@ fun createSearchParametersJson(terms: String, startDate: String = "", endDate: S
 }
 
 //Need a function to return the values from the JSON object.
-fun getSearchParametersFromJson(key: String, json: JSONObject): String {
+fun getSearchParametersFromJson(key: String, json: JSONObject): String? {
     try {
         return json.getString(key)
 
     } catch (e: JSONException) {
         Log.e("getJsonValue()", "Error parsing JSON.")
     }
-    return "Nothing."
+    return null
 }
 
 fun parseServerResponseJson() {
-    
+
 }

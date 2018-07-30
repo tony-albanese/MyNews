@@ -40,15 +40,18 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
 
             //TODO: Implement safety checks to make sure values exist and for defaults.
             //TODO: Move this functionality to JsonController
-            val startDate = parameters.getString("start_date")
-            val endDate = parameters.getString("end_date")
-            val terms = parameters.getString("search_terms")
-            val desks = parameters.getString("news_desks")
-            builder.appendQueryParameter("q", terms)
-            builder.appendQueryParameter("fq", desks)
-            builder.appendQueryParameter("begin_date", startDate)
-            builder.appendQueryParameter("end_date", endDate)
-            return builder.toString()
+            //val startDate = parameters.getString("start_date")
+            if (parameters != null) {
+                val startDate = getSearchParametersFromJson("start_date", parameters) ?: ""
+                val endDate = getSearchParametersFromJson("end_date", parameters) ?: ""
+                val terms = getSearchParametersFromJson("search_terms", parameters) ?: ""
+                val desks = getSearchParametersFromJson("news_desks", parameters) ?: ""
+                builder.appendQueryParameter("q", terms)
+                builder.appendQueryParameter("fq", desks)
+                builder.appendQueryParameter("begin_date", startDate)
+                builder.appendQueryParameter("end_date", endDate)
+                return builder.toString()
+            } else return "No search parameters given."
         }
         else -> return "Invalid search type."
     }
