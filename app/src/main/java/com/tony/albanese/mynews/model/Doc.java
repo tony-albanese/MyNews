@@ -30,6 +30,10 @@ public class Doc {
     @Expose
     private String _abstract;
 
+    @SerializedName("pub_date")
+    @Expose
+    private String pubDate;
+
     public String getWebUrl() {
         return webUrl;
     }
@@ -85,5 +89,9 @@ public class Doc {
     public void setAbstract(String _abstract) {
         this._abstract = _abstract;
     }
+
+    public String getPubDate(){return pubDate;}
+
+    public void setPubDate(String pubDate) {this.pubDate = pubDate;}
 
 }
