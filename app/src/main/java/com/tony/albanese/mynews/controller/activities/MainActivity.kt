@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews.controller
+package com.tony.albanese.mynews.controller.activities
 
 import android.os.Bundle
 import android.support.design.widget.TabLayout
