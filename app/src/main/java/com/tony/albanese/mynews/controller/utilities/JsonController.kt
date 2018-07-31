@@ -22,7 +22,7 @@ fun createSearchParametersJson(terms: String, startDate: String = "", endDate: S
     return json
 }
 
-//Need a function to return the values from the JSON object.
+//This function accepts a string key and a JSONObject and returns a string value corresponding to the key.
 fun getSearchParametersFromJson(key: String, json: JSONObject): String? {
     try {
         return json.getString(key)
@@ -33,6 +33,13 @@ fun getSearchParametersFromJson(key: String, json: JSONObject): String? {
     return null
 }
 
+//This function accepts a string from a json response and returns a ServerResponse object.
+//TODO: Update unit tests for this function.
 fun parseServerResponseJson() {
 
 }
+
+//This function accepts a ServerResponse and will return an array list of Articles.
+
+//TODO: Design Article class
+//TODO: Implement this function.
