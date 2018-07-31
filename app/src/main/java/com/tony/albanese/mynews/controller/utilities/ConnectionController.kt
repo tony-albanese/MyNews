@@ -13,7 +13,7 @@ fun stringToUrl(urlString: String): URL? {
     val url: URL
     try {
         url = URL(urlString)
-    } catch (exception: MalformedURLException) {
+    } catch (e: MalformedURLException) {
         Log.e("From stringToUrl()", "Malformed URL.")
         return null
     }
