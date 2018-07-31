@@ -1,14 +1,17 @@
 package com.tony.albanese.mynews.unit_tests
 
 import android.support.test.runner.AndroidJUnit4
+import com.google.gson.Gson
+import com.tony.albanese.mynews.model.ServerResponse
 import junit.framework.Assert.assertEquals
 import org.json.JSONException
 import org.json.JSONObject
 import org.junit.Test
 import org.junit.runner.RunWith
 
+//These unit tests are designed to test the data model and its serialization via Gson.
 @RunWith(AndroidJUnit4::class)
-class GsonUnitTests {
+class ModelGsonUnitTests {
 
     //Need sample json response.
 
@@ -217,6 +220,7 @@ class GsonUnitTests {
 
     }
 
+    @Test
     fun isInvalidJson(){
         var result: Boolean
         try{
@@ -232,8 +236,12 @@ class GsonUnitTests {
 
 
     @Test
-    fun testGsonObjectCreation(){
-
-
+    fun testServerResponseObjectCreation(){
+        //validate that there should be ten objects in the articles array.
+        val gson = Gson()
+        val serverResponse = gson.fromJson(testJson, ServerResponse::class.java)
+        val responses = serverResponse.response
+        val articles = responses.docs
+        assertEquals(10, articles.size)
     }
 }
