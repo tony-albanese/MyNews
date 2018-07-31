@@ -1,6 +1,7 @@
 package com.tony.albanese.mynews.controller.utilities
 
 import android.util.Log
+import com.tony.albanese.mynews.model.ServerResponse
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -40,6 +41,9 @@ fun parseServerResponseJson() {
 }
 
 //This function accepts a ServerResponse and will return an array list of Articles.
-
-//TODO: Design Article class
 //TODO: Implement this function.
+fun generateArticleArrayList(response: ServerResponse){
+    val articleArray = response.response.docs
+    var article = articleArray[0]
+
+}
