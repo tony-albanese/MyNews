@@ -44,6 +44,7 @@ fun parseServerResponseJson() {
 //TODO: Implement this function.
 fun generateArticleArrayList(response: ServerResponse){
     val articleArray = response.response.docs
-    var article = articleArray[0]
-
+    
 }
+
+
