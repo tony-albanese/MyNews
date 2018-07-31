@@ -1,4 +1,4 @@
-package com.tony.albanese.mynews.unit_tests
+package com.tony.albanese.mynews.integration_tests
 
 import android.support.test.runner.AndroidJUnit4
 import com.tony.albanese.mynews.controller.utilities.connectToSite
@@ -9,7 +9,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class ServerResponseUnitTest {
+class ServerResponseIntegrationTest {
 
     @Test //This function tests the function that reads the response from the server with a valid REST api.
     fun testReaderResponse() {
