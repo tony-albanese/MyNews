@@ -39,8 +39,6 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
             builder.appendQueryParameter("api-key", KEY)
 
             //TODO: Implement safety checks to make sure values exist and for defaults.
-            //TODO: Move this functionality to JsonController
-            //val startDate = parameters.getString("start_date")
             if (parameters != null) {
                 val startDate = getSearchParametersFromJson("start_date", parameters) ?: ""
                 val endDate = getSearchParametersFromJson("end_date", parameters) ?: ""
