@@ -1,10 +1,10 @@
 package com.tony.albanese.mynews.unit_tests
 
 import android.support.test.runner.AndroidJUnit4
-import com.tony.albanese.mynews.controller.utilities.generateArticleArrayList
-import com.tony.albanese.mynews.controller.utilities.generateServerResponse
+import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
 import junit.framework.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -18,7 +18,18 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class JsonControllerUnitTest {
 
-    val testJson = ""
+    lateinit var testJson: String
+    @Before
+    fun initialize(){
+
+        val url = generateSearchUrl() //Need context and search number.
+        connectToSite(stringToUrl(url)!!)
+        readDataFromConnection()
+
+
+        //testJson =
+    }
+
     @Test
     fun testGenerateArticleArrayList(){
         val response = generateServerResponse(testJson)
