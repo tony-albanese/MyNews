@@ -1,5 +1,5 @@
 
-package com.tony.albanese.mynews;
+package com.tony.albanese.mynews.model.TopStoriesModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
