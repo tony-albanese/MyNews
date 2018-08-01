@@ -20,4 +20,13 @@ class ArticleArrayCreationTests {
         assertEquals(20, list.size)
     }
 
+    @Test
+    fun testTopStoriesArrayCreation(){
+        val url = generateSearchUrl(appContext, 2)
+        val connection = connectToSite(stringToUrl(url)!!)
+        val response = readDataFromConnection(connection!!)
+        val list = generateArticleArray(2, response)
+        assertEquals(45, list.size)
+    }
+
 }
