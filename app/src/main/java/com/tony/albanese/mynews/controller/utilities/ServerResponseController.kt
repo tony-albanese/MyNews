@@ -42,6 +42,11 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                 date = currentArticle.publishedDate
                 url = currentArticle.url
 
+                if(currentArticle.multimedia.isEmpty()){
+                    imageUrl = "Dummy url"
+                } else{
+                    imageUrl = currentArticle.multimedia[0].url
+                }
                 list.add(Article(title,section,date,url,"Dummy url"))
             }
             return list
