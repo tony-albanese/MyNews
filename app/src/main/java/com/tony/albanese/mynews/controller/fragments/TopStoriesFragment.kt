@@ -16,7 +16,6 @@ class TopStoriesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_base_layout, container, false)
     }
 
-
 }
 
 
