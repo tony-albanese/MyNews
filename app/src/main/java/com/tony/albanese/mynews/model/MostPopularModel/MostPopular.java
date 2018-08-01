@@ -1,8 +1,9 @@
 
-package com.tony.albanese.mynews;
+package com.tony.albanese.mynews.model.MostPopularModel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.tony.albanese.mynews.Result;
 
 import java.util.List;
 
