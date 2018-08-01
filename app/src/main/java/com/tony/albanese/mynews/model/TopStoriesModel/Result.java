@@ -6,14 +6,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-import javax.annotation.Generated;
-
-@Generated("net.hexar.json2pojo")
 @SuppressWarnings("unused")
 public class Result {
 
     @Expose
-    private String abstract;
+    private String articleAbstract;
     @Expose
     private String byline;
     @SerializedName("created_date")
@@ -50,11 +47,11 @@ public class Result {
     private String url;
 
     public String getAbstract() {
-        return abstract;
+        return articleAbstract;
     }
 
-    public void setAbstract(String abstract) {
-        this.abstract = abstract;
+    public void setAbstract(String articleAbstract) {
+        this.articleAbstract = articleAbstract;
     }
 
     public String getByline() {
