@@ -34,8 +34,9 @@ class ArticleArrayCreationTests {
         val url = generateSearchUrl(appContext, 3)
         val connection = connectToSite(stringToUrl(url)!!)
         val response = readDataFromConnection(connection!!)
-        val list = generateArticleArray(3, response)
-        //assertEquals(45, list.size)
+        //The subject search has the same structure as the most popular.
+        val list = generateArticleArray(1, response)
+        assertEquals(20, list.size)
     }
 
 }
