@@ -54,5 +54,4 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
         return "Error connecting."
     }
 
-
 }

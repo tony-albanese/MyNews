@@ -1,9 +1,6 @@
 package com.tony.albanese.mynews.controller.utilities
 
 import android.util.Log
-import com.google.gson.Gson
-import com.tony.albanese.mynews.model.Article
-import com.tony.albanese.mynews.model.ServerResponse
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -35,26 +32,4 @@ fun getSearchParametersFromJson(key: String, json: JSONObject): String? {
     }
     return null
 }
-
-//This function accepts a string from a json response and returns a ServerResponse object.
-//TODO: Update unit tests for this function.
-fun generateServerResponse(jsonResponse: String): ServerResponse {
-    val gson = Gson()
-    val serverResponse = gson.fromJson(jsonResponse, ServerResponse::class.java)
-    return serverResponse
-}
-
-//This function accepts a ServerResponse and will return an array list of Articles.
-fun generateArticleArrayList(serverResponse: ServerResponse): ArrayList<Article>{
-
-    //TODO: Make sure to loop over all of the values in the array.
-    var list = ArrayList<Article>()
-    var documentArray = serverResponse.response.docs
-    var currentDocument= documentArray[0]
-    val article = Article(currentDocument.headline.main, currentDocument.pubDate, currentDocument.snippet, currentDocument.newsDesk, currentDocument.webUrl, currentDocument.multimedia.get(0).url)
-    list.add(article)
-
-    return list
-}
-
 
