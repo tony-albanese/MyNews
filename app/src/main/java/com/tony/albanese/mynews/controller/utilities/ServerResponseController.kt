@@ -7,6 +7,7 @@ import com.tony.albanese.mynews.model.TopStoriesModel.TopStories
 
 fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
     var list = ArrayList<Article>()
+    val gson = Gson()
     lateinit var title:String
     lateinit var section: String
     lateinit var date: String
@@ -15,7 +16,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
 
     when(resultType){
         1 -> {
-            val gson = Gson()
+
             val mostPopular = gson.fromJson(response, MostPopular::class.java)
             val resultsArray = mostPopular.results
             for (i in 0..(resultsArray.size - 1)) {
@@ -31,7 +32,6 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
         }
 
         2->{
-            val gson = Gson()
             val topStories = gson.fromJson(response, TopStories::class.java)
             val resultsArray = topStories.results
             list.clear()
@@ -49,6 +49,10 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                 }
                 list.add(Article(title,section,date,url,"Dummy url"))
             }
+            return list
+        }
+
+        3->{
             return list
         }
         else -> return list
