@@ -5,8 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
-
-//@Generated("net.hexar.json2pojo")
+//This class can also be used for the subject searches because the Json responses have the same structure.
 @SuppressWarnings("unused")
 public class MostPopular {
 
