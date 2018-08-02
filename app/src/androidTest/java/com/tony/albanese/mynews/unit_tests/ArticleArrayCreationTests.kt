@@ -8,6 +8,7 @@ import org.json.JSONObject
 import org.junit.Test
 import org.junit.runner.RunWith
 
+//TODO: These tests need to be run with a fixed response.
 @RunWith(AndroidJUnit4::class)
 class ArticleArrayCreationTests {
     val appContext = InstrumentationRegistry.getTargetContext()
