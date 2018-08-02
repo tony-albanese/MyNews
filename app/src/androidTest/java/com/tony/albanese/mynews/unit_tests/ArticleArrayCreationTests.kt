@@ -4,6 +4,7 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.tony.albanese.mynews.controller.utilities.*
 import junit.framework.Assert.assertEquals
+import org.json.JSONObject
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -26,7 +27,10 @@ class ArticleArrayCreationTests {
         val connection = connectToSite(stringToUrl(url)!!)
         val response = readDataFromConnection(connection!!)
         val list = generateArticleArray(2, response)
-        assertEquals(45, list.size)
+        val obj = JSONObject(response)
+        val number_results = obj.getString("num_results")
+
+        assertEquals(number_results, list.size.toString())
     }
 
     @Test
@@ -37,6 +41,17 @@ class ArticleArrayCreationTests {
         //The subject search has the same structure as the most popular.
         val list = generateArticleArray(1, response)
         assertEquals(20, list.size)
+    }
+
+    @Test
+    fun testCustomSearch(){
+        //Create searchTerms json object
+        val parameters = createSearchParametersJson("us trade deficit", "20161010", "20171010", "Business Foreign")
+        val url = generateSearchUrl(appContext, 4, parameters)
+        val connection = connectToSite(stringToUrl(url)!!)
+        val response = readDataFromConnection(connection!!)
+        val list = generateArticleArray(3, response)
+        assertEquals(10, list.size)
     }
 
 }
