@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
-import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
 
@@ -25,7 +24,6 @@ class TopScienceStoriesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         val recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
-        getArticles()
         val adapter = ArticleRecyclerAdapter(list)
         val dummyView = text_view_dummy
 
@@ -38,13 +36,5 @@ class TopScienceStoriesFragment : Fragment() {
     fun generateTestList(): ArrayList<Article> {
         list.add(Article("Title", "Section", "Date", "www.dd.dd", "www.dee.dd"))
         return list
-    }
-
-    //TODO: Get these off the main thread.
-    fun getArticles() {
-        val url = generateSearchUrl(context!!, 3)
-        val connection = connectToSite(stringToUrl(url)!!)
-        val response = readDataFromConnection(connection!!)
-        list = generateArticleArray(1, response)
     }
 }
