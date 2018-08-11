@@ -1,5 +1,6 @@
 package com.tony.albanese.mynews.controller.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
@@ -41,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         when (item?.itemId) {
             R.id.menu_item_search -> {
-
+                val intent = Intent(this, CustomSearchActivity::class.java)
+                startActivity(intent)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
