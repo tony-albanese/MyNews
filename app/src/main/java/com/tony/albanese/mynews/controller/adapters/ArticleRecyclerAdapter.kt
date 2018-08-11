@@ -1,5 +1,6 @@
 package com.tony.albanese.mynews.controller.adapters
 
+import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,8 @@ import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.article_item_layout.view.*
 
-class ArticleRecyclerAdapter(val list: ArrayList<Article>): RecyclerView.Adapter<ArticleRecyclerAdapter.ArticleViewHolder>()   {
+class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context) : RecyclerView.Adapter<ArticleRecyclerAdapter.ArticleViewHolder>() {
+    val mContext = context
 
     class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         //Get references to the views that will be populated by the adapter.
@@ -33,7 +35,9 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>): RecyclerView.Adapter
             articleTitle.text = article.mTitle
             articleCategory.text = article.mTitle
             articleDate.text = article.mPublishedDate
-            Picasso.get().load(article.mImageUrl).fit().into(articleImage)
+            with(mContext) {
+                Picasso.get().load(article.mImageUrl).fit().error(resources.getDrawable(R.mipmap.default_image)).into(articleImage)
+            }
         }
     }
 

@@ -50,7 +50,7 @@ class MostPopularFragment : Fragment() {
             val result = readDataFromConnection(connection!!)
             uiThread {
                 list = generateArticleArray(1, result)
-                articleAdapter = ArticleRecyclerAdapter(list)
+                articleAdapter = ArticleRecyclerAdapter(list, context!!)
                 recyclerView.adapter = articleAdapter
             }
         }
