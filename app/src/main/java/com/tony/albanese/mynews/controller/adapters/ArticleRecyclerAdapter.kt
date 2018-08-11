@@ -33,7 +33,7 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context) : R
         var article = list[i]
         with(viewHolder){
             articleTitle.text = article.mTitle
-            articleCategory.text = article.mTitle
+            articleCategory.text = article.mSection
             articleDate.text = article.mPublishedDate
             with(mContext) {
                 Picasso.get().load(article.mImageUrl).fit().error(resources.getDrawable(R.mipmap.default_image)).into(articleImage)
