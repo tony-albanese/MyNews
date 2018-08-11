@@ -28,6 +28,8 @@ class TopScienceStoriesFragment : Fragment() {
     var list = ArrayList<Article>()
     lateinit var scienceUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
+
+
     lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -35,24 +37,20 @@ class TopScienceStoriesFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_base_layout, container, false)
     }
 
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
-        val dummyView = text_view_dummy
+        val subjectView = text_view_subject
         scienceUrl = generateSearchUrl(context!!, 3)
 
         fetchArticles()
 
-        dummyView.text = "Top Science Stories"
+        subjectView.text = "Top Science Stories"
         recyclerView.layoutManager = layoutManager
 
 
-    }
-
-    fun generateTestList(): ArrayList<Article> {
-        list.add(Article("Title", "Section", "Date", "www.dd.dd", "www.dee.dd"))
-        return list
     }
 
     fun fetchArticles() {

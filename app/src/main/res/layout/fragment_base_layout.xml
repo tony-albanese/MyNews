@@ -7,7 +7,7 @@
 
     <!-- The TextView is only there for testing until the RecylcerView is implemented. -->
     <TextView
-        android:id="@+id/text_view_dummy"
+        android:id="@+id/text_view_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Default Text"
