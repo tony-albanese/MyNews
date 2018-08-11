@@ -49,7 +49,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                 } else{
                     imageUrl = currentArticle.multimedia[0].url
                 }
-                list.add(Article(title,section,date,url,"Dummy url"))
+                list.add(Article(title, section, date, url, imageUrl))
             }
             return list
         }

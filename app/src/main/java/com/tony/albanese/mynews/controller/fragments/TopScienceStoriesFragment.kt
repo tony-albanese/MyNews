@@ -28,8 +28,6 @@ class TopScienceStoriesFragment : Fragment() {
     var list = ArrayList<Article>()
     lateinit var scienceUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
-
-
     lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -49,7 +47,6 @@ class TopScienceStoriesFragment : Fragment() {
 
         subjectView.text = "Top Science Stories"
         recyclerView.layoutManager = layoutManager
-
 
     }
 

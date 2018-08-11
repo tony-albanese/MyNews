@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.article_item_layout.view.*
@@ -32,8 +33,7 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>): RecyclerView.Adapter
             articleTitle.text = article.mTitle
             articleCategory.text = article.mTitle
             articleDate.text = article.mPublishedDate
-            //TODO: Implement Picasso to dynamically load images.
-            //articleImage= article.
+            Picasso.get().load(article.mImageUrl).fit().into(articleImage)
         }
     }
 
