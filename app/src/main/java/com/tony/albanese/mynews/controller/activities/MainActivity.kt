@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         when (item?.itemId) {
             R.id.menu_item_search -> {
-                
+
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

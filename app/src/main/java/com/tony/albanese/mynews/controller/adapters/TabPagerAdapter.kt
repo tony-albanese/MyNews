@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import com.tony.albanese.mynews.R
+import com.tony.albanese.mynews.controller.fragments.CustomSearchFragment
 import com.tony.albanese.mynews.controller.fragments.MostPopularFragment
 import com.tony.albanese.mynews.controller.fragments.TopScienceStoriesFragment
 import com.tony.albanese.mynews.controller.fragments.TopStoriesFragment
@@ -13,7 +14,7 @@ class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : Frag
 
     val mContext = context
     override fun getCount(): Int {
-        return 3 //TODO: Incorporate this parameter within the constructor.
+        return 4 //TODO: Incorporate this parameter within the constructor.
     }
 
     override fun getItem(postion: Int): Fragment {
@@ -21,16 +22,17 @@ class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : Frag
             0 -> return TopStoriesFragment()
             1 -> return MostPopularFragment()
             2 -> return TopScienceStoriesFragment()
+            3 -> return CustomSearchFragment()
             else -> return TopStoriesFragment()
         }
     }
-
 
     override fun getPageTitle(position: Int): CharSequence? {
         when (position) {
             0 -> return mContext.getString(R.string.top_stories_tab_title)
             1 -> return mContext.getString(R.string.most_read_tab_title)
             2 -> return mContext.getString(R.string.science_tab_title)
+            3 -> return mContext.getString(R.string.custom_search_title)
             else -> return "No title found."
 
         }
