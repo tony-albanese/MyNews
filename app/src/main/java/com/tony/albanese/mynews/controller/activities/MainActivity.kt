@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         pager.adapter = pagerAdapter //Set the adapter.
         tabLayout.setupWithViewPager(pager) //Attach the pager to the tab layout.
 
+        setTab()
+
     }
 
     //Create the menu for the Activity.
@@ -48,6 +50,11 @@ class MainActivity : AppCompatActivity() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    fun setTab() {
+        val selectedTab = getIntent().getIntExtra("TAB", 0)
+        pager.setCurrentItem(selectedTab)
     }
 
 }
