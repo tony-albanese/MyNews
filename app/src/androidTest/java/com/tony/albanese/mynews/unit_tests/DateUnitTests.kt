@@ -1,13 +1,36 @@
 package com.tony.albanese.mynews.unit_tests
 
 import android.support.test.runner.AndroidJUnit4
+import com.tony.albanese.mynews.controller.utilities.formatDate
+import org.junit.Assert.assertEquals
+import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-//TODO: Implement Date converter test.
+
 class DateUnitTests {
-    //Input Date String
-    //Convert it to Date Object
-    //Format it properly
-    //Conver to String
+
+    val SIMPLE_TEST_DATE_STRING = "2018-08-10"
+    val COMPLEX_TEST_DATE_STRING = "2018-08-14T05:30:12-04:00"
+    @Test
+    fun simpleDateConversionTest() {
+        val expectedDate = "10/08/2018"
+        val testDate = formatDate(SIMPLE_TEST_DATE_STRING)
+        assertEquals(expectedDate, testDate)
+    }
+
+    @Test
+    fun complexDateConversionTest() {
+        /*
+        val appContext = InstrumentationRegistry.getTargetContext()
+        val url = generateSearchUrl(appContext, 2)
+        val connection = connectToSite(stringToUrl(url)!!)
+        val response = readDataFromConnection(connection!!)
+        val array = generateArticleArray(2, response)
+
+        val article = array[0]
+        val testDate = article.mPublishedDate */
+        val formattedDate = formatDate(COMPLEX_TEST_DATE_STRING)
+        assertEquals("14/08/2018", formattedDate)
+    }
 }
