@@ -1,5 +1,6 @@
 package com.tony.albanese.mynews.controller.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
@@ -21,6 +22,7 @@ class CustomSearchActivity : AppCompatActivity() {
 
         btn_search.setOnClickListener { view ->
             initiateSearch()
+            launchActivity()
         }
     }
 
@@ -28,5 +30,11 @@ class CustomSearchActivity : AppCompatActivity() {
         var searchTerms = searchEditText.text.toString()
         Log.i("Method: ", "initiateSearch() called.")
         Log.i("Search terms:", searchTerms)
+    }
+
+    fun launchActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("TAB", 3)
+        startActivity(intent)
     }
 }
