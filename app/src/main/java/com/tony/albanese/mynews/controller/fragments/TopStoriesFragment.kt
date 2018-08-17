@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.*
@@ -24,9 +25,12 @@ class TopStoriesFragment : Fragment() {
     lateinit var mostPopularUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
+    lateinit var progressBar: ProgressBar
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_base_layout, container, false)
+        val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
+        progressBar = view.findViewById(R.id.progress_bar)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,21 +39,20 @@ class TopStoriesFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
         mostPopularUrl = generateSearchUrl(context!!, 2)
-
         fetchArticles()
-
         subjectView.text = "Top Stories"
         recyclerView.layoutManager = layoutManager
-
     }
 
     fun fetchArticles() {
         val connection = connectToSite(stringToUrl(mostPopularUrl)!!)
+        progressBar.visibility = View.VISIBLE
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
                 list = generateArticleArray(2, result)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!)
+                progressBar.visibility = View.GONE
                 recyclerView.adapter = articleAdapter
             }
         }
