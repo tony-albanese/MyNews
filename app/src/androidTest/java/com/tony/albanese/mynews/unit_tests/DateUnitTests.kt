@@ -21,15 +21,6 @@ class DateUnitTests {
 
     @Test
     fun complexDateConversionTest() {
-        /*
-        val appContext = InstrumentationRegistry.getTargetContext()
-        val url = generateSearchUrl(appContext, 2)
-        val connection = connectToSite(stringToUrl(url)!!)
-        val response = readDataFromConnection(connection!!)
-        val array = generateArticleArray(2, response)
-
-        val article = array[0]
-        val testDate = article.mPublishedDate */
         val formattedDate = formatDate(COMPLEX_TEST_DATE_STRING)
         assertEquals("14/08/2018", formattedDate)
     }
