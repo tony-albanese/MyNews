@@ -3,6 +3,7 @@ package com.tony.albanese.mynews.controller.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -27,10 +28,11 @@ class TopStoriesFragment : Fragment() {
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var progressBar: ProgressBar
+    lateinit var swipeLayout: SwipeRefreshLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
-        progressBar = view.findViewById(R.id.progress_bar)
+        swipeLayout = view.findViewById(R.id.swipe_refresh_layout)
         return view
     }
 
@@ -43,20 +45,23 @@ class TopStoriesFragment : Fragment() {
         subjectView.text = "Top Stories"
         recyclerView.layoutManager = layoutManager
 
+        swipeLayout.setOnRefreshListener {
+            fetchArticles()
+        }
+
         fetchArticles()
     }
 
     fun fetchArticles() {
         val connection = connectToSite(stringToUrl(mostPopularUrl)!!)
-        progressBar.visibility = View.VISIBLE
+        swipeLayout.isRefreshing = true
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
                 tempList = generateArticleArray(2, result)
-                //list = updateArrayList(list, tempList)
                 list = tempList
                 articleAdapter = ArticleRecyclerAdapter(list, context!!)
-                progressBar.visibility = View.GONE
+                swipeLayout.isRefreshing = false
                 recyclerView.adapter = articleAdapter
             }
         }
