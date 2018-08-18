@@ -22,6 +22,7 @@ import java.util.*
 //This fragment is responsible for displaying the top stories news articles.
 class TopStoriesFragment : Fragment() {
     var list = ArrayList<Article>()
+    var tempList = ArrayList<Article>()
     lateinit var mostPopularUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
@@ -39,9 +40,10 @@ class TopStoriesFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
         mostPopularUrl = generateSearchUrl(context!!, 2)
-        fetchArticles()
         subjectView.text = "Top Stories"
         recyclerView.layoutManager = layoutManager
+
+        fetchArticles()
     }
 
     fun fetchArticles() {
@@ -50,7 +52,9 @@ class TopStoriesFragment : Fragment() {
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-                list = generateArticleArray(2, result)
+                tempList = generateArticleArray(2, result)
+                //list = updateArrayList(list, tempList)
+                list = tempList
                 articleAdapter = ArticleRecyclerAdapter(list, context!!)
                 progressBar.visibility = View.GONE
                 recyclerView.adapter = articleAdapter
