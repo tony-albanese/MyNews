@@ -6,6 +6,9 @@ import com.tony.albanese.mynews.model.CustomSearchModel.CustomSearch
 import com.tony.albanese.mynews.model.MostPopularModel.MostPopular
 import com.tony.albanese.mynews.model.TopStoriesModel.TopStories
 
+
+//This is the function that populates an ArrayList of Articles after parsing the JSON response.
+//The model used depends on the type of result passed. (Not all JSON responses have the same structure.
 fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
     var list = ArrayList<Article>()
     val gson = Gson()
@@ -82,11 +85,14 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
     }
 
 
+}
 
+fun updateArrayList(oldList: ArrayList<Article>, newList: ArrayList<Article>): ArrayList<Article> {
 
-
-
-
-
-
+    for (article in newList) {
+        if (!oldList.contains(article)) {
+            oldList.add(0, article)
+        }
+    }
+    return oldList
 }
