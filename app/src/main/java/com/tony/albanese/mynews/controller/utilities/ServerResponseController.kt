@@ -28,7 +28,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                 var currentArticle = resultsArray[i]
                 title = currentArticle.title
                 section = currentArticle.section
-                date = formatDate(currentArticle.publishedDate)
+                date = formatArticleDate(currentArticle.publishedDate)
                 url = currentArticle.url
                 imageUrl = currentArticle.media[0].mediaMetadata[0].url
                 list.add(Article(title, section, date, url, imageUrl))
@@ -44,7 +44,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                 var currentArticle = resultsArray[i]
                 title = currentArticle.title
                 section = currentArticle.section
-                date = formatDate(currentArticle.publishedDate)
+                date = formatArticleDate(currentArticle.publishedDate)
                 url = currentArticle.url
 
                 if(currentArticle.multimedia.isEmpty()){
@@ -69,7 +69,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                     var currentArticle = articleArray[0]
                     title = currentArticle.headline.printHeadline
                     section = currentArticle.sectionName
-                    date = formatDate(currentArticle.pubDate)
+                    date = formatArticleDate(currentArticle.pubDate)
                     url = currentArticle.webUrl
                     if(currentArticle.multimedia.isEmpty()){
                         imageUrl = "Dummy URL"

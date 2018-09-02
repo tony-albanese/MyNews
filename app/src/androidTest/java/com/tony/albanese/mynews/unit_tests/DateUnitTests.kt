@@ -1,7 +1,7 @@
 package com.tony.albanese.mynews.unit_tests
 
 import android.support.test.runner.AndroidJUnit4
-import com.tony.albanese.mynews.controller.utilities.formatDate
+import com.tony.albanese.mynews.controller.utilities.formatArticleDate
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,13 +15,13 @@ class DateUnitTests {
     @Test
     fun simpleDateConversionTest() {
         val expectedDate = "10/08/2018"
-        val testDate = formatDate(SIMPLE_TEST_DATE_STRING)
+        val testDate = formatArticleDate(SIMPLE_TEST_DATE_STRING)
         assertEquals(expectedDate, testDate)
     }
 
     @Test
     fun complexDateConversionTest() {
-        val formattedDate = formatDate(COMPLEX_TEST_DATE_STRING)
+        val formattedDate = formatArticleDate(COMPLEX_TEST_DATE_STRING)
         assertEquals("14/08/2018", formattedDate)
     }
 }
