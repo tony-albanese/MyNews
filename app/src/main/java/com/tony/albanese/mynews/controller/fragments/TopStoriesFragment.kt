@@ -1,6 +1,8 @@
 package com.tony.albanese.mynews.controller.fragments
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -60,11 +62,19 @@ class TopStoriesFragment : Fragment() {
             uiThread {
                 tempList = generateArticleArray(2, result)
                 list = tempList
-                articleAdapter = ArticleRecyclerAdapter(list, context!!)
+                articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 swipeLayout.isRefreshing = false
                 recyclerView.adapter = articleAdapter
             }
         }
+    }
+
+    //This function is calle when the user clicks an article.
+    fun onArticleClicked(view: View, article: Article) {
+        view.setBackgroundColor(resources.getColor(R.color.colorAccent))
+        article.mIsRead = true
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.mUrl))
+        startActivity(intent)
     }
 }
 

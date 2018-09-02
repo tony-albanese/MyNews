@@ -10,7 +10,7 @@ import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.article_item_layout.view.*
 
-class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context) : RecyclerView.Adapter<ArticleRecyclerAdapter.ArticleViewHolder>() {
+class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context, val clickListener: (View, Article) -> Unit) : RecyclerView.Adapter<ArticleRecyclerAdapter.ArticleViewHolder>() {
     val mContext = context
 
     class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -38,7 +38,9 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context) : R
             with(mContext) {
                 Picasso.get().load(article.mImageUrl).fit().error(resources.getDrawable(R.mipmap.default_image)).into(articleImage)
             }
+            articleTitle.setOnClickListener { clickListener(itemView, article) }
         }
+
     }
 
     override fun getItemCount(): Int {
