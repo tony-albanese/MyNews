@@ -24,14 +24,14 @@
     <CheckBox
         android:id="@+id/check_box_arts"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Arts"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_search_terms" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_start_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_start_date" />
 
     <CheckBox
         android:id="@+id/check_box_business"
@@ -64,6 +64,7 @@
         android:text="Financial"
         app:layout_constraintBaseline_toBaselineOf="@+id/check_box_arts"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
 
     <CheckBox
@@ -93,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="192dp" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <Button
         android:id="@+id/btn_search"
@@ -113,6 +114,35 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="246dp" />
+
+    <TextView
+        android:id="@+id/tv_start_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:drawableRight="@drawable/ic_action_date"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_search_terms"
+        tools:drawableEnd="@drawable/ic_action_date"
+        tools:text="Start date" />
+
+    <TextView
+        android:id="@+id/tv_end_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:drawableEnd="@drawable/ic_action_date"
+        android:drawableRight="@drawable/ic_action_date"
+        android:text="End Date"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_start_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        tools:text="End Date" />
 
 
 </android.support.constraint.ConstraintLayout>
