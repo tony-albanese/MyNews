@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import com.tony.albanese.mynews.R
 import kotlinx.android.synthetic.main.search_screen_layout.*
+import java.util.*
 
 class CustomSearchActivity : AppCompatActivity() {
     lateinit var searchButton: Button
@@ -19,6 +20,11 @@ class CustomSearchActivity : AppCompatActivity() {
 
         searchButton = btn_search
         searchEditText = text_view_search_terms
+
+        var calendar = Calendar.getInstance()
+        var year = calendar.get(Calendar.YEAR)
+        var month = calendar.get(Calendar.MONTH)
+        var dat = calendar.get(Calendar.DAY_OF_MONTH)
 
         btn_search.setOnClickListener { view ->
             initiateSearch()
@@ -36,5 +42,10 @@ class CustomSearchActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra("TAB", 3)
         startActivity(intent)
+    }
+
+    fun getDate() {
+
+
     }
 }
