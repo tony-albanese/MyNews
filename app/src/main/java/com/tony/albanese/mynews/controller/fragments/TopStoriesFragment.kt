@@ -29,7 +29,6 @@ class TopStoriesFragment : Fragment() {
     lateinit var mostPopularUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
-    lateinit var progressBar: ProgressBar
     lateinit var swipeLayout: SwipeRefreshLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
