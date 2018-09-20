@@ -10,7 +10,10 @@ import android.widget.DatePicker
 import android.widget.EditText
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.DatePickerFragment
+import com.tony.albanese.mynews.controller.utilities.*
 import kotlinx.android.synthetic.main.search_screen_layout.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.util.*
 
 
@@ -18,11 +21,10 @@ class CustomSearchActivity : AppCompatActivity() {
     lateinit var searchButton: Button
     lateinit var searchEditText: EditText
     lateinit var datePicker: DatePicker
-
+    lateinit var url: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_screen_layout)
-
         searchButton = btn_search
         searchEditText = text_view_search_terms
 
@@ -39,8 +41,10 @@ class CustomSearchActivity : AppCompatActivity() {
 
     fun initiateSearch() {
         var searchTerms = searchEditText.text.toString()
-        Log.i("Method: ", "initiateSearch() called.")
-        Log.i("Search terms:", searchTerms)
+        val newsDesks = "Business Politics"
+        val jsonParameters = createSearchParametersJson(searchTerms, "20100909", "20180909", newsDesks)
+        url = generateSearchUrl(applicationContext, 4, jsonParameters)
+        //TODO: Write url to SharedPreferences.
     }
 
     fun launchActivity() {
@@ -54,8 +58,4 @@ class CustomSearchActivity : AppCompatActivity() {
         newFragment.show(supportFragmentManager, "datePicker")
     }
 
-    fun getDate() {
-
-
-    }
 }
