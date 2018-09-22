@@ -68,7 +68,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                 for(i in 0.. (articleArray.size -1 )){
                     var currentArticle = articleArray[i]
                     title = currentArticle.headline.printHeadline ?: ""
-                    section = currentArticle.newsDesk
+                    section = currentArticle.newsDesk ?: ""
                     date = formatArticleDate(currentArticle.pubDate)
                     url = currentArticle.webUrl
                     if (currentArticle.multimedia.size < 3) {
