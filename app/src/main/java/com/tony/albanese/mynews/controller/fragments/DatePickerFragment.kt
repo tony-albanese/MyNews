@@ -5,11 +5,11 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.widget.DatePicker
+import com.tony.albanese.mynews.controller.activities.CustomSearchActivity
 import java.util.*
 
 
-class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
+class DatePickerFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val c = Calendar.getInstance()
@@ -17,12 +17,9 @@ class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener 
         var month = c.get(Calendar.MONTH)
         var day = c.get(Calendar.DAY_OF_MONTH)
 
-        return DatePickerDialog(activity!!, this, year, month, day)
+        return DatePickerDialog(activity!!, activity as CustomSearchActivity, year, month, day)
 
     }
 
-    override fun onDateSet(view: DatePicker, year: Int, month: Int, day: Int) {
-        // Do something with the date chosen by the user
-    }
 
 }
