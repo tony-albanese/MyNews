@@ -16,7 +16,7 @@ import com.tony.albanese.mynews.controller.utilities.createSearchParametersJson
 import com.tony.albanese.mynews.controller.utilities.generateSearchUrl
 import kotlinx.android.synthetic.main.search_screen_layout.*
 import java.util.*
-
+import kotlin.collections.HashMap
 
 class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var searchButton: Button
@@ -26,6 +26,8 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     lateinit var searchStartDate: String
     lateinit var searchEndDate: String
     lateinit var calendar: Calendar
+    lateinit var newsDesksHashMap: HashMap<Int, String>
+
     var selectedTextViewId = 0
 
     val SEARCH_DATE_FORMAT = "yyyMMdd"
@@ -40,6 +42,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         calendar = Calendar.getInstance()
         searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
         searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
+        newsDesksHashMap = HashMap()
 
         btn_search.setOnClickListener { view ->
             initiateSearch()
@@ -49,7 +52,11 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     fun initiateSearch() {
         var searchTerms = searchEditText.text.toString()
-        val newsDesks = "Politics Science"
+        var newsDesks = ""
+
+        for ((position, value) in newsDesksHashMap.entries) {
+            newsDesks = newsDesks + " $value"
+        }
         val jsonParameters = createSearchParametersJson(searchTerms, searchStartDate, searchEndDate, newsDesks)
         url = generateSearchUrl(applicationContext, 4, jsonParameters)
 
@@ -84,6 +91,59 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
                 tv_end_date.text = convertDate(date)
                 searchEndDate = convertDate(date, SEARCH_DATE_FORMAT)
             }
+        }
+    }
+
+    fun checkboxOnClickListener(view: View) {
+        when (view.id) {
+            R.id.check_box_arts -> {
+                if (check_box_arts.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_arts, "Arts")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_arts)
+                }
+            }
+
+            R.id.check_box_business -> {
+                if (check_box_business.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_business, "Business")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_business)
+                }
+            }
+
+            R.id.check_box_editorial -> {
+                if (check_box_editorial.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_editorial, "Editorial")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_editorial)
+                }
+            }
+
+            R.id.check_box_financial -> {
+                if (check_box_financial.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_financial, "Financial")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_financial)
+                }
+            }
+
+            R.id.check_box_politics -> {
+                if (check_box_politics.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_politics, "Politics")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_politics)
+                }
+            }
+
+            R.id.check_box_science -> {
+                if (check_box_science.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_science, "Science")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_science)
+                }
+            }
+
         }
     }
 
