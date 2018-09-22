@@ -39,7 +39,7 @@ class CustomSearchActivity : AppCompatActivity() {
 
     fun initiateSearch() {
         var searchTerms = searchEditText.text.toString()
-        val newsDesks = "Business Politics"
+        val newsDesks = "Science"
         val jsonParameters = createSearchParametersJson(searchTerms, "20100909", "20180909", newsDesks)
         url = generateSearchUrl(applicationContext, 4, jsonParameters)
 
