@@ -25,7 +25,6 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     lateinit var url: String
     lateinit var searchStartDate: String
     lateinit var searchEndDate: String
-    lateinit var selectedDate: String
     lateinit var calendar: Calendar
 
     val SEARCH_DATE_FORMAT = "yyyMMdd"
@@ -38,7 +37,6 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         searchEditText = text_view_search_terms
 
         calendar = Calendar.getInstance()
-        selectedDate = convertDate(calendar.time)
         searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
         searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
 
@@ -67,25 +65,11 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     fun createDatePicker(view: View) {
         val newFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
-
-        when (view.id) {
-            R.id.tv_start_date -> {
-                tv_start_date.text = selectedDate
-                searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
-
-            }
-
-            R.id.tv_end_date -> {
-                tv_end_date.text = selectedDate
-                searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
-            }
-        }
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         calendar.set(year, month, dayOfMonth)
         val date: Date = calendar.time
-        selectedDate = convertDate(date)
     }
 
 }
