@@ -48,7 +48,9 @@ class ArticleArrayCreationTests {
     fun testCustomSearch(){
         //Create searchTerms json object
         val parameters = createSearchParametersJson("us trade deficit", "20161010", "20171010", "Business Foreign")
-        val url = generateSearchUrl(appContext, 4, parameters)
+        //val url = generateSearchUrl(appContext, 4, parameters)
+
+        val url = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=8768b5f889974203a05b462b8b7dc800&q=trump&fq=Business%20Politics&begin_date=20100909&end_date=20180909"
         val connection = connectToSite(stringToUrl(url)!!)
         val response = readDataFromConnection(connection!!)
         val list = generateArticleArray(3, response)
