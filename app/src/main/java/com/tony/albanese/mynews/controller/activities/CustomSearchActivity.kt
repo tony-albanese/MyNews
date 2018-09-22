@@ -3,17 +3,15 @@ package com.tony.albanese.mynews.controller.activities
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.EditText
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.DatePickerFragment
-import com.tony.albanese.mynews.controller.utilities.*
+import com.tony.albanese.mynews.controller.utilities.createSearchParametersJson
+import com.tony.albanese.mynews.controller.utilities.generateSearchUrl
 import kotlinx.android.synthetic.main.search_screen_layout.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 import java.util.*
 
 
@@ -44,7 +42,10 @@ class CustomSearchActivity : AppCompatActivity() {
         val newsDesks = "Business Politics"
         val jsonParameters = createSearchParametersJson(searchTerms, "20100909", "20180909", newsDesks)
         url = generateSearchUrl(applicationContext, 4, jsonParameters)
-        //TODO: Write url to SharedPreferences.
+
+        val preferences = applicationContext.getSharedPreferences("URL_PREFERENCES", 0)
+        preferences.edit().putString("URL", url)
+        preferences.edit().commit()
     }
 
     fun launchActivity() {
