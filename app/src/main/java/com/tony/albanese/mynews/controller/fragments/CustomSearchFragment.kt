@@ -41,9 +41,7 @@ class CustomSearchFragment : Fragment() {
         val subjectTextView = text_view_subject
         subjectTextView.text = getString(R.string.custom_search_title)
 
-
-        // customSearchUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=8768b5f889974203a05b462b8b7dc800&q=trump&fq=Business%20Politics&begin_date=20100909&end_date=20180909"
-        customSearchUrl = getUrlFromSharedPreferences()
+        //   customSearchUrl = getUrlFromSharedPreferences()
 
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
