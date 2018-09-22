@@ -43,7 +43,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
             for(i in 0.. (resultsArray.size -1 )){
                 var currentArticle = resultsArray[i]
                 title = currentArticle.title
-                section = currentArticle.section
+                section = currentArticle.section ?: ""
                 date = formatArticleDate(currentArticle.publishedDate)
                 url = currentArticle.url
 
@@ -66,15 +66,15 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
                 return list
             }else{
                 for(i in 0.. (articleArray.size -1 )){
-                    var currentArticle = articleArray[0]
+                    var currentArticle = articleArray[i]
                     title = currentArticle.headline.printHeadline
-                    section = currentArticle.sectionName
+                    section = currentArticle.newsDesk
                     date = formatArticleDate(currentArticle.pubDate)
                     url = currentArticle.webUrl
                     if(currentArticle.multimedia.isEmpty()){
                         imageUrl = "Dummy URL"
                     }else{
-                        imageUrl = currentArticle.multimedia[0].url
+                        imageUrl = "http://www.nytimes.com/" + currentArticle.multimedia[2].url
                     }
                     list.add(Article(title, section, date, url, imageUrl))
                 }
