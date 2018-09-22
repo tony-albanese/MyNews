@@ -67,11 +67,11 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
             }else{
                 for(i in 0.. (articleArray.size -1 )){
                     var currentArticle = articleArray[i]
-                    title = currentArticle.headline.printHeadline
+                    title = currentArticle.headline.printHeadline ?: ""
                     section = currentArticle.newsDesk
                     date = formatArticleDate(currentArticle.pubDate)
                     url = currentArticle.webUrl
-                    if(currentArticle.multimedia.isEmpty()){
+                    if (currentArticle.multimedia.size < 3) {
                         imageUrl = "Dummy URL"
                     }else{
                         imageUrl = "http://www.nytimes.com/" + currentArticle.multimedia[2].url
