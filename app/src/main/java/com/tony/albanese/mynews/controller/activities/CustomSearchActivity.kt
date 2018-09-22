@@ -23,10 +23,12 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     lateinit var searchEditText: EditText
     lateinit var datePicker: DatePicker
     lateinit var url: String
-    //lateinit var searchStartDate: String
-    //lateinit var searchEndDate: String
+    lateinit var searchStartDate: String
+    lateinit var searchEndDate: String
     lateinit var selectedDate: String
     lateinit var calendar: Calendar
+
+    val SEARCH_DATE_FORMAT = "yyyMMdd"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +39,8 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
         calendar = Calendar.getInstance()
         selectedDate = convertDate(calendar.time)
-
-
-
-
+        searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
+        searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
 
         btn_search.setOnClickListener { view ->
             initiateSearch()
@@ -50,13 +50,12 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     fun initiateSearch() {
         var searchTerms = searchEditText.text.toString()
-        val newsDesks = "Science"
-        val jsonParameters = createSearchParametersJson(searchTerms, "20100909", "20180909", newsDesks)
+        val newsDesks = "Politics Science"
+        val jsonParameters = createSearchParametersJson(searchTerms, searchStartDate, searchEndDate, newsDesks)
         url = generateSearchUrl(applicationContext, 4, jsonParameters)
 
         val preferences = applicationContext.getSharedPreferences("preferences", Context.MODE_PRIVATE)
         preferences.edit().putString("URL", url).apply()
-
     }
 
     fun launchActivity() {
@@ -72,12 +71,13 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         when (view.id) {
             R.id.tv_start_date -> {
                 tv_start_date.text = selectedDate
+                searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
 
             }
 
             R.id.tv_end_date -> {
                 tv_end_date.text = selectedDate
-
+                searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
             }
         }
     }
