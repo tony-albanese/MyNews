@@ -19,8 +19,8 @@ fun formatArticleDate(date: String): String {
     //return "No Date"
 }
 
-fun convertDate(date: Date): String {
-    val dateFormat = SimpleDateFormat("dd/MM/yyy") //Date should be in 02/02/1982 format.
+fun convertDate(date: Date, formatString: String = "dd/MM/yyy"): String {
+    val dateFormat = SimpleDateFormat(formatString) //Date should be in 02/02/1982 format.
     val dateString = dateFormat.format(date)
     return dateString
 }
