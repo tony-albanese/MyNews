@@ -11,8 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tony.albanese.mynews.R
-import com.tony.albanese.mynews.controller.activities.CustomSearchActivity
-import com.tony.albanese.mynews.controller.activities.MainActivity
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.connectToSite
 import com.tony.albanese.mynews.controller.utilities.generateArticleArray
@@ -22,7 +20,7 @@ import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.util.ArrayList
+import java.util.*
 
 //This fragment displays the results of the user's custom search.
 
@@ -42,7 +40,8 @@ class CustomSearchFragment : Fragment() {
         val subjectTextView = text_view_subject
         subjectTextView.text = getString(R.string.custom_search_title)
 
-        //TODO: Initialize customSearchUrl
+
+        customSearchUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=8768b5f889974203a05b462b8b7dc800&q=trump&fq=Business%20Politics&begin_date=20100909&end_date=20180909"
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
