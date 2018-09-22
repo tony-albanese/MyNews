@@ -55,3 +55,19 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
     }
 }
 
+fun generateNewsDeskParameter(map: HashMap<Int, String>): String {
+    val builder = StringBuilder()
+    builder.append("news_desk:")
+    builder.append("(")
+
+    for ((position, value) in map.entries) {
+
+        builder.append("\"$value\"")
+        builder.append(" ")
+    }
+
+    builder.append(")")
+    return builder.toString()
+
+
+}
