@@ -13,6 +13,7 @@ import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.DatePickerFragment
 import com.tony.albanese.mynews.controller.utilities.convertDate
 import com.tony.albanese.mynews.controller.utilities.createSearchParametersJson
+import com.tony.albanese.mynews.controller.utilities.generateNewsDeskParameter
 import com.tony.albanese.mynews.controller.utilities.generateSearchUrl
 import kotlinx.android.synthetic.main.search_screen_layout.*
 import java.util.*
@@ -52,11 +53,9 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     fun initiateSearch() {
         var searchTerms = searchEditText.text.toString()
-        var newsDesks = ""
+        var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
 
-        for ((position, value) in newsDesksHashMap.entries) {
-            newsDesks = newsDesks + " $value"
-        }
+
         val jsonParameters = createSearchParametersJson(searchTerms, searchStartDate, searchEndDate, newsDesks)
         url = generateSearchUrl(applicationContext, 4, jsonParameters)
 
