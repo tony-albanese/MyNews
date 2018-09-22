@@ -1,5 +1,6 @@
 package com.tony.albanese.mynews.controller.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -43,9 +44,9 @@ class CustomSearchActivity : AppCompatActivity() {
         val jsonParameters = createSearchParametersJson(searchTerms, "20100909", "20180909", newsDesks)
         url = generateSearchUrl(applicationContext, 4, jsonParameters)
 
-        val preferences = applicationContext.getSharedPreferences("URL_PREFERENCES", 0)
-        preferences.edit().putString("URL", url)
-        preferences.edit().commit()
+        val preferences = applicationContext.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        preferences.edit().putString("URL", url).apply()
+
     }
 
     fun launchActivity() {
