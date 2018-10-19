@@ -15,7 +15,7 @@ import com.tony.albanese.mynews.controller.utilities.convertDate
 import com.tony.albanese.mynews.controller.utilities.createSearchParametersJson
 import com.tony.albanese.mynews.controller.utilities.generateNewsDeskParameter
 import com.tony.albanese.mynews.controller.utilities.generateSearchUrl
-import kotlinx.android.synthetic.main.search_screen_layout.*
+import kotlinx.android.synthetic.main.search_parameters_layout.*
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -35,7 +35,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.search_screen_layout)
+        setContentView(R.layout.search_parameters_layout)
 
         searchButton = btn_search
         searchEditText = text_view_search_terms
