@@ -125,17 +125,17 @@
         android:id="@+id/tv_start_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:drawableRight="@drawable/ic_action_date"
-        android:text="TextView"
+        android:onClick="createDatePicker"
+        android:text="Start Date"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_view_search_terms"
         tools:drawableEnd="@drawable/ic_action_date"
-        android:onClick="createDatePicker"
-        tools:text="Start date" />
+        tools:text="Start Date" />
 
     <TextView
         android:id="@+id/tv_end_date"
