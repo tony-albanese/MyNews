@@ -5,7 +5,7 @@ import android.net.Uri
 import com.tony.albanese.mynews.R
 import org.json.JSONObject
 
-//Generates
+//Generates the search URL
 fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSONObject()): String {
     val SCHEME = "https"
     val AUTHORITY = c.getString(R.string.AUTHORITY)
@@ -55,6 +55,7 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
     }
 }
 
+//Generates the NewsDesk parameters needed for a custom search.
 fun generateNewsDeskParameter(map: HashMap<Int, String>): String {
     val builder = StringBuilder()
     builder.append("news_desk:")

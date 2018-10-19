@@ -4,6 +4,10 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+/*
+formatArticleDate() -- Formats the date to be displayed in the app.
+convertDate() -- This accepts a date object and converts the date to string for the search.
+ */
 fun formatArticleDate(date: String): String {
     val initialFormat = SimpleDateFormat("yyy-MM-dd")
     val dateFormat = SimpleDateFormat("dd/MM/yyy") //Date should be in 02/02/1982 format.
@@ -16,7 +20,7 @@ fun formatArticleDate(date: String): String {
         e.printStackTrace()
         return "No date"
     }
-    //return "No Date"
+
 }
 
 fun convertDate(date: Date, formatString: String = "dd/MM/yyy"): String {

@@ -87,6 +87,7 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
 
 }
 
+//This function updates the ArrayList and adds new articles.
 fun updateArrayList(oldList: ArrayList<Article>, newList: ArrayList<Article>): ArrayList<Article> {
 
     for (article in newList) {

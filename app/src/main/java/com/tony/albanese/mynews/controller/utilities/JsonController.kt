@@ -8,6 +8,7 @@ import org.json.JSONObject
 It will accept the search terms, dates, and news desk settings and packages them as a JSON Object.
 This JSON Object will get passed to the generate search URL.
  */
+
 //TODO: write test cases for this function by itself.
 fun createSearchParametersJson(terms: String, startDate: String = "", endDate: String = "", desks: String = ""): JSONObject {
     var json = JSONObject()

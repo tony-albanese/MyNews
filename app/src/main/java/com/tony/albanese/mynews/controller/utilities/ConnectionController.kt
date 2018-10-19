@@ -8,6 +8,14 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
+/*
+The functions in this file are resposible for connecting the site and fetching data from it.
+stringToUrl() -- converts string to URL object
+connectToSite() -- actually connects to the site.
+readDataFromConnection() -- reads the data and returns it as a string.
+ */
+
+
 //Converts a string to a URL object.
 fun stringToUrl(urlString: String): URL? {
     val url: URL
