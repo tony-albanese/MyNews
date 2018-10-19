@@ -33,7 +33,7 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context, val
         var article = list[i]
         with(viewHolder){
             if (article.mIsRead) {
-                itemView.setBackgroundColor(mContext.resources.getColor(R.color.colorAccent))
+                itemView.setBackgroundColor(mContext.resources.getColor(R.color.colorIsRead))
             }
             articleTitle.text = article.mTitle
             articleCategory.text = article.mSection

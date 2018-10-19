@@ -78,7 +78,7 @@ class TopStoriesFragment : Fragment() {
 
     //This function is calle when the user clicks an article.
     fun onArticleClicked(view: View, article: Article) {
-        view.setBackgroundColor(resources.getColor(R.color.colorAccent))
+        view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.mUrl))
         startActivity(intent)
