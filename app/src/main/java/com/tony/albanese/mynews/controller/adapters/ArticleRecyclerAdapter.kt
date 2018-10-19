@@ -32,6 +32,9 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context, val
         //This where the date from the ArrayList gets bound to the individual views.
         var article = list[i]
         with(viewHolder){
+            if (article.mIsRead) {
+                itemView.setBackgroundColor(mContext.resources.getColor(R.color.colorAccent))
+            }
             articleTitle.text = article.mTitle
             articleCategory.text = article.mSection
             articleDate.text = article.mPublishedDate
@@ -40,12 +43,6 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context, val
             }
             articleTitle.setOnClickListener { clickListener(itemView, article) }
         }
-
-        if (article.mIsRead) {
-            viewHolder.itemView.setBackgroundColor(mContext.resources.getColor(R.color.colorAccent))
-        }
-
-
     }
 
     override fun getItemCount(): Int {
