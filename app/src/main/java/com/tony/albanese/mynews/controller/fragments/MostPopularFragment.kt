@@ -27,6 +27,7 @@ import java.util.*
 class MostPopularFragment : Fragment() {
 
     var list = ArrayList<Article>()
+    var tempList = ArrayList<Article>()
     lateinit var mostPopularUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
@@ -72,7 +73,8 @@ class MostPopularFragment : Fragment() {
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-                list = generateArticleArray(MOST_POPULAR_SEARCH, result)
+                tempList = generateArticleArray(TOP_STORIES_SEARCH, result)
+                list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
                 swipeLayout.isRefreshing = false
