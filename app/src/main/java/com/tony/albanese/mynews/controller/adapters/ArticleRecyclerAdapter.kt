@@ -40,7 +40,7 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context, val
             }
             articleTitle.setOnClickListener { clickListener(itemView, article) }
         }
-        
+
         if (article.mIsRead) {
             viewHolder.itemView.setBackgroundColor(mContext.resources.getColor(R.color.colorAccent))
         }
