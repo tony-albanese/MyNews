@@ -2,6 +2,7 @@ package com.tony.albanese.mynews.controller.fragments
 
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,7 +12,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.*
@@ -30,6 +30,7 @@ class TopStoriesFragment : Fragment() {
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var swipeLayout: SwipeRefreshLayout
+    lateinit var preferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
@@ -45,12 +46,19 @@ class TopStoriesFragment : Fragment() {
         mostPopularUrl = generateSearchUrl(context!!, 2)
         subjectView.text = "Top Stories"
         recyclerView.layoutManager = layoutManager
+        preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
+
+        initializeArticleArray()
 
         swipeLayout.setOnRefreshListener {
             fetchArticles()
         }
 
-        fetchArticles()
+    }
+
+    override fun onPause() {
+        saveArrayListToSharedPreferences(preferences, TOP_STORIES, list)
+        super.onPause()
     }
 
     fun fetchArticles() {
@@ -61,7 +69,7 @@ class TopStoriesFragment : Fragment() {
             uiThread {
                 tempList = generateArticleArray(2, result)
                 list = tempList
-                articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+                articleAdapter = ArticleRecyclerAdapter(tempList, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 swipeLayout.isRefreshing = false
                 recyclerView.adapter = articleAdapter
             }
@@ -74,6 +82,16 @@ class TopStoriesFragment : Fragment() {
         article.mIsRead = true
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.mUrl))
         startActivity(intent)
+    }
+
+    fun initializeArticleArray() {
+        list = loadArrayListFromSharedPreferences(preferences, TOP_STORIES)
+        if (list.isEmpty() || list.size == 0) {
+            fetchArticles()
+        } else {
+            articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+            recyclerView.adapter = articleAdapter
+        }
     }
 }
 
