@@ -68,8 +68,8 @@ class TopStoriesFragment : Fragment() {
             val result = readDataFromConnection(connection!!)
             uiThread {
                 tempList = generateArticleArray(2, result)
-                list = tempList
-                articleAdapter = ArticleRecyclerAdapter(tempList, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+                list = updateArrayList(list, tempList)
+                articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 swipeLayout.isRefreshing = false
                 recyclerView.adapter = articleAdapter
             }
