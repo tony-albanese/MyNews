@@ -43,7 +43,7 @@ class TopStoriesFragment : Fragment() {
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
-        mostPopularUrl = generateSearchUrl(context!!, 2)
+        mostPopularUrl = generateSearchUrl(context!!, MOST_POPULAR_SEARCH)
         subjectView.text = "Top Stories"
         recyclerView.layoutManager = layoutManager
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
@@ -67,7 +67,7 @@ class TopStoriesFragment : Fragment() {
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-                tempList = generateArticleArray(2, result)
+                tempList = generateArticleArray(MOST_POPULAR_SEARCH, result)
                 list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 swipeLayout.isRefreshing = false
