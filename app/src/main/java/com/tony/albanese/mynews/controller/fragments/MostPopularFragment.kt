@@ -1,6 +1,5 @@
 package com.tony.albanese.mynews.controller.fragments
 
-
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -25,7 +24,6 @@ import java.util.*
 
 //This fragment is responsible for displaying the most popular news articles.
 class MostPopularFragment : Fragment() {
-
     var list = ArrayList<Article>()
     var tempList = ArrayList<Article>()
     lateinit var mostPopularUrl: String
@@ -47,21 +45,15 @@ class MostPopularFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
         subjectView.text = "Most Read"
-
         mostPopularUrl = generateSearchUrl(context!!, MOST_POPULAR_SEARCH)
-
         recyclerView.layoutManager = layoutManager
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
-
         initializeArticleArray()
-
         swipeLayout.setOnRefreshListener {
             startSearch()
         }
-
-
     }
 
     override fun onPause() {
