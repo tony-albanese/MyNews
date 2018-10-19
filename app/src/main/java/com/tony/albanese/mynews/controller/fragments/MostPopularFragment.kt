@@ -63,6 +63,11 @@ class MostPopularFragment : Fragment() {
 
     }
 
+    override fun onPause() {
+        saveArrayListToSharedPreferences(preferences, MOST_POPULAR, list) //Save list to SharedPreferences
+        super.onPause()
+    }
+
     fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
             val result = readDataFromConnection(connection!!)
@@ -90,7 +95,7 @@ the empty list is passed to the adapter.
  */
 
     fun initializeArticleArray() {
-        list = loadArrayListFromSharedPreferences(preferences, TOP_STORIES)
+        list = loadArrayListFromSharedPreferences(preferences, MOST_POPULAR)
         if (list.isEmpty() || list.size == 0) {
             startSearch()
         } else {
