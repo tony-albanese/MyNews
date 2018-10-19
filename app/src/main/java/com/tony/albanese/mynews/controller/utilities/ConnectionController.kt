@@ -1,5 +1,6 @@
 package com.tony.albanese.mynews.controller.utilities
 
+import android.content.Context
 import android.util.Log
 import java.io.BufferedReader
 import java.io.IOException
@@ -62,4 +63,9 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
         return "Error connecting."
     }
 
+}
+
+fun networkIsAvailable(context: Context): Boolean {
+
+    return false
 }
