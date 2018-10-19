@@ -26,7 +26,7 @@ import java.util.*
 class TopStoriesFragment : Fragment() {
     var list = ArrayList<Article>()
     var tempList = ArrayList<Article>()
-    lateinit var mostPopularUrl: String
+    lateinit var topStoriesUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var swipeLayout: SwipeRefreshLayout
@@ -43,7 +43,7 @@ class TopStoriesFragment : Fragment() {
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
-        mostPopularUrl = generateSearchUrl(context!!, TOP_STORIES_SEARCH)
+        topStoriesUrl = generateSearchUrl(context!!, TOP_STORIES_SEARCH)
         subjectView.text = "Top Stories"
         recyclerView.layoutManager = layoutManager
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
@@ -103,7 +103,7 @@ class TopStoriesFragment : Fragment() {
         var connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
         if (networkIsAvailable(context!!)) {
-            connection = connectToSite(stringToUrl(mostPopularUrl)!!)
+            connection = connectToSite(stringToUrl(topStoriesUrl)!!)
             if (connection != null) {
                 fetchArticles(connection)
             }
