@@ -1,6 +1,8 @@
 package com.tony.albanese.mynews.controller.utilities
 
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.util.Log
 import java.io.BufferedReader
 import java.io.IOException
@@ -66,6 +68,10 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
 }
 
 fun networkIsAvailable(context: Context): Boolean {
-
-    return false
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    var activeNetworkInformation: NetworkInfo? = null
+    activeNetworkInformation = connectivityManager.activeNetworkInfo
+    if (activeNetworkInformation != null) {
+        return !(activeNetworkInformation == null && activeNetworkInformation.isConnected)
+    } else return false
 }
