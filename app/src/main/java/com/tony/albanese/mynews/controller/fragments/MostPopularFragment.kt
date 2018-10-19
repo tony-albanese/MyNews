@@ -41,7 +41,7 @@ class MostPopularFragment : Fragment() {
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
-        mostPopularUrl = generateSearchUrl(context!!, 1)
+        mostPopularUrl = generateSearchUrl(context!!, MOST_POPULAR_SEARCH)
 
         fetchArticles()
 
@@ -59,7 +59,7 @@ class MostPopularFragment : Fragment() {
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-                list = generateArticleArray(1, result)
+                list = generateArticleArray(MOST_POPULAR_SEARCH, result)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
                 swipeLayout.isRefreshing = false
