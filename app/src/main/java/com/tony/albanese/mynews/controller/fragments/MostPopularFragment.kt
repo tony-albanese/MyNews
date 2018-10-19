@@ -73,7 +73,7 @@ class MostPopularFragment : Fragment() {
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-                tempList = generateArticleArray(TOP_STORIES_SEARCH, result)
+                tempList = generateArticleArray(MOST_POPULAR_SEARCH, result)
                 list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
