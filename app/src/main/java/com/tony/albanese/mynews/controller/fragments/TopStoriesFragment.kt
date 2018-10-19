@@ -1,6 +1,5 @@
 package com.tony.albanese.mynews.controller.fragments
 
-
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -22,7 +21,6 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.net.HttpURLConnection
 import java.util.*
-
 
 //This fragment is responsible for displaying the top stories news articles.
 class TopStoriesFragment : Fragment() {
@@ -60,12 +58,11 @@ class TopStoriesFragment : Fragment() {
     }
 
     override fun onPause() {
-        saveArrayListToSharedPreferences(preferences, TOP_STORIES, list)
+        saveArrayListToSharedPreferences(preferences, TOP_STORIES, list) //Save list to SharedPreferences
         super.onPause()
     }
 
     fun fetchArticles(connection: HttpURLConnection?) {
-
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
@@ -86,6 +83,12 @@ class TopStoriesFragment : Fragment() {
         startActivity(intent)
     }
 
+    /*
+    Initialize the article array by checking loading it from shared preferences. If
+    the ArrayList is empty or has no elements, then initialize the search. Otherwise,
+    the empty list is passed to the adapter.
+     */
+
     fun initializeArticleArray() {
         list = loadArrayListFromSharedPreferences(preferences, TOP_STORIES)
         if (list.isEmpty() || list.size == 0) {
@@ -98,6 +101,7 @@ class TopStoriesFragment : Fragment() {
 
     fun startSearch() {
         var connection: HttpURLConnection?
+        //Check if the network is available. If it is, attempt the connection. If not, show a toast.
         if (networkIsAvailable(context!!)) {
             connection = connectToSite(stringToUrl(mostPopularUrl)!!)
             if (connection != null) {
@@ -109,7 +113,6 @@ class TopStoriesFragment : Fragment() {
             toast.show()
 
         }
-
     }
 }
 
