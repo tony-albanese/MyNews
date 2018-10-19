@@ -89,11 +89,21 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
 
 //This function updates the ArrayList and adds new articles.
 fun updateArrayList(oldList: ArrayList<Article>, newList: ArrayList<Article>): ArrayList<Article> {
+    //Load all of the titles in the old list into a list.
+    var oldArticleTitleList = ArrayList<String>()
 
-    for (article in newList) {
-        if (!oldList.contains(article)) {
-            oldList.add(0, article)
-        }
+    for (article in oldList) {
+        oldArticleTitleList.add(article.mTitle)
+    }
+
+    for (newArticle in newList) {
+        /* Check the current article's title to see if it's in the list of old titles.
+        If it is, then we know the article is not new. If it isn't, then it's a new article and has
+        to be added to the old list.
+         */
+        if (!oldArticleTitleList.contains(newArticle.mTitle))
+            oldList.add(newArticle)
     }
     return oldList
 }
+
