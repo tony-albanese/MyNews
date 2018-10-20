@@ -55,21 +55,18 @@ class CustomSearchFragment : Fragment() {
 
     fun fetchArticles() {
         val connection = connectToSite(stringToUrl(customSearchUrl)!!)
-        //swipeLayout.isRefreshing = true
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-               // tempList = generateArticleArray(2, result)
-                list = generateArticleArray(3, result)
+                list = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
-                //swipeLayout.isRefreshing = false
                 recyclerView.adapter = articleAdapter
             }
         }
     }
 
     fun onArticleClicked(view: View, article: Article) {
-        view.setBackgroundColor(resources.getColor(R.color.colorAccent))
+        view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.mUrl))
         startActivity(intent)
