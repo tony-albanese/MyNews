@@ -1,6 +1,5 @@
 package com.tony.albanese.mynews.controller.fragments
 
-
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -23,7 +22,6 @@ import org.jetbrains.anko.uiThread
 import java.net.HttpURLConnection
 import java.util.*
 
-
 //This fragment displays the stop stories for science.
 class TopScienceStoriesFragment : Fragment() {
     var list = ArrayList<Article>()
@@ -34,13 +32,11 @@ class TopScienceStoriesFragment : Fragment() {
     lateinit var swipeLayout: SwipeRefreshLayout
     lateinit var preferences: SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
         swipeLayout = view.findViewById(R.id.swipe_refresh_layout)
         return view
     }
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -59,8 +55,6 @@ class TopScienceStoriesFragment : Fragment() {
         swipeLayout.setOnRefreshListener {
             startSearch()
         }
-
-
     }
 
     fun fetchArticles(connection: HttpURLConnection) {
@@ -108,7 +102,6 @@ class TopScienceStoriesFragment : Fragment() {
             swipeLayout.isRefreshing = false
             val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
             toast.show()
-
         }
     }
 }
