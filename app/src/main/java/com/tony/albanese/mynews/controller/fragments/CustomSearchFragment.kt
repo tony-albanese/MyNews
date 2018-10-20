@@ -13,10 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
-import com.tony.albanese.mynews.controller.utilities.connectToSite
-import com.tony.albanese.mynews.controller.utilities.generateArticleArray
-import com.tony.albanese.mynews.controller.utilities.readDataFromConnection
-import com.tony.albanese.mynews.controller.utilities.stringToUrl
+import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
 import org.jetbrains.anko.doAsync
@@ -41,7 +38,6 @@ class CustomSearchFragment : Fragment() {
         val subjectTextView = text_view_subject
         subjectTextView.text = getString(R.string.custom_search_title)
 
-        //   customSearchUrl = getUrlFromSharedPreferences()
 
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
@@ -80,9 +76,9 @@ class CustomSearchFragment : Fragment() {
     }
 
     fun getUrlFromSharedPreferences(): String {
-        val preferences = this.activity!!.getSharedPreferences("preferences", Context.MODE_PRIVATE)
+        val preferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         if (preferences != null) {
-            return preferences.getString("URL", "NONE")
+            return preferences.getString(URL, "NONE")
         } else {
             return "NONE"
         }
