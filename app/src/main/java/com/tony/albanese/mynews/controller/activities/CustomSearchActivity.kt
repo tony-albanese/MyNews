@@ -43,7 +43,13 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         newsDesksHashMap = HashMap()
 
         btn_search.setOnClickListener { view ->
-            launchSearchActivity()
+            if (networkIsAvailable(this)) {
+                launchSearchActivity()
+            } else {
+                val toast = Toast.makeText(this, "There is not network connection", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+
         }
     }
 
