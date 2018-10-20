@@ -57,6 +57,11 @@ class TopScienceStoriesFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        saveArrayListToSharedPreferences(preferences, TOP_SCIENCE, list) //Save list to SharedPreferences
+        super.onPause()
+    }
+
     fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
             val result = readDataFromConnection(connection!!)
@@ -81,7 +86,7 @@ class TopScienceStoriesFragment : Fragment() {
     }
 
     fun initializeArticleArray() {
-        list = loadArrayListFromSharedPreferences(preferences, TOP_STORIES)
+        list = loadArrayListFromSharedPreferences(preferences, TOP_SCIENCE)
         if (list.isEmpty() || list.size == 0) {
             startSearch()
         } else {
