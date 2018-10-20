@@ -63,17 +63,13 @@ class TopScienceStoriesFragment : Fragment() {
 
     }
 
-    fun fetchArticles() {
-        swipeLayout.isRefreshing = true
-        val connection = connectToSite(stringToUrl(scienceUrl)!!)
-
-
+    fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
             val result = readDataFromConnection(connection!!)
 
-
             uiThread {
-                list = generateArticleArray(TOP_SCIENCE_RESULTS, result)
+                tempList = generateArticleArray(TOP_SCIENCE_RESULTS, result)
+                list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
                 swipeLayout.isRefreshing = false
