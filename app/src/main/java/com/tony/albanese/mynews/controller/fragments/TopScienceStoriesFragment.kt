@@ -2,6 +2,7 @@ package com.tony.albanese.mynews.controller.fragments
 
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -24,10 +25,12 @@ import java.util.*
 //This fragment displays the stop stories for science.
 class TopScienceStoriesFragment : Fragment() {
     var list = ArrayList<Article>()
+    var tempList = ArrayList<Article>()
     lateinit var scienceUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var swipeLayout: SwipeRefreshLayout
+    lateinit var preferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,7 +45,10 @@ class TopScienceStoriesFragment : Fragment() {
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
-        scienceUrl = generateSearchUrl(context!!, 3)
+        scienceUrl = generateSearchUrl(context!!, TOP_SCIENCE_SEARCH)
+        preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
+        articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+        recyclerView.adapter = articleAdapter
 
         fetchArticles()
 
