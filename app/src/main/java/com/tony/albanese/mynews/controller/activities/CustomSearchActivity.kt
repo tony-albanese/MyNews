@@ -11,10 +11,7 @@ import android.widget.DatePicker
 import android.widget.EditText
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.DatePickerFragment
-import com.tony.albanese.mynews.controller.utilities.convertDate
-import com.tony.albanese.mynews.controller.utilities.createSearchParametersJson
-import com.tony.albanese.mynews.controller.utilities.generateNewsDeskParameter
-import com.tony.albanese.mynews.controller.utilities.generateSearchUrl
+import com.tony.albanese.mynews.controller.utilities.*
 import kotlinx.android.synthetic.main.search_parameters_layout.*
 import java.util.*
 import kotlin.collections.HashMap
@@ -31,7 +28,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     var selectedTextViewId = 0
 
-    val SEARCH_DATE_FORMAT = "yyyMMdd"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +43,12 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         newsDesksHashMap = HashMap()
 
         btn_search.setOnClickListener { view ->
-            initiateSearch()
+            generateCustomSearchUrl()
             launchActivity()
         }
     }
 
-    fun initiateSearch() {
+    fun generateCustomSearchUrl() {
         var searchTerms = searchEditText.text.toString()
         var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
 
