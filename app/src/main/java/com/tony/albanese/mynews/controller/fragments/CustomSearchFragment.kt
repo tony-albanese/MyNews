@@ -3,9 +3,11 @@ package com.tony.albanese.mynews.controller.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -18,15 +20,20 @@ import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.util.*
 
 //This fragment displays the results of the user's custom search.
 
 class CustomSearchFragment : Fragment() {
     var list = ArrayList<Article>()
+    var tempList = ArrayList<Article>()
+
     lateinit var customSearchUrl: String
+
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
+
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    lateinit var preferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,6 +49,10 @@ class CustomSearchFragment : Fragment() {
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
+
+        preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
+        articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+        recyclerView.adapter = articleAdapter
 
     }
 
