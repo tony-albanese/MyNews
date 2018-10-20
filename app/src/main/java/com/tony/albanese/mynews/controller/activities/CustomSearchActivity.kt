@@ -19,7 +19,6 @@ import kotlin.collections.HashMap
 class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     lateinit var searchButton: Button
     lateinit var searchEditText: EditText
-    lateinit var datePicker: DatePicker
     lateinit var url: String
     lateinit var searchStartDate: String
     lateinit var searchEndDate: String
@@ -54,15 +53,15 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
 
         val jsonParameters = createSearchParametersJson(searchTerms, searchStartDate, searchEndDate, newsDesks)
-        url = generateSearchUrl(applicationContext, 4, jsonParameters)
+        url = generateSearchUrl(applicationContext, CUSTOM_SEARCH_SEARCH, jsonParameters)
 
-        val preferences = applicationContext.getSharedPreferences("preferences", Context.MODE_PRIVATE)
-        preferences.edit().putString("URL", url).apply()
+        val preferences = applicationContext.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        preferences.edit().putString(URL, url).apply()
     }
 
     fun launchActivity() {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("TAB", 3)
+        intent.putExtra(TAB, CUSTOM_SEARCH_TAB)
         startActivity(intent)
     }
 
