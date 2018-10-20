@@ -46,20 +46,20 @@ class TopScienceStoriesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
+        recyclerView.layoutManager = layoutManager
         val subjectView = text_view_subject
+        subjectView.text = "Top Science Stories"
         scienceUrl = generateSearchUrl(context!!, TOP_SCIENCE_SEARCH)
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
 
-        fetchArticles()
+        initializeArticleArray()
 
         swipeLayout.setOnRefreshListener {
             fetchArticles()
         }
 
-        subjectView.text = "Top Science Stories"
-        recyclerView.layoutManager = layoutManager
 
     }
 
@@ -73,7 +73,7 @@ class TopScienceStoriesFragment : Fragment() {
 
 
             uiThread {
-                list = generateArticleArray(1, result)
+                list = generateArticleArray(TOP_SCIENCE_RESULTS, result)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
                 swipeLayout.isRefreshing = false
@@ -104,7 +104,7 @@ class TopScienceStoriesFragment : Fragment() {
         var connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
         if (networkIsAvailable(context!!)) {
-            connection = connectToSite(stringToUrl(topStoriesUrl)!!)
+            connection = connectToSite(stringToUrl(scienceUrl)!!)
             if (connection != null) {
                 fetchArticles(connection)
             }
