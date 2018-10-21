@@ -62,7 +62,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
             url = generateSearchUrl(applicationContext, CUSTOM_SEARCH_SEARCH, jsonParameters)
 
             val preferences = applicationContext.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-            preferences.edit().putString(URL, url).apply()
+            preferences.edit().putString(ACTIVITY_CUSTOM_SEARCH_URL, url).apply()
             launchActivity()
         }
     }
