@@ -2,6 +2,7 @@ package com.tony.albanese.mynews.controller.utilities
 
 val ACTIVITY_CUSTOM_SEARCH_URL = "activity_custom_search_url"
 val FRAGMENT_CUSTOM_SEARCH_URL = "fragment_saved_custom_search_url"
+val URL_EXTRA = "URL"
 val TAB = "TAB"
 
 val ARTICLE_PREFERENCES = "article_preferences"
