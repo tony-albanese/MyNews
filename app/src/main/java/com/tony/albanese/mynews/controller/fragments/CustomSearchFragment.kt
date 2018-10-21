@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.*
@@ -20,6 +21,7 @@ import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
+import java.net.HttpURLConnection
 
 //This fragment displays the results of the user's custom search.
 
@@ -32,12 +34,14 @@ class CustomSearchFragment : Fragment() {
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
 
-    lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    lateinit var swipeLayout: SwipeRefreshLayout
     lateinit var preferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_base_layout, container, false)
+        val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
+        swipeLayout = view.findViewById(R.id.swipe_refresh_layout)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -60,12 +64,12 @@ class CustomSearchFragment : Fragment() {
         super.onAttach(context)
         customSearchUrl = getUrlFromSharedPreferences()
         if (customSearchUrl != "NONE") {
-            fetchArticles()
+            startSearch()
         }
     }
 
-    fun fetchArticles() {
-        val connection = connectToSite(stringToUrl(customSearchUrl)!!)
+    fun fetchArticles(connection: HttpURLConnection) {
+
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
@@ -90,6 +94,20 @@ class CustomSearchFragment : Fragment() {
         } else {
             return "NONE"
         }
+    }
 
+    fun startSearch() {
+        var connection: HttpURLConnection?
+        //Check if the network is available. If it is, attempt the connection. If not, show a toast.
+        if (networkIsAvailable(context!!)) {
+            connection = connectToSite(stringToUrl(customSearchUrl)!!)
+            if (connection != null) {
+                fetchArticles(connection)
+            }
+        } else {
+            swipeLayout.isRefreshing = false
+            val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
+            toast.show()
+        }
     }
 }
