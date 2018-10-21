@@ -8,6 +8,7 @@ val URL_SHARED_PREFERENCES = "url_preferences"
 val TOP_STORIES = "top_stories"
 val MOST_POPULAR = "most_popular"
 val TOP_SCIENCE = "top_science"
+val CUSTOM_SEARCH = "custom_search"
 
 val MOST_POPULAR_SEARCH = 1
 val TOP_STORIES_SEARCH = 2
