@@ -27,11 +27,13 @@ import java.net.HttpURLConnection
 class CustomSearchFragment : Fragment() {
     var list = ArrayList<Article>()
     var tempList = ArrayList<Article>()
-    lateinit var customSearchUrl: String
+    lateinit var fragmentSearchUrl: String
+    lateinit var activityCustomSearchUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var swipeLayout: SwipeRefreshLayout
-    lateinit var preferences: SharedPreferences
+    lateinit var articlePreferences: SharedPreferences
+    lateinit var urlPreferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,12 +47,11 @@ class CustomSearchFragment : Fragment() {
         val subjectTextView = text_view_subject
         subjectTextView.text = getString(R.string.custom_search_title)
 
-
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
 
-        preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
+        articlePreferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
 
@@ -59,14 +60,17 @@ class CustomSearchFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        customSearchUrl = getUrlFromSharedPreferences()
-        if (customSearchUrl != "NONE") {
+        urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
+        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
+        if (activityCustomSearchUrl != fragmentSearchUrl && activityCustomSearchUrl != "NONE") {
+            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl).apply()
             startSearch()
         }
     }
 
     override fun onPause() {
-        saveArrayListToSharedPreferences(preferences, CUSTOM_SEARCH, list) //Save list to SharedPreferences
+        saveArrayListToSharedPreferences(articlePreferences, CUSTOM_SEARCH, list) //Save list to SharedPreferences
         super.onPause()
     }
 
@@ -88,10 +92,9 @@ class CustomSearchFragment : Fragment() {
         startActivity(intent)
     }
 
-    fun getUrlFromSharedPreferences(): String {
-        val preferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        if (preferences != null) {
-            return preferences.getString(URL, "NONE")
+    fun getUrlFromSharedPreferences(key: String): String {
+        if (urlPreferences != null) {
+            return urlPreferences.getString(key, "NONE")
         } else {
             return "NONE"
         }
@@ -101,7 +104,7 @@ class CustomSearchFragment : Fragment() {
         var connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
         if (networkIsAvailable(context!!)) {
-            connection = connectToSite(stringToUrl(customSearchUrl)!!)
+            connection = connectToSite(stringToUrl(activityCustomSearchUrl)!!)
             if (connection != null) {
                 fetchArticles(connection)
             }
@@ -113,7 +116,7 @@ class CustomSearchFragment : Fragment() {
     }
 
     fun initializeArticleArray() {
-        list = loadArrayListFromSharedPreferences(preferences, CUSTOM_SEARCH)
+        list = loadArrayListFromSharedPreferences(articlePreferences, CUSTOM_SEARCH)
         if (list.isEmpty() || list.size == 0) {
             val toast = Toast.makeText(context, "No articles to display", Toast.LENGTH_SHORT)
             toast.show()
