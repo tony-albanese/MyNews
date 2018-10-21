@@ -68,6 +68,11 @@ class CustomSearchFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        saveArrayListToSharedPreferences(preferences, CUSTOM_SEARCH, list) //Save list to SharedPreferences
+        super.onPause()
+    }
+
     fun fetchArticles(connection: HttpURLConnection) {
 
         doAsync {
