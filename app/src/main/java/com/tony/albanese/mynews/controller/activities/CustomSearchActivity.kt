@@ -25,10 +25,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
     lateinit var searchEndDate: String
     lateinit var calendar: Calendar
     lateinit var newsDesksHashMap: HashMap<Int, String>
-
     var selectedTextViewId = 0
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +33,6 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
         searchButton = btn_search
         searchEditText = text_view_search_terms
-
         calendar = Calendar.getInstance()
         searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
         searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
@@ -46,10 +42,9 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
             if (networkIsAvailable(this)) {
                 launchSearchActivity()
             } else {
-                val toast = Toast.makeText(this, "There is not network connection", Toast.LENGTH_SHORT)
+                val toast = Toast.makeText(this, "There is no network connection", Toast.LENGTH_SHORT)
                 toast.show()
             }
-
         }
     }
 
@@ -70,8 +65,6 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
             preferences.edit().putString(URL, url).apply()
             launchActivity()
         }
-
-
     }
 
     fun launchActivity() {
@@ -84,7 +77,6 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         selectedTextViewId = view.id
         val newFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
-
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
@@ -153,8 +145,6 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
                     newsDesksHashMap.remove(R.id.check_box_science)
                 }
             }
-
         }
     }
-
 }
