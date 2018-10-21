@@ -1,6 +1,5 @@
 package com.tony.albanese.mynews.controller.fragments
 
-
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -28,12 +27,9 @@ import java.net.HttpURLConnection
 class CustomSearchFragment : Fragment() {
     var list = ArrayList<Article>()
     var tempList = ArrayList<Article>()
-
     lateinit var customSearchUrl: String
-
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
-
     lateinit var swipeLayout: SwipeRefreshLayout
     lateinit var preferences: SharedPreferences
 
@@ -58,6 +54,7 @@ class CustomSearchFragment : Fragment() {
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
 
+        initializeArticleArray()
     }
 
     override fun onAttach(context: Context?) {
@@ -74,7 +71,6 @@ class CustomSearchFragment : Fragment() {
     }
 
     fun fetchArticles(connection: HttpURLConnection) {
-
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
@@ -113,6 +109,17 @@ class CustomSearchFragment : Fragment() {
             swipeLayout.isRefreshing = false
             val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
             toast.show()
+        }
+    }
+
+    fun initializeArticleArray() {
+        list = loadArrayListFromSharedPreferences(preferences, CUSTOM_SEARCH)
+        if (list.isEmpty() || list.size == 0) {
+            val toast = Toast.makeText(context, "No articles to display", Toast.LENGTH_SHORT)
+            toast.show()
+        } else {
+            articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+            recyclerView.adapter = articleAdapter
         }
     }
 }
