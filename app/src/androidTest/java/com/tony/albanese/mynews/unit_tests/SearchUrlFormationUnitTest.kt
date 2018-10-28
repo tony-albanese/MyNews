@@ -58,7 +58,4 @@ class SearchUrlFormationUnitTest {
         assertEquals(expectedUrl, url)
     }
 
-    //TODO: Also implement desk case for when user does not enter values for date, section, and search terms.
-    //TODO: Need test cases for different search criteria entered by the user.
-    //TODO: Need test case for when user enters nonesense.
 }

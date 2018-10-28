@@ -14,7 +14,7 @@ class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : Frag
 
     val mContext = context
     override fun getCount(): Int {
-        return 4 //TODO: Incorporate this parameter within the constructor.
+        return 4
     }
 
     override fun getItem(postion: Int): Fragment {
