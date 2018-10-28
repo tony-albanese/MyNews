@@ -113,6 +113,7 @@ class CustomSearchFragment : Fragment() {
             val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
             toast.show()
         }
+
     }
 
     fun initializeArticleArray() {
@@ -120,6 +121,7 @@ class CustomSearchFragment : Fragment() {
         if (list.isEmpty() || list.size == 0) {
             val toast = Toast.makeText(context, "No articles to display", Toast.LENGTH_SHORT)
             toast.show()
+
         } else {
             articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
             recyclerView.adapter = articleAdapter
