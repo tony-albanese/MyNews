@@ -37,8 +37,6 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         //Search dates are optional and can be empty if the user doesn't select them.
         searchStartDate = ""
         searchEndDate = ""
-        //searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
-        // searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
         newsDesksHashMap = HashMap()
 
         btn_search.setOnClickListener { view ->
