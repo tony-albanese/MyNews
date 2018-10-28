@@ -17,7 +17,7 @@ class WebViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
         val webView = findViewById<WebView>(R.id.article_web_view)
-        val emptyView = findViewById<TextView>(R.id.tv_empty_view)
+        val emptyView = findViewById<TextView>(R.id.webview_empty_view)
 
         val intent = getIntent()
         if (intent != null && networkIsAvailable(this)) {
