@@ -35,6 +35,17 @@ class CustomSearchFragment : Fragment() {
     lateinit var articlePreferences: SharedPreferences
     lateinit var urlPreferences: SharedPreferences
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
+        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
+        if (activityCustomSearchUrl != fragmentSearchUrl && activityCustomSearchUrl != "NONE") {
+            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl).apply()
+            startSearch()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
@@ -58,21 +69,11 @@ class CustomSearchFragment : Fragment() {
         initializeArticleArray()
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
-        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
-        if (activityCustomSearchUrl != fragmentSearchUrl && activityCustomSearchUrl != "NONE") {
-            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl).apply()
-            startSearch()
-        }
-    }
-
     override fun onPause() {
         saveArrayListToSharedPreferences(articlePreferences, CUSTOM_SEARCH, list) //Save list to SharedPreferences
         super.onPause()
     }
+
 
     fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
@@ -81,6 +82,7 @@ class CustomSearchFragment : Fragment() {
                 list = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
+                swipeLayout.isRefreshing = false
             }
         }
     }
