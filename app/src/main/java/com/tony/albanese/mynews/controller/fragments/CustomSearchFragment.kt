@@ -121,8 +121,6 @@ class CustomSearchFragment : Fragment() {
     fun initializeArticleArray() {
         list = loadArrayListFromSharedPreferences(articlePreferences, CUSTOM_SEARCH)
         if (list.isEmpty() || list.size == 0) {
-            val toast = Toast.makeText(context, "No articles to display", Toast.LENGTH_SHORT)
-            toast.show()
             startSearch()
         } else {
             articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
