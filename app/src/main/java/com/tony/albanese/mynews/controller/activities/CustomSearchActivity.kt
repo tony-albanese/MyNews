@@ -34,8 +34,11 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         searchButton = btn_search
         searchEditText = text_view_search_terms
         calendar = Calendar.getInstance()
-        searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
-        searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
+        //Search dates are optional and can be empty if the user doesn't select them.
+        searchStartDate = ""
+        searchEndDate = ""
+        //searchStartDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
+        // searchEndDate = convertDate(calendar.time, SEARCH_DATE_FORMAT)
         newsDesksHashMap = HashMap()
 
         btn_search.setOnClickListener { view ->
