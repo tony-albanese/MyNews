@@ -46,8 +46,13 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
                 val desks = getSearchParametersFromJson("news_desks", parameters) ?: ""
                 builder.appendQueryParameter("q", terms)
                 builder.appendQueryParameter("fq", desks)
-                builder.appendQueryParameter("begin_date", startDate)
-                builder.appendQueryParameter("end_date", endDate)
+                if (startDate.isNotBlank() && startDate.isNotBlank()) {
+                    builder.appendQueryParameter("begin_date", startDate)
+                }
+                if (endDate.isNotBlank() && endDate.isNotEmpty()) {
+                    builder.appendQueryParameter("end_date", endDate)
+                }
+
                 return builder.toString()
             } else return "No search parameters given."
         }
