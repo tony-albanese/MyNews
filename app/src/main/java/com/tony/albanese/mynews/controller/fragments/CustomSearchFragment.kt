@@ -35,17 +35,6 @@ class CustomSearchFragment : Fragment() {
     lateinit var articlePreferences: SharedPreferences
     lateinit var urlPreferences: SharedPreferences
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
-        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
-        if (activityCustomSearchUrl != fragmentSearchUrl && activityCustomSearchUrl != "NONE") {
-            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl).apply()
-            startSearch()
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
@@ -58,6 +47,13 @@ class CustomSearchFragment : Fragment() {
         val subjectTextView = text_view_subject
         subjectTextView.text = getString(R.string.custom_search_title)
 
+        urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
+        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
+        if (activityCustomSearchUrl != fragmentSearchUrl && activityCustomSearchUrl != "NONE") {
+            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl).apply()
+            startSearch()
+        }
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
