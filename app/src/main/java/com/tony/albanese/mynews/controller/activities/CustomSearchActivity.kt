@@ -5,6 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
@@ -38,6 +40,8 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         searchStartDate = ""
         searchEndDate = ""
         newsDesksHashMap = HashMap()
+
+        setupTextChangeListener()
 
         btn_search.setOnClickListener { view ->
             if (networkIsAvailable(this)) {
@@ -153,5 +157,27 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
                 }
             }
         }
+    }
+
+    fun setupTextChangeListener() {
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (searchEditText.text.isNotBlank() || searchEditText.text.isNotEmpty()) {
+                    btn_search.text = "Search Terms NOT EMpy"
+                } else {
+                    btn_search.text = "Enter some search terms."
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+
+
+        })
     }
 }
