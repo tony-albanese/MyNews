@@ -77,6 +77,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(TAB, CUSTOM_SEARCH_TAB)
         startActivity(intent)
+        finish()
     }
 
     fun createDatePicker(view: View) {
