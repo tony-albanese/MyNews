@@ -48,6 +48,12 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 return true
             }
+
+            R.id.menu_item_notifications -> {
+                val intent = Intent(this, NotificationActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
