@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.activities.CustomSearchActivity" />
-        <activity android:name=".controller.activities.WebViewActivity"></activity>
+        <activity android:name=".controller.activities.WebViewActivity" />
+        <activity android:name=".controller.activities.NotificationActivity"></activity>
     </application>
 
 </manifest>
