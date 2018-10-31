@@ -166,10 +166,10 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     fun setSearchButtonClickable() {
         if (searchEditText.text.isNotEmpty() && searchEditText.text.isNotBlank() && newsDesksHashMap.isNotEmpty()) {
-            btn_search.isClickable = true
+            btn_search.isEnabled = true
             btn_search.text = getString(R.string.btn_search)
         } else {
-            btn_search.isClickable = false
+            btn_search.isEnabled = false
             btn_search.text = getString(R.string.btn_enter_terms)
         }
     }
