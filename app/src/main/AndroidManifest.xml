@@ -24,6 +24,8 @@
         <activity android:name=".controller.activities.CustomSearchActivity" />
         <activity android:name=".controller.activities.WebViewActivity" />
         <activity android:name=".controller.activities.NotificationActivity"/>
+
+        <receiver android:name=".model.SearchAlarmReceiver" />
     </application>
 
 </manifest>
