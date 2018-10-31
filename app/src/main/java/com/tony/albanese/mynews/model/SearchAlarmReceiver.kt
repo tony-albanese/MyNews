@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Build
 
 class SearchAlarmReceiver : BroadcastReceiver() {
-    private var notificationManager: NotificationManager? = null
 
     val channelName = "MyNews"
     val channelDescription = "Description from NewsApp"
