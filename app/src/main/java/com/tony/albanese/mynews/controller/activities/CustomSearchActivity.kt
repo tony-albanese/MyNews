@@ -55,26 +55,14 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
     fun launchSearchActivity() {
         var searchTerms = searchEditText.text.toString()
+        var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
 
-        if (searchTerms.isNullOrBlank() || searchTerms.isNullOrEmpty()) {
-            val toast = Toast.makeText(this, "Please enter search terms", Toast.LENGTH_SHORT)
-            toast.show()
-        } else {
-            if (!newsDesksHashMap.isEmpty()) {
-                var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
+        val jsonParameters = createSearchParametersJson(searchTerms, searchStartDate, searchEndDate, newsDesks)
+        url = generateSearchUrl(applicationContext, CUSTOM_SEARCH_SEARCH, jsonParameters)
 
-                val jsonParameters = createSearchParametersJson(searchTerms, searchStartDate, searchEndDate, newsDesks)
-                url = generateSearchUrl(applicationContext, CUSTOM_SEARCH_SEARCH, jsonParameters)
-
-                val preferences = applicationContext.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-                preferences.edit().putString(ACTIVITY_CUSTOM_SEARCH_URL, url).apply()
-                launchActivity()
-            } else {
-                val toast = Toast.makeText(this, "Please enter at least one subect.", Toast.LENGTH_SHORT)
-                toast.show()
-            }
-
-        }
+        val preferences = applicationContext.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        preferences.edit().putString(ACTIVITY_CUSTOM_SEARCH_URL, url).apply()
+        launchActivity()
     }
 
     fun launchActivity() {
