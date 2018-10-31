@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.*
@@ -48,17 +47,12 @@ class CustomSearchFragment : Fragment() {
         subjectTextView.text = getString(R.string.custom_search_title)
 
         urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
+        articlePreferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
-        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
-        if (activityCustomSearchUrl != fragmentSearchUrl && activityCustomSearchUrl != "NONE") {
-            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl).apply()
-            startSearch()
-        }
+
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
-
-        articlePreferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
 
@@ -105,15 +99,13 @@ class CustomSearchFragment : Fragment() {
     fun startSearch() {
         var connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
-        if (networkIsAvailable(context!!)) {
+        if (networkIsAvailable(context!!) && activityCustomSearchUrl != "NONE") {
             connection = connectToSite(stringToUrl(activityCustomSearchUrl)!!)
             if (connection != null) {
                 fetchArticles(connection)
             }
         } else {
             swipeLayout.isRefreshing = false
-            val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
-            toast.show()
         }
 
     }
