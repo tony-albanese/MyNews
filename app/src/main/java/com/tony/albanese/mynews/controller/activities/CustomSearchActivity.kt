@@ -157,16 +157,13 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
                 }
             }
         }
+        setSearchButtonClickable()
     }
 
     fun setupTextChangeListener() {
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (searchEditText.text.isNotBlank() || searchEditText.text.isNotEmpty()) {
-                    btn_search.text = "Search Terms NOT EMpy"
-                } else {
-                    btn_search.text = "Enter some search terms."
-                }
+                setSearchButtonClickable()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -176,8 +173,16 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
             }
-
-
         })
+    }
+
+    fun setSearchButtonClickable() {
+        if (searchEditText.text.isNotEmpty() && searchEditText.text.isNotBlank() && newsDesksHashMap.isNotEmpty()) {
+            btn_search.isClickable = true
+            btn_search.text = getString(R.string.btn_search)
+        } else {
+            btn_search.isClickable = false
+            btn_search.text = getString(R.string.btn_enter_terms)
+        }
     }
 }
