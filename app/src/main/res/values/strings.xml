@@ -16,6 +16,11 @@
 
     <!--These strings are for the menu items. -->
     <string name="menu_search">Search</string>
+    <string name="menu_notifications">Notifications</string>
+
+    <!--Names for the search button -->
+    <string name="btn_search">Search</string>
+    <string name="btn_enter_terms">Enter search terms.</string>
 
     <string name="string_empty_view">Something went wrong.</string>
 </resources>
