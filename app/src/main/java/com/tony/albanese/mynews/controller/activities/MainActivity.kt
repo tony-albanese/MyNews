@@ -10,6 +10,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.TabPagerAdapter
+import com.tony.albanese.mynews.controller.utilities.CUSTOM_SEARCH_FRAGMENT
+import com.tony.albanese.mynews.controller.utilities.TOP_STORIES_FRAGMENT
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,6 +63,14 @@ class MainActivity : AppCompatActivity() {
     fun setTab() {
         val selectedTab = getIntent().getIntExtra("TAB", 0)
         pager.setCurrentItem(selectedTab)
+    }
+
+    override fun onBackPressed() {
+        if (pager.currentItem == CUSTOM_SEARCH_FRAGMENT) {
+            pager.setCurrentItem(TOP_STORIES_FRAGMENT, true)
+        } else {
+            super.onBackPressed()
+        }
     }
 
 }
