@@ -169,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Notifications"
+        android:text="Set Notification Time"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/switch_auto_search"
         android:visibility="gone"
