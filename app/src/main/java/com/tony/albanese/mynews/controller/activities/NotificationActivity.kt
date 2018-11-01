@@ -2,18 +2,26 @@ package com.tony.albanese.mynews.controller.activities
 
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.TimePicker
+import android.widget.Toast
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.TimePickerFragment
 import com.tony.albanese.mynews.controller.utilities.SEARCH_ALARM_CODE
 import com.tony.albanese.mynews.model.SearchAlarmReceiver
 import kotlinx.android.synthetic.main.search_parameters_layout.*
 
-class NotificationActivity : AppCompatActivity() {
+class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        val toast = Toast.makeText(this, "Time Set", Toast.LENGTH_SHORT)
+        toast.show()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
