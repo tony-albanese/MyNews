@@ -15,12 +15,18 @@ import com.tony.albanese.mynews.controller.fragments.TimePickerFragment
 import com.tony.albanese.mynews.controller.utilities.SEARCH_ALARM_CODE
 import com.tony.albanese.mynews.model.SearchAlarmReceiver
 import kotlinx.android.synthetic.main.search_parameters_layout.*
+import java.util.*
 
 class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         val toast = Toast.makeText(this, "Time Set", Toast.LENGTH_SHORT)
         toast.show()
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+        startSearchAlarm(calendar) //This will be moved to the switch's onClick method.
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +46,11 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     }
 
 
-    fun startSearchAlarm() {
+    fun startSearchAlarm(c: Calendar) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, SearchAlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, 0)
-        //alarmManager.setExact() -- Set this method when you have notifications ready.
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
     }
 
     fun cancelSearchAlarm() {
