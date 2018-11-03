@@ -1,6 +1,10 @@
 package com.tony.albanese.mynews.controller.activities
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
@@ -10,8 +14,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.adapters.TabPagerAdapter
-import com.tony.albanese.mynews.controller.utilities.CUSTOM_SEARCH_FRAGMENT
-import com.tony.albanese.mynews.controller.utilities.TOP_STORIES_FRAGMENT
+import com.tony.albanese.mynews.controller.utilities.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        createNotificationChannel()
         setContentView(R.layout.activity_main)
 
         pagerAdapter = TabPagerAdapter(supportFragmentManager, applicationContext) //Initialize
@@ -73,4 +77,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //This will be called when the Activity is started to ensure a channe is set for Android 8
+    fun createNotificationChannel() {
+        val notfificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            notificationChannel.enableVibration(false)
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = R.color.colorPrimary
+            notificationChannel.description = NOTIFICATION_CHANNEL_DESCRIPTION
+            notfificationManager.createNotificationChannel(notificationChannel)
+        }
+
+    }
 }
