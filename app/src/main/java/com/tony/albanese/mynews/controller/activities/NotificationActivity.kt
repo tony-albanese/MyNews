@@ -19,19 +19,21 @@ import java.util.*
 
 class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
 
+    lateinit var calendar: Calendar
+
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         val toast = Toast.makeText(this, "Time Set", Toast.LENGTH_SHORT)
         toast.show()
-        val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
-        startSearchAlarm(calendar) //This will be moved to the switch's onClick method.
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_parameters_layout)
+
+        calendar = Calendar.getInstance()
 
         btn_search.visibility = View.GONE
         tv_start_date.visibility = View.INVISIBLE
@@ -42,6 +44,14 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         tv_notification.setOnClickListener {
             val timePicker = TimePickerFragment()
             timePicker.show(supportFragmentManager, "time picker")
+        }
+
+        switch_auto_search.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                startSearchAlarm(calendar)
+            } else {
+                cancelSearchAlarm()
+            }
         }
     }
 
