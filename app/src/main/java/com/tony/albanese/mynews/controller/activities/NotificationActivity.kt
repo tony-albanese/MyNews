@@ -18,7 +18,6 @@ import kotlinx.android.synthetic.main.search_parameters_layout.*
 import java.util.*
 
 class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
-
     lateinit var calendar: Calendar
 
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
@@ -54,8 +53,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             }
         }
     }
-
-
+    
     fun startSearchAlarm(c: Calendar) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, SearchAlarmReceiver::class.java)
