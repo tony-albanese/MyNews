@@ -9,15 +9,20 @@ import android.content.Intent
 import android.support.v4.app.NotificationCompat
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.activities.MainActivity
-import com.tony.albanese.mynews.controller.utilities.CUSTOM_SEARCH_TAB
-import com.tony.albanese.mynews.controller.utilities.NOTIFICATION_CHANNEL_ID
-import com.tony.albanese.mynews.controller.utilities.SEARCH_ALARM_CODE
-import com.tony.albanese.mynews.controller.utilities.TAB
+import com.tony.albanese.mynews.controller.utilities.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.net.HttpURLConnection
 
 class SearchAlarmReceiver : BroadcastReceiver() {
 
+    var list = ArrayList<Article>()
+
     override fun onReceive(context: Context?, intent: Intent?) {
-        sendNotification(context!!)
+        val url = intent?.getStringExtra("notification_url")
+        if (url != null && url.isNotEmpty() && url.isNotBlank()) {
+            getNewArticles(context!!, url)
+        }
 
     }
 
@@ -36,7 +41,25 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
 
         notificationManager.notify(SEARCH_ALARM_CODE, builder.build());
+    }
 
+    fun getNewArticles(c: Context, url: String) {
+        var connection: HttpURLConnection?
+        var result = ""
+        if (networkIsAvailable(c)) {
+            connection = connectToSite(stringToUrl(url)!!)
+
+            doAsync {
+                if (connection != null) {
+                    result = readDataFromConnection(connection)
+                }
+                uiThread {
+                    val tempList = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
+                    list = tempList
+                    if (list.isNotEmpty()) sendNotification(c!!)
+                }
+            }
+        }
 
     }
 }
