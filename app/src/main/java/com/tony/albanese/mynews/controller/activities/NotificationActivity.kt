@@ -19,20 +19,7 @@ import java.util.*
 
 class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     lateinit var calendar: Calendar
-
-    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
-        val toast = Toast.makeText(this, "Time Set", Toast.LENGTH_SHORT)
-        toast.show()
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-        calendar.set(Calendar.MINUTE, minute)
-        calendar.set(Calendar.SECOND, 0)
-
-        //Check if the alarm switch is checked. If it is, start the alarm.
-        if (switch_auto_search.isChecked) {
-            startSearchAlarm(calendar)
-        }
-    }
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_parameters_layout)
@@ -71,5 +58,18 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         val intent = Intent(this, SearchAlarmReceiver::class.java)
         val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, 0)
         alarmManager.cancel(pendingIntent)
+    }
+
+    override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
+        val toast = Toast.makeText(this, "Time Set", Toast.LENGTH_SHORT)
+        toast.show()
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+        calendar.set(Calendar.MINUTE, minute)
+        calendar.set(Calendar.SECOND, 0)
+
+        //Check if the alarm switch is checked. If it is, start the alarm.
+        if (switch_auto_search.isChecked) {
+            startSearchAlarm(calendar)
+        }
     }
 }
