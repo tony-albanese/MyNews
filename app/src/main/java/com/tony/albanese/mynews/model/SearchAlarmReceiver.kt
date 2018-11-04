@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.support.v4.app.NotificationCompat
@@ -56,7 +57,8 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                     val tempList = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
                     list = tempList
                     if (list.isNotEmpty()) {
-                        val prefs = c.applicationContext.getSharedPreferences()
+                        val prefs = c.applicationContext.getSharedPreferences(NOTIFICATION_PREFERENCES, MODE_PRIVATE)
+                        saveArrayListToSharedPreferences(prefs, NEW_ARTICLE_KEY, list)
                         sendNotification(c!!)
                     }
                 }
