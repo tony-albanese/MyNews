@@ -53,6 +53,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             } else {
                 cancelSearchAlarm()
             }
+            finish()
         }
     }
 
