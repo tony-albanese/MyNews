@@ -28,7 +28,6 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     var newsDesksHashMap = HashMap<Int, String>()
     var url = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_parameters_layout)
@@ -55,6 +54,11 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
                 cancelSearchAlarm()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        restoreActivityState()
     }
 
     override fun onPause() {
@@ -170,15 +174,31 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         val notificationActivityPreferences = getSharedPreferences(NOTIFICATION_ACTIVITY_PREFERENCES, Context.MODE_PRIVATE)
         with(notificationActivityPreferences.edit()) {
             putString("search_terms", searchEditText.text.toString())
-            putBoolean("arts", check_box_arts.isChecked)
-            putBoolean("business", check_box_business.isChecked)
-            putBoolean("editorial", check_box_editorial.isChecked)
-            putBoolean("financial", check_box_financial.isChecked)
-            putBoolean("politics", check_box_politics.isChecked)
-            putBoolean("science", check_box_science.isChecked)
-            putBoolean("switch_state", switch_auto_search.isChecked)
+            putBoolean("arts_box_checked", check_box_arts.isChecked)
+            putBoolean("business_box_checked", check_box_business.isChecked)
+            putBoolean("editorial_box_checked", check_box_editorial.isChecked)
+            putBoolean("financial_box_checked", check_box_financial.isChecked)
+            putBoolean("politics_box_checked", check_box_politics.isChecked)
+            putBoolean("science_box_checked", check_box_science.isChecked)
+            putBoolean("switch_state_box_checked", switch_auto_search.isChecked)
+            putBoolean("confirmation_button_enabled", btn_notification_confirm.isEnabled)
             putLong("calendar_time", calendar.timeInMillis)
             apply()
         }
+    }
+
+    fun restoreActivityState() {
+        val prefs = getSharedPreferences(NOTIFICATION_ACTIVITY_PREFERENCES, Context.MODE_PRIVATE)
+        val c = Calendar.getInstance()
+        searchEditText.setText(prefs.getString("search_terms", ""))
+        check_box_arts.isChecked = prefs.getBoolean("arts_box_checked", false)
+        check_box_business.isChecked = prefs.getBoolean("business_box_checked", false)
+        check_box_financial.isChecked = prefs.getBoolean("financial_box_checked", false)
+        check_box_politics.isChecked = prefs.getBoolean("politics_box_checked", false)
+        check_box_science.isChecked = prefs.getBoolean("science_box_checked", false)
+        check_box_editorial.isChecked = prefs.getBoolean("editorial_box_checked", false)
+        switch_auto_search.isChecked = prefs.getBoolean("switch_state_box_checked", false)
+        btn_notification_confirm.isEnabled = prefs.getBoolean("confirmation_button_enabled", false)
+        calendar.timeInMillis = prefs.getLong("calendar_time", c.timeInMillis)
     }
 }
