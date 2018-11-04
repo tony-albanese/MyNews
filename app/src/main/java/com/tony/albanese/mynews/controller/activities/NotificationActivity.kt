@@ -52,6 +52,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
                 startSearchAlarm(calendar)
             } else {
                 cancelSearchAlarm()
+                switch_auto_search.isEnabled = btn_notification_confirm.isEnabled
             }
         }
     }
@@ -165,6 +166,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     fun setConfirmationButtonClickable() {
         if (searchEditText.text.isNotEmpty() && searchEditText.text.isNotBlank() && newsDesksHashMap.isNotEmpty()) {
             btn_notification_confirm.isEnabled = true
+            switch_auto_search.isEnabled = true
         } else {
             btn_notification_confirm.isEnabled = false
         }
@@ -180,7 +182,8 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             putBoolean("financial_box_checked", check_box_financial.isChecked)
             putBoolean("politics_box_checked", check_box_politics.isChecked)
             putBoolean("science_box_checked", check_box_science.isChecked)
-            putBoolean("switch_state_box_checked", switch_auto_search.isChecked)
+            putBoolean("switch_state_checked", switch_auto_search.isChecked)
+            putBoolean("switch_state_enabled", switch_auto_search.isEnabled)
             putBoolean("confirmation_button_enabled", btn_notification_confirm.isEnabled)
             putLong("calendar_time", calendar.timeInMillis)
             apply()
@@ -197,7 +200,8 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         check_box_politics.isChecked = prefs.getBoolean("politics_box_checked", false)
         check_box_science.isChecked = prefs.getBoolean("science_box_checked", false)
         check_box_editorial.isChecked = prefs.getBoolean("editorial_box_checked", false)
-        switch_auto_search.isChecked = prefs.getBoolean("switch_state_box_checked", false)
+        switch_auto_search.isChecked = prefs.getBoolean("switch_state_checked", false)
+        switch_auto_search.isEnabled = prefs.getBoolean("switch_state_enabled", false)
         btn_notification_confirm.isEnabled = prefs.getBoolean("confirmation_button_enabled", false)
         calendar.timeInMillis = prefs.getLong("calendar_time", c.timeInMillis)
     }
