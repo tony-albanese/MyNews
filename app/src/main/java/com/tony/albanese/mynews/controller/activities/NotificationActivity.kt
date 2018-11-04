@@ -73,6 +73,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         intent.putExtra("notification_url", createIntentUrl())
         val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
+        //TODO: Change this to setReapeating.
     }
 
     fun cancelSearchAlarm() {
