@@ -49,6 +49,7 @@ class CustomSearchFragment : Fragment() {
         urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         articlePreferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
+        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
 
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
@@ -67,7 +68,6 @@ class CustomSearchFragment : Fragment() {
         saveArrayListToSharedPreferences(articlePreferences, CUSTOM_SEARCH, list) //Save list to SharedPreferences
         super.onPause()
     }
-
 
     fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
@@ -112,7 +112,8 @@ class CustomSearchFragment : Fragment() {
 
     fun initializeArticleArray() {
         list = loadArrayListFromSharedPreferences(articlePreferences, CUSTOM_SEARCH)
-        if (list.isEmpty() || list.size == 0) {
+        if (list.isEmpty() || list.size == 0 || !fragmentSearchUrl.equals(activityCustomSearchUrl)) {
+            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl)
             startSearch()
         } else {
             articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
