@@ -15,8 +15,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.TimePickerFragment
-import com.tony.albanese.mynews.controller.utilities.NOTIFICATION_ACTIVITY_PREFERENCES
-import com.tony.albanese.mynews.controller.utilities.SEARCH_ALARM_CODE
+import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.SearchAlarmReceiver
 import kotlinx.android.synthetic.main.search_parameters_layout.*
 import java.util.*
@@ -70,6 +69,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     fun startSearchAlarm(c: Calendar) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, SearchAlarmReceiver::class.java)
+        intent.putExtra("notification_url", createIntentUrl())
         val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
     }
@@ -205,5 +205,14 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         switch_auto_search.isEnabled = prefs.getBoolean("switch_state_enabled", false)
         btn_notification_confirm.isEnabled = prefs.getBoolean("confirmation_button_enabled", false)
         calendar.timeInMillis = prefs.getLong("calendar_time", c.timeInMillis)
+    }
+
+    fun createIntentUrl(): String {
+        var searchTerms = searchEditText.text.toString()
+        var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
+
+        val jsonParameters = createSearchParametersJson(searchTerms, "", "", newsDesks)
+        url = generateSearchUrl(this, CUSTOM_SEARCH_SEARCH, jsonParameters)
+        return url
     }
 }
