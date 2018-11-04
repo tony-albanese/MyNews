@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TimePicker
@@ -38,11 +40,11 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         switch_auto_search.visibility = View.VISIBLE
         btn_notification_confirm.visibility = View.VISIBLE
 
+        setupTextChangeListener()
         tv_notification.setOnClickListener {
             val timePicker = TimePickerFragment()
             timePicker.show(supportFragmentManager, "time picker")
         }
-
         switch_auto_search.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 startSearchAlarm(calendar)
@@ -130,6 +132,22 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             }
         }
         setConfirmationButtonClickable()
+    }
+
+    fun setupTextChangeListener() {
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                setConfirmationButtonClickable()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
     }
 
     fun setConfirmationButtonClickable() {
