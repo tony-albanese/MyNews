@@ -15,6 +15,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.TimePickerFragment
+import com.tony.albanese.mynews.controller.utilities.NOTIFICATION_ACTIVITY_PREFERENCES
 import com.tony.albanese.mynews.controller.utilities.SEARCH_ALARM_CODE
 import com.tony.albanese.mynews.model.SearchAlarmReceiver
 import kotlinx.android.synthetic.main.search_parameters_layout.*
@@ -23,8 +24,10 @@ import java.util.*
 class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     lateinit var calendar: Calendar
     lateinit var searchEditText: EditText
+
     var newsDesksHashMap = HashMap<Int, String>()
     var url = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,11 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
                 cancelSearchAlarm()
             }
         }
+    }
+
+    override fun onPause() {
+        saveActivityState()
+        super.onPause()
     }
     
     fun startSearchAlarm(c: Calendar) {
@@ -155,6 +163,22 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             btn_notification_confirm.isEnabled = true
         } else {
             btn_notification_confirm.isEnabled = false
+        }
+    }
+
+    fun saveActivityState() {
+        val notificationActivityPreferences = getSharedPreferences(NOTIFICATION_ACTIVITY_PREFERENCES, Context.MODE_PRIVATE)
+        with(notificationActivityPreferences.edit()) {
+            putString("search_terms", searchEditText.text.toString())
+            putBoolean("arts", check_box_arts.isChecked)
+            putBoolean("business", check_box_business.isChecked)
+            putBoolean("editorial", check_box_editorial.isChecked)
+            putBoolean("financial", check_box_financial.isChecked)
+            putBoolean("politics", check_box_politics.isChecked)
+            putBoolean("science", check_box_science.isChecked)
+            putBoolean("switch_state", switch_auto_search.isChecked)
+            putLong("calendar_time", calendar.timeInMillis)
+            apply()
         }
     }
 }
