@@ -169,6 +169,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             switch_auto_search.isEnabled = true
         } else {
             btn_notification_confirm.isEnabled = false
+            if (!switch_auto_search.isChecked) switch_auto_search.isEnabled = false
         }
     }
 
