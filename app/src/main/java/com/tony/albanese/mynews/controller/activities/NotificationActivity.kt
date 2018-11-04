@@ -172,7 +172,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     }
 
     fun saveActivityState() {
-        val notificationActivityPreferences = getSharedPreferences(NOTIFICATION_ACTIVITY_PREFERENCES, Context.MODE_PRIVATE)
+        val notificationActivityPreferences = getSharedPreferences(NOTIFICATION_PREFERENCES, Context.MODE_PRIVATE)
         with(notificationActivityPreferences.edit()) {
             putString("search_terms", searchEditText.text.toString())
             putBoolean("arts_box_checked", check_box_arts.isChecked)
@@ -190,7 +190,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     }
 
     fun restoreActivityState() {
-        val prefs = getSharedPreferences(NOTIFICATION_ACTIVITY_PREFERENCES, Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences(NOTIFICATION_PREFERENCES, Context.MODE_PRIVATE)
         val c = Calendar.getInstance()
         searchEditText.setText(prefs.getString("search_terms", ""))
         check_box_arts.isChecked = prefs.getBoolean("arts_box_checked", false)

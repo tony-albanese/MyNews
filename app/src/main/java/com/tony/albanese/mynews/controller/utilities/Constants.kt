@@ -7,7 +7,7 @@ val TAB = "TAB"
 
 val ARTICLE_PREFERENCES = "article_preferences"
 val URL_SHARED_PREFERENCES = "url_preferences"
-val NOTIFICATION_ACTIVITY_PREFERENCES = "notification_activity_preferences"
+val NOTIFICATION_PREFERENCES = "notification_preferences"
 
 val TOP_STORIES = "top_stories"
 val MOST_POPULAR = "most_popular"

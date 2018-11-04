@@ -39,7 +39,6 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
-
         notificationManager.notify(SEARCH_ALARM_CODE, builder.build());
     }
 
@@ -56,7 +55,10 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                 uiThread {
                     val tempList = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
                     list = tempList
-                    if (list.isNotEmpty()) sendNotification(c!!)
+                    if (list.isNotEmpty()) {
+                        val prefs = c.applicationContext.getSharedPreferences()
+                        sendNotification(c!!)
+                    }
                 }
             }
         }
