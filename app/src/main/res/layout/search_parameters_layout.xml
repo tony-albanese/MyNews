@@ -175,4 +175,16 @@
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/btn_search" />
 
+    <Button
+        android:id="@+id/btn_notification_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:enabled="false"
+        android:text="OK"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch_auto_search" />
+
 </android.support.constraint.ConstraintLayout>
