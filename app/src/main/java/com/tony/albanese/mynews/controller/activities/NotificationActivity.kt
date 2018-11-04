@@ -26,6 +26,11 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
         calendar.set(Calendar.MINUTE, minute)
         calendar.set(Calendar.SECOND, 0)
+
+        //Check if the alarm switch is checked. If it is, start the alarm.
+        if (switch_auto_search.isChecked) {
+            startSearchAlarm(calendar)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +62,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     fun startSearchAlarm(c: Calendar) {
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, SearchAlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
     }
 
