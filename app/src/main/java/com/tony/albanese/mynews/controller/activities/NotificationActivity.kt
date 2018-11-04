@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.EditText
 import android.widget.TimePicker
 import android.widget.Toast
 import com.tony.albanese.mynews.R
@@ -19,14 +20,16 @@ import java.util.*
 
 class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     lateinit var calendar: Calendar
-    lateinit var newsDesksHashMap: HashMap<Int, String>
-    lateinit var url: String
+    lateinit var searchEditText: EditText
+    var newsDesksHashMap = HashMap<Int, String>()
+    var url = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_parameters_layout)
 
         calendar = Calendar.getInstance()
+        searchEditText = findViewById(R.id.text_view_search_terms)
 
         btn_search.visibility = View.GONE
         tv_start_date.visibility = View.INVISIBLE
@@ -125,6 +128,15 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
                     newsDesksHashMap.remove(R.id.check_box_science)
                 }
             }
+        }
+        setConfirmationButtonClickable()
+    }
+
+    fun setConfirmationButtonClickable() {
+        if (searchEditText.text.isNotEmpty() && searchEditText.text.isNotBlank() && newsDesksHashMap.isNotEmpty()) {
+            btn_notification_confirm.isEnabled = true
+        } else {
+            btn_notification_confirm.isEnabled = false
         }
     }
 }
