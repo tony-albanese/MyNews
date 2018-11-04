@@ -46,12 +46,12 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             val timePicker = TimePickerFragment()
             timePicker.show(supportFragmentManager, "time picker")
         }
-        switch_auto_search.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
+
+        btn_notification_confirm.setOnClickListener {
+            if (switch_auto_search.isChecked) {
                 startSearchAlarm(calendar)
             } else {
                 cancelSearchAlarm()
-                switch_auto_search.isEnabled = btn_notification_confirm.isEnabled
             }
         }
     }
