@@ -159,7 +159,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:visibility="visible"
+        android:visibility="gone"
         android:enabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_search" />
@@ -173,7 +173,7 @@
         android:text="Set Notification Time"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/switch_auto_search"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/btn_search" />
 
     <Button
