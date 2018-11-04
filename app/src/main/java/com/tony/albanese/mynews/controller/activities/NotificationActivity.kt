@@ -19,7 +19,9 @@ import java.util.*
 
 class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     lateinit var calendar: Calendar
-    
+    lateinit var newsDesksHashMap: HashMap<Int, String>
+    lateinit var url: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.search_parameters_layout)
@@ -31,6 +33,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         tv_end_date.visibility = View.INVISIBLE
         tv_notification.visibility = View.VISIBLE
         switch_auto_search.visibility = View.VISIBLE
+        btn_notification_confirm.visibility = View.VISIBLE
 
         tv_notification.setOnClickListener {
             val timePicker = TimePickerFragment()
@@ -70,6 +73,58 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         //Check if the alarm switch is checked. If it is, start the alarm.
         if (switch_auto_search.isChecked) {
             startSearchAlarm(calendar)
+        }
+    }
+
+    fun checkboxOnClickListener(view: View) {
+        when (view.id) {
+            R.id.check_box_arts -> {
+                if (check_box_arts.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_arts, "Arts")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_arts)
+                }
+            }
+
+            R.id.check_box_business -> {
+                if (check_box_business.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_business, "Business")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_business)
+                }
+            }
+
+            R.id.check_box_editorial -> {
+                if (check_box_editorial.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_editorial, "Editorial")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_editorial)
+                }
+            }
+
+            R.id.check_box_financial -> {
+                if (check_box_financial.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_financial, "Financial")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_financial)
+                }
+            }
+
+            R.id.check_box_politics -> {
+                if (check_box_politics.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_politics, "Politics")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_politics)
+                }
+            }
+
+            R.id.check_box_science -> {
+                if (check_box_science.isChecked) {
+                    newsDesksHashMap.put(R.id.check_box_science, "Science")
+                } else {
+                    newsDesksHashMap.remove(R.id.check_box_science)
+                }
+            }
         }
     }
 }
