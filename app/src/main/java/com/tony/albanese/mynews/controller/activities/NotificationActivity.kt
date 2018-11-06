@@ -55,6 +55,8 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             }
             finish()
         }
+
+        restoreActivityState()
     }
 
     override fun onResume() {
@@ -183,7 +185,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         val notificationActivityPreferences = getSharedPreferences(NOTIFICATION_PREFERENCES, Context.MODE_PRIVATE)
         with(notificationActivityPreferences.edit()) {
             putString("search_terms", searchEditText.text.toString())
-            putString("hash_map", mapToString(newsDesksHashMap))
+            putString(NEWS_DESK_HASH_MAP, mapToString(newsDesksHashMap))
             putBoolean("arts_box_checked", check_box_arts.isChecked)
             putBoolean("business_box_checked", check_box_business.isChecked)
             putBoolean("editorial_box_checked", check_box_editorial.isChecked)
@@ -212,6 +214,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         switch_auto_search.isEnabled = prefs.getBoolean("switch_state_enabled", false)
         btn_notification_confirm.isEnabled = prefs.getBoolean("confirmation_button_enabled", false)
         calendar.timeInMillis = prefs.getLong("calendar_time", c.timeInMillis)
+        newsDesksHashMap.clear()
         newsDesksHashMap = getMapFromPrefereces(prefs, NEWS_DESK_HASH_MAP)
     }
 
