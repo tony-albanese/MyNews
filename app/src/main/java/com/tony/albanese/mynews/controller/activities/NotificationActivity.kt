@@ -55,16 +55,24 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             }
             finish()
         }
+        setConfirmationButtonClickable()
     }
 
     override fun onResume() {
-        super.onResume()
         restoreActivityState()
+        setupTextChangeListener()
+        setConfirmationButtonClickable()
+        super.onResume()
     }
 
     override fun onPause() {
         saveActivityState()
         super.onPause()
+    }
+
+    override fun onDestroy() {
+        saveActivityState()
+        super.onDestroy()
     }
     
     fun startSearchAlarm(c: Calendar) {
@@ -205,7 +213,6 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         switch_auto_search.isEnabled = prefs.getBoolean("switch_state_enabled", false)
         btn_notification_confirm.isEnabled = prefs.getBoolean("confirmation_button_enabled", false)
         calendar.timeInMillis = prefs.getLong("calendar_time", c.timeInMillis)
-
         newsDesksHashMap = getMapFromPrefereces(prefs, NEWS_DESK_HASH_MAP)
     }
 
