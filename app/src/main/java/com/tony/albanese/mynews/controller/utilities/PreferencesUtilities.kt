@@ -24,10 +24,10 @@ fun loadArrayListFromSharedPreferences(preferences: SharedPreferences, key: Stri
     return list
 }
 
-fun saveMapToPreferences(prefs: SharedPreferences, map: HashMap<Int, String>) {
+fun mapToString(map: HashMap<Int, String>): String {
     val gson = Gson()
     val mapString = gson.toJson(map)
-    prefs.edit().putString(NEWS_DESK_HASH_MAP, mapString).apply()
+    return mapString
 }
 
 fun getMapFromPrefereces(prefs: SharedPreferences, key: String): HashMap<Int, String> {
