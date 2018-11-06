@@ -176,6 +176,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         val notificationActivityPreferences = getSharedPreferences(NOTIFICATION_PREFERENCES, Context.MODE_PRIVATE)
         with(notificationActivityPreferences.edit()) {
             putString("search_terms", searchEditText.text.toString())
+            putString("hash_map", mapToString(newsDesksHashMap))
             putBoolean("arts_box_checked", check_box_arts.isChecked)
             putBoolean("business_box_checked", check_box_business.isChecked)
             putBoolean("editorial_box_checked", check_box_editorial.isChecked)
@@ -183,7 +184,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             putBoolean("politics_box_checked", check_box_politics.isChecked)
             putBoolean("science_box_checked", check_box_science.isChecked)
             putBoolean("switch_state_checked", switch_auto_search.isChecked)
-            // putBoolean("switch_state_enabled", switch_auto_search.isEnabled)
+            putBoolean("switch_state_enabled", switch_auto_search.isEnabled)
             putBoolean("confirmation_button_enabled", btn_notification_confirm.isEnabled)
             putLong("calendar_time", calendar.timeInMillis)
             apply()
@@ -201,9 +202,11 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         check_box_science.isChecked = prefs.getBoolean("science_box_checked", false)
         check_box_editorial.isChecked = prefs.getBoolean("editorial_box_checked", false)
         switch_auto_search.isChecked = prefs.getBoolean("switch_state_checked", false)
-        //switch_auto_search.isEnabled = prefs.getBoolean("switch_state_enabled", false)
+        switch_auto_search.isEnabled = prefs.getBoolean("switch_state_enabled", false)
         btn_notification_confirm.isEnabled = prefs.getBoolean("confirmation_button_enabled", false)
         calendar.timeInMillis = prefs.getLong("calendar_time", c.timeInMillis)
+
+        newsDesksHashMap = getMapFromPrefereces(prefs, NEWS_DESK_HASH_MAP)
     }
 
     fun createIntentUrl(): String {
