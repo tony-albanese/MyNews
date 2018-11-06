@@ -55,7 +55,6 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             }
             finish()
         }
-        setConfirmationButtonClickable()
     }
 
     override fun onResume() {
