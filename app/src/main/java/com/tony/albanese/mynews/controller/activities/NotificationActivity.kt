@@ -55,8 +55,6 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
             }
             finish()
         }
-
-        restoreActivityState()
     }
 
     override fun onResume() {
