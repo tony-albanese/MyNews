@@ -9,6 +9,7 @@ val ARTICLE_PREFERENCES = "article_preferences"
 val URL_SHARED_PREFERENCES = "url_preferences"
 val NOTIFICATION_PREFERENCES = "notification_preferences"
 val NEW_ARTICLE_KEY = "new_article_key"
+val NEWS_DESK_HASH_MAP = "news_desk_hash_map"
 
 val TOP_STORIES = "top_stories"
 val MOST_POPULAR = "most_popular"
