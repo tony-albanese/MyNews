@@ -102,7 +102,7 @@ fun updateArrayList(oldList: ArrayList<Article>, newList: ArrayList<Article>): A
         to be added to the old list.
          */
         if (!oldArticleTitleList.contains(newArticle.mTitle))
-            oldList.add(newArticle)
+            oldList.add(0, newArticle)
     }
     return oldList
 }
