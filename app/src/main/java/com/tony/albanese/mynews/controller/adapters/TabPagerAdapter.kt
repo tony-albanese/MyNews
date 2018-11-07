@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.PagerAdapter
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.CustomSearchFragment
 import com.tony.albanese.mynews.controller.fragments.MostPopularFragment
@@ -36,5 +37,9 @@ class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : Frag
             else -> return "No title found."
 
         }
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return PagerAdapter.POSITION_NONE
     }
 }
