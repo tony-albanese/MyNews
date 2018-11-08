@@ -38,6 +38,7 @@ class CustomSearchFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
         swipeLayout = view.findViewById(R.id.swipe_refresh_layout) as SwipeRefreshLayout
+        swipeLayout.isEnabled = false
         return view
     }
 
@@ -49,20 +50,12 @@ class CustomSearchFragment : Fragment() {
         urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         articlePreferences = this.activity!!.getSharedPreferences(ARTICLE_PREFERENCES, Context.MODE_PRIVATE)
 
-        activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
-        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
-
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager as RecyclerView.LayoutManager?
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
 
-        swipeLayout.setOnRefreshListener {
-            startSearch()
-        }
-
-        initializeArticleArray()
     }
 
     override fun onResume() {
@@ -117,18 +110,21 @@ class CustomSearchFragment : Fragment() {
     }
 
     fun initializeArticleArray() {
+        activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
+        fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
         list = loadArrayListFromSharedPreferences(articlePreferences, CUSTOM_SEARCH)
         newArticleList = loadArrayListFromSharedPreferences(articlePreferences, NEW_ARTICLE_KEY)
         val tempList = updateArrayList(list, newArticleList)
         list = tempList
-        if (newArticleList.isNotEmpty() || fragmentSearchUrl.equals(activityCustomSearchUrl)) {
+
+        if (!fragmentSearchUrl.equals(activityCustomSearchUrl)) {
+            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl).apply()
+            startSearch()
+        } else {
             articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
             newArticleList.clear()
             saveArrayListToSharedPreferences(articlePreferences, NEW_ARTICLE_KEY, newArticleList)
             recyclerView.adapter = articleAdapter
-        } else {
-            urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl)
-            startSearch()
         }
     }
 }
