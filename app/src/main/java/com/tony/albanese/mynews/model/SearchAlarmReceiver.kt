@@ -57,7 +57,7 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                     val tempList = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
                     //list = tempList
                     if (tempList.isNotEmpty()) {
-                        val prefs = c.applicationContext.getSharedPreferences(ARTICLE_PREFERENCES, MODE_PRIVATE)
+                        val prefs = c.getSharedPreferences(ARTICLE_PREFERENCES, MODE_PRIVATE)
                         list = loadArrayListFromSharedPreferences(prefs, CUSTOM_SEARCH)
                         list = updateArrayList(list, tempList)
                         saveArrayListToSharedPreferences(prefs, CUSTOM_SEARCH, list)
