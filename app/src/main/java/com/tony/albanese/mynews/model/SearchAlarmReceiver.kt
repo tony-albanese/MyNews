@@ -17,7 +17,7 @@ import java.net.HttpURLConnection
 
 class SearchAlarmReceiver : BroadcastReceiver() {
 
-    var list = ArrayList<Article>()
+
 
     override fun onReceive(context: Context?, intent: Intent?) {
         val url = intent?.getStringExtra("notification_url")
@@ -58,9 +58,7 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                     //list = tempList
                     if (tempList.isNotEmpty()) {
                         val prefs = c.getSharedPreferences(ARTICLE_PREFERENCES, MODE_PRIVATE)
-                        list = loadArrayListFromSharedPreferences(prefs, CUSTOM_SEARCH)
-                        list = updateArrayList(list, tempList)
-                        saveArrayListToSharedPreferences(prefs, CUSTOM_SEARCH, list)
+                        saveArrayListToSharedPreferences(prefs, NEW_ARTICLE_KEY, tempList)
                         sendNotification(c!!)
                     }
                 }
