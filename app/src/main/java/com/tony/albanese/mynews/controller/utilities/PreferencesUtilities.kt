@@ -8,7 +8,7 @@ import com.tony.albanese.mynews.model.Article
 fun saveArrayListToSharedPreferences(preferences: SharedPreferences, key: String, array: ArrayList<Article>) {
     val gson = Gson()
     val stringedArrayList = gson.toJson(array)
-    preferences.edit().putString(key, stringedArrayList).apply()
+    preferences.edit().putString(key, stringedArrayList).commit()
 }
 
 fun loadArrayListFromSharedPreferences(preferences: SharedPreferences, key: String): ArrayList<Article> {
