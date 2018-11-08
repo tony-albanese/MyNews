@@ -7,16 +7,16 @@ import android.support.test.runner.AndroidJUnit4
 import com.google.gson.Gson
 import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
+import junit.framework.Assert.assertEquals
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
-import java.net.HttpURLConnection
 
 @RunWith(AndroidJUnit4::class)
 class SharedPreferenesTests {
     lateinit var preferences: SharedPreferences
-    lateinit var context: Context
+    val appContext = InstrumentationRegistry.getTargetContext()
+
 
     var list1 = ArrayList<Article>()
     var list2 = ArrayList<Article>()
@@ -27,30 +27,28 @@ class SharedPreferenesTests {
 
     @Before
     fun setup() {
-        val context = InstrumentationRegistry.getContext()
-        preferences = context.getSharedPreferences(ARTICLE_PREFERENCES, Context.MODE_PRIVATE)
+        preferences = appContext.getSharedPreferences(ARTICLE_PREFERENCES, Context.MODE_PRIVATE)
+        url1 = generateSearchUrl(appContext, TOP_STORIES_SEARCH)
+        url2 = generateSearchUrl(appContext, TOP_SCIENCE_SEARCH)
 
-        url1 = generateSearchUrl(context, MOST_POPULAR_SEARCH)
-        url2 = generateSearchUrl(context, TOP_SCIENCE_SEARCH)
-        val connection = connectToSite(stringToUrl(url1)!!)
-        val connection2 = connectToSite(stringToUrl(url2)!!)
-
-        list1 = getArticles(connection!!, MOST_POPULAR_SEARCH)
-        list2 = getArticles(connection2!!, TOP_SCIENCE_RESULTS)
 
     }
 
-    fun getArticles(connection: HttpURLConnection, resultType: Int): ArrayList<Article> {
-        var result = ""
-        var list = ArrayList<Article>()
-        doAsync {
-            result = readDataFromConnection(connection)
-            uiThread {
-                list = generateArticleArray(resultType, result)
-            }
-        }
-        return list
-    }
 
-    
+    @Test
+    fun checkArraySizeAreEqual() {
+        var connection = connectToSite(stringToUrl(url1)!!)
+        var result1 = readDataFromConnection(connection!!)
+
+        connection = connectToSite(stringToUrl(url2)!!)
+        var result2 = readDataFromConnection(connection!!)
+
+
+
+        list1 = generateArticleArray(TOP_STORIES_SEARCH, result1)
+        list2 = generateArticleArray(TOP_SCIENCE_RESULTS, result2)
+
+
+        assertEquals(list1.size, list2.size)
+    }
 }
