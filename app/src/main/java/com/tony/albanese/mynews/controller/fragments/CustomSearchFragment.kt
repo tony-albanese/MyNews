@@ -25,19 +25,19 @@ import java.net.HttpURLConnection
 
 class CustomSearchFragment : Fragment() {
     var list = ArrayList<Article>()
-    var tempList = ArrayList<Article>()
+    var newArticleList = ArrayList<Article>()
     lateinit var fragmentSearchUrl: String
     lateinit var activityCustomSearchUrl: String
     lateinit var articleAdapter: ArticleRecyclerAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var swipeLayout: SwipeRefreshLayout
-    lateinit var articlePreferences: SharedPreferences
     lateinit var urlPreferences: SharedPreferences
+    lateinit var articlePreferences: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_base_layout, container, false)
-        swipeLayout = view.findViewById(R.id.swipe_refresh_layout)
+        swipeLayout = view.findViewById(R.id.swipe_refresh_layout) as SwipeRefreshLayout
         return view
     }
 
@@ -47,13 +47,14 @@ class CustomSearchFragment : Fragment() {
         subjectTextView.text = getString(R.string.custom_search_title)
 
         urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
-        articlePreferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
+        articlePreferences = this.activity!!.getSharedPreferences(ARTICLE_PREFERENCES, Context.MODE_PRIVATE)
+
         activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
         fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
 
         recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = layoutManager as RecyclerView.LayoutManager?
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
 
@@ -64,10 +65,15 @@ class CustomSearchFragment : Fragment() {
         initializeArticleArray()
     }
 
+    override fun onResume() {
+        initializeArticleArray()
+        super.onResume()
+    }
     override fun onPause() {
         saveArrayListToSharedPreferences(articlePreferences, CUSTOM_SEARCH, list) //Save list to SharedPreferences
         super.onPause()
     }
+
 
     fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
@@ -112,12 +118,17 @@ class CustomSearchFragment : Fragment() {
 
     fun initializeArticleArray() {
         list = loadArrayListFromSharedPreferences(articlePreferences, CUSTOM_SEARCH)
-        if (list.isEmpty() || list.size == 0 || !fragmentSearchUrl.equals(activityCustomSearchUrl)) {
+        newArticleList = loadArrayListFromSharedPreferences(articlePreferences, NEW_ARTICLE_KEY)
+        val tempList = updateArrayList(list, newArticleList)
+        list = tempList
+        if (newArticleList.isNotEmpty() || fragmentSearchUrl.equals(activityCustomSearchUrl)) {
+            articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+            newArticleList.clear()
+            saveArrayListToSharedPreferences(articlePreferences, NEW_ARTICLE_KEY, newArticleList)
+            recyclerView.adapter = articleAdapter
+        } else {
             urlPreferences.edit().putString(FRAGMENT_CUSTOM_SEARCH_URL, activityCustomSearchUrl)
             startSearch()
-        } else {
-            articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
-            recyclerView.adapter = articleAdapter
         }
     }
 }
