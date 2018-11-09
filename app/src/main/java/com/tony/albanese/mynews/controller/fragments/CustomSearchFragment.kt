@@ -1,5 +1,6 @@
 package com.tony.albanese.mynews.controller.fragments
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -73,6 +74,7 @@ class CustomSearchFragment : Fragment() {
             val result = readDataFromConnection(connection!!)
             uiThread {
                 list = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
+                if (list.isEmpty()) createNoArticleAlertDialog()
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
                 swipeLayout.isRefreshing = false
@@ -128,5 +130,17 @@ class CustomSearchFragment : Fragment() {
             saveArrayListToSharedPreferences(articlePreferences, NEW_ARTICLE_KEY, newArticleList)
             recyclerView.adapter = articleAdapter
         }
+    }
+
+    fun createNoArticleAlertDialog() {
+        val alertDialog = AlertDialog.Builder(activity).create()
+        with(alertDialog) {
+            setTitle(activity?.getString(R.string.dialog_title))
+            setMessage(activity?.getString(R.string.dialog_message))
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK") { dialog, which ->
+                alertDialog.dismiss()
+            }
+        }
+        alertDialog.show()
     }
 }
