@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/text_view_article_title"
+        style="@style/article_title_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -28,16 +29,19 @@
 
     <TextView
         android:id="@+id/text_view_article_date"
+        style="@style/article_date_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/text_view_article_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="09/11/2000" />
 
     <TextView
         android:id="@+id/text_view_article_category"
+        style="@style/article_category_style"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -66,5 +70,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="93dp" />
+        app:layout_constraintGuide_begin="120dp" />
 </android.support.constraint.ConstraintLayout>
