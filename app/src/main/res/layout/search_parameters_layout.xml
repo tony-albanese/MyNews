@@ -6,31 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/text_view_search_terms"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Enter some search terms (required)"
-        android:inputType="text"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Search Terms" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/text_view_search_terms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="Enter some search terms (required)"
+            android:inputType="text"
+            tools:text="Search Terms" />
+    </android.support.design.widget.TextInputLayout>
+
 
     <CheckBox
         android:id="@+id/check_box_arts"
         android:layout_width="0dp"
         android:layout_height="32dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Arts"
         android:onClick="checkboxOnClickListener"
+        android:text="Arts"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/tv_start_date"
         app:layout_constraintTop_toBottomOf="@+id/tv_start_date" />
 
@@ -102,7 +112,7 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <Button
+    <android.support.design.button.MaterialButton
         android:id="@+id/btn_search"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -133,8 +143,9 @@
         android:onClick="createDatePicker"
         android:text="Start Date"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_search_terms"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
         tools:drawableEnd="@drawable/ic_action_date"
         tools:text="Start Date" />
 
@@ -176,7 +187,7 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/btn_search" />
 
-    <Button
+    <android.support.design.button.MaterialButton
         android:id="@+id/btn_notification_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
