@@ -75,12 +75,13 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     }
     
     fun startSearchAlarm(c: Calendar) {
+        val currentCalendar = Calendar.getInstance()
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, SearchAlarmReceiver::class.java)
         intent.putExtra("notification_url", createIntentUrl())
+        if (c.before(currentCalendar)) c.timeInMillis += 24 * 60 * 60 * 1000
         val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.timeInMillis, pendingIntent)
-        //TODO: Change this to setReapeating.
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
     }
 
     fun cancelSearchAlarm() {
