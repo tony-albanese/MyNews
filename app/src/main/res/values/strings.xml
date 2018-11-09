@@ -25,4 +25,7 @@
     <string name="btn_confirm">Save Changes</string>
     <string name="string_empty_view">Something went wrong.</string>
     <string name="empty_view_message">No articles to display.</string>
+
+    <string name="dialog_title">Woops!</string>
+    <string name="dialog_message">No articles were found.</string>
 </resources>
