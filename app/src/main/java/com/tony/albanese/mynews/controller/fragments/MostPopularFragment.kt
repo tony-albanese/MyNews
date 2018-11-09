@@ -2,7 +2,6 @@ package com.tony.albanese.mynews.controller.fragments
 
 import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -13,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.tony.albanese.mynews.R
+import com.tony.albanese.mynews.controller.activities.WebViewActivity
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
@@ -78,7 +78,9 @@ class MostPopularFragment : Fragment() {
     fun onArticleClicked(view: View, article: Article) {
         view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.mUrl))
+        val intent = Intent(context, WebViewActivity::class.java).apply {
+            putExtra(URL_EXTRA, article.mUrl)
+        }
         startActivity(intent)
     }
 

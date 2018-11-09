@@ -79,7 +79,6 @@ class TopStoriesFragment : Fragment() {
     fun onArticleClicked(view: View, article: Article) {
         view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
-        //val intent = Intent(Intent.ACTION_VIEW, Uri.parse(article.mUrl))
         val intent = Intent(context, WebViewActivity::class.java).apply {
             putExtra(URL_EXTRA, article.mUrl)
         }
