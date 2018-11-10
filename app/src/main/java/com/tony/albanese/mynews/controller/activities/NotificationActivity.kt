@@ -114,7 +114,6 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
 
     //Set the checkboxClickListener to add a news desk to the hashmap when the user clicks
     //and remove it when it is unchecked.
-    //TODO: Move Strings to string resources.
     fun checkboxOnClickListener(view: View) {
         when (view.id) {
             R.id.check_box_arts -> {
