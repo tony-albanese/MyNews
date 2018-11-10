@@ -61,7 +61,7 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
         return stringBuilder.toString()
     } catch (e: Exception) {
         Log.e("readDataFromConnection", e.toString())
-        return "Error connecting."
+        return ERROR
     }
 
 }
