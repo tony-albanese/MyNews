@@ -46,29 +46,27 @@ class CustomSearchFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         val subjectTextView = text_view_subject
+        val layoutManager = LinearLayoutManager(context)
         subjectTextView.text = getString(R.string.custom_search_title)
 
         urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         articlePreferences = this.activity!!.getSharedPreferences(ARTICLE_PREFERENCES, Context.MODE_PRIVATE)
-
         recyclerView = fragment_recycler_view
-        val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager as RecyclerView.LayoutManager?
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
-
     }
 
     override fun onResume() {
         initializeArticleArray()
         super.onResume()
     }
+
     override fun onPause() {
-        saveArrayListToSharedPreferences(articlePreferences, CUSTOM_SEARCH, list) //Save list to SharedPreferences
+        saveArrayListToSharedPreferences(articlePreferences, CUSTOM_SEARCH_KEY, list) //Save list to SharedPreferences
         super.onPause()
     }
-
-
+    
     fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
             val result = readDataFromConnection(connection!!)
@@ -86,7 +84,7 @@ class CustomSearchFragment : Fragment() {
         view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
         val intent = Intent(context, WebViewActivity::class.java).apply {
-            putExtra(URL_EXTRA, article.mUrl)
+            putExtra(URL_EXTRA_KEY, article.mUrl)
         }
         startActivity(intent)
     }
@@ -116,7 +114,7 @@ class CustomSearchFragment : Fragment() {
     fun initializeArticleArray() {
         activityCustomSearchUrl = getUrlFromSharedPreferences(ACTIVITY_CUSTOM_SEARCH_URL)
         fragmentSearchUrl = getUrlFromSharedPreferences(FRAGMENT_CUSTOM_SEARCH_URL)
-        list = loadArrayListFromSharedPreferences(articlePreferences, CUSTOM_SEARCH)
+        list = loadArrayListFromSharedPreferences(articlePreferences, CUSTOM_SEARCH_KEY)
         newArticleList = loadArrayListFromSharedPreferences(articlePreferences, NEW_ARTICLE_KEY)
         val tempList = updateArrayList(list, newArticleList)
         list = tempList

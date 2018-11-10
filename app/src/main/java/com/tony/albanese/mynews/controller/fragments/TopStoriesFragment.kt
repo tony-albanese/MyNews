@@ -40,33 +40,36 @@ class TopStoriesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerView = fragment_recycler_view
+
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
+        recyclerView = fragment_recycler_view
         topStoriesUrl = generateSearchUrl(context!!, TOP_STORIES_SEARCH)
+
         subjectView.text = "Top Stories"
         recyclerView.layoutManager = layoutManager
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
+
         initializeArticleArray()
 
         swipeLayout.setOnRefreshListener {
             startSearch()
         }
-
     }
 
     override fun onPause() {
-        saveArrayListToSharedPreferences(preferences, TOP_STORIES, list) //Save list to SharedPreferences
+        saveArrayListToSharedPreferences(preferences, TOP_STORIES_KEY, list) //Save list to SharedPreferences
         super.onPause()
     }
 
+    //This function gets the article in an async task managed by the Anko library.
     fun fetchArticles(connection: HttpURLConnection?) {
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-                tempList = generateArticleArray(TOP_STORIES_SEARCH, result)
+                tempList = generateArticleArray(TOP_STORIES_RESULTS, result)
                 list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 swipeLayout.isRefreshing = false
@@ -80,7 +83,7 @@ class TopStoriesFragment : Fragment() {
         view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
         val intent = Intent(context, WebViewActivity::class.java).apply {
-            putExtra(URL_EXTRA, article.mUrl)
+            putExtra(URL_EXTRA_KEY, article.mUrl)
         }
         startActivity(intent)
     }
@@ -90,9 +93,8 @@ class TopStoriesFragment : Fragment() {
     the ArrayList is empty or has no elements, then initialize the search. Otherwise,
     the empty list is passed to the adapter.
      */
-
     fun initializeArticleArray() {
-        list = loadArrayListFromSharedPreferences(preferences, TOP_STORIES)
+        list = loadArrayListFromSharedPreferences(preferences, TOP_STORIES_KEY)
         if (list.isEmpty() || list.size == 0) {
             startSearch()
         } else {
@@ -113,9 +115,6 @@ class TopStoriesFragment : Fragment() {
             swipeLayout.isRefreshing = false
             val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
             toast.show()
-
         }
     }
 }
-
-

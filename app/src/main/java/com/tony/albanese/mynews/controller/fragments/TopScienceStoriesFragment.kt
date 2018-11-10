@@ -40,10 +40,12 @@ class TopScienceStoriesFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerView = fragment_recycler_view
+
         val layoutManager = LinearLayoutManager(context)
-        recyclerView.layoutManager = layoutManager
         val subjectView = text_view_subject
+
+        recyclerView.layoutManager = layoutManager
+        recyclerView = fragment_recycler_view
         subjectView.text = "Top Science Stories"
         scienceUrl = generateSearchUrl(context!!, TOP_SCIENCE_SEARCH)
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
@@ -58,7 +60,7 @@ class TopScienceStoriesFragment : Fragment() {
     }
 
     override fun onPause() {
-        saveArrayListToSharedPreferences(preferences, TOP_SCIENCE, list) //Save list to SharedPreferences
+        saveArrayListToSharedPreferences(preferences, TOP_SCIENCE_KEY, list) //Save list to SharedPreferences
         super.onPause()
     }
 
@@ -82,13 +84,13 @@ class TopScienceStoriesFragment : Fragment() {
         view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
         val intent = Intent(context, WebViewActivity::class.java).apply {
-            putExtra(URL_EXTRA, article.mUrl)
+            putExtra(URL_EXTRA_KEY, article.mUrl)
         }
         startActivity(intent)
     }
 
     fun initializeArticleArray() {
-        list = loadArrayListFromSharedPreferences(preferences, TOP_SCIENCE)
+        list = loadArrayListFromSharedPreferences(preferences, TOP_SCIENCE_KEY)
         if (list.isEmpty() || list.size == 0) {
             startSearch()
         } else {

@@ -41,15 +41,17 @@ class MostPopularFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        recyclerView = fragment_recycler_view
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
+
+        recyclerView = fragment_recycler_view
         subjectView.text = "Most Read"
         mostPopularUrl = generateSearchUrl(context!!, MOST_POPULAR_SEARCH)
         recyclerView.layoutManager = layoutManager
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
+
         initializeArticleArray()
         swipeLayout.setOnRefreshListener {
             startSearch()
@@ -57,7 +59,7 @@ class MostPopularFragment : Fragment() {
     }
 
     override fun onPause() {
-        saveArrayListToSharedPreferences(preferences, MOST_POPULAR, list) //Save list to SharedPreferences
+        saveArrayListToSharedPreferences(preferences, MOST_POPULAR_KEY, list) //Save list to SharedPreferences
         super.onPause()
     }
 
@@ -65,7 +67,7 @@ class MostPopularFragment : Fragment() {
         doAsync {
             val result = readDataFromConnection(connection!!)
             uiThread {
-                tempList = generateArticleArray(MOST_POPULAR_SEARCH, result)
+                tempList = generateArticleArray(MOST_POPULAR_RESULTS, result)
                 list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
@@ -79,7 +81,7 @@ class MostPopularFragment : Fragment() {
         view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true
         val intent = Intent(context, WebViewActivity::class.java).apply {
-            putExtra(URL_EXTRA, article.mUrl)
+            putExtra(URL_EXTRA_KEY, article.mUrl)
         }
         startActivity(intent)
     }
@@ -91,7 +93,7 @@ the empty list is passed to the adapter.
  */
 
     fun initializeArticleArray() {
-        list = loadArrayListFromSharedPreferences(preferences, MOST_POPULAR)
+        list = loadArrayListFromSharedPreferences(preferences, MOST_POPULAR_KEY)
         if (list.isEmpty() || list.size == 0) {
             startSearch()
         } else {
@@ -112,7 +114,6 @@ the empty list is passed to the adapter.
             swipeLayout.isRefreshing = false
             val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
             toast.show()
-
         }
     }
 }

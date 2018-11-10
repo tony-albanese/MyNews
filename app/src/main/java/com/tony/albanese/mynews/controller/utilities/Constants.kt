@@ -2,7 +2,7 @@ package com.tony.albanese.mynews.controller.utilities
 
 val ACTIVITY_CUSTOM_SEARCH_URL = "activity_custom_search_url"
 val FRAGMENT_CUSTOM_SEARCH_URL = "fragment_saved_custom_search_url"
-val URL_EXTRA = "URL"
+val URL_EXTRA_KEY = "URL_KEY"
 val TAB = "TAB"
 val ERROR = "ERROR"
 
@@ -12,10 +12,10 @@ val NOTIFICATION_PREFERENCES = "notfication_preferences"
 val NEW_ARTICLE_KEY = "new_article_key"
 val NEWS_DESK_HASH_MAP = "news_desk_hash_map"
 
-val TOP_STORIES_KEY = "top_stories"
-val MOST_POPULAR = "most_popular"
-val TOP_SCIENCE = "top_science"
-val CUSTOM_SEARCH = "custom_search"
+val TOP_STORIES_KEY = "top_stories_key"
+val MOST_POPULAR_KEY = "most_popular_key"
+val TOP_SCIENCE_KEY = "top_science_key"
+val CUSTOM_SEARCH_KEY = "custom_search_key"
 
 val MOST_POPULAR_SEARCH = 1
 val TOP_STORIES_SEARCH = 2
@@ -23,7 +23,9 @@ val TOP_SCIENCE_SEARCH = 3
 val CUSTOM_SEARCH_SEARCH = 4
 
 val TOP_SCIENCE_RESULTS = 1
+val MOST_POPULAR_RESULTS = 1
 val CUSTOM_SEARCH_RESULTS = 3
+val TOP_STORIES_RESULTS = 2
 
 val CUSTOM_SEARCH_TAB = 3
 
