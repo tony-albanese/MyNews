@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createNotificationChannel()
+        createNotificationChannel() 
         setContentView(R.layout.activity_main)
 
         pagerAdapter = TabPagerAdapter(supportFragmentManager, applicationContext) //Initialize
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         pager.adapter = pagerAdapter //Set the adapter.
         tabLayout.setupWithViewPager(pager) //Attach the pager to the tab layout.
 
-        setTab()
+        setTab() //Set the tab for display.
 
     }
 
@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    //Set what happens when the user taps a menu item.
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
         when (item?.itemId) {
             R.id.menu_item_search -> {
                 val intent = Intent(this, CustomSearchActivity::class.java)
@@ -64,11 +64,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //Opens the tab passed with the intent.
     fun setTab() {
         val selectedTab = getIntent().getIntExtra("TAB", 0)
         pager.setCurrentItem(selectedTab)
     }
 
+    //This is implemented to make sure the user is taken to the first tab if they press the back button.
     override fun onBackPressed() {
         if (pager.currentItem == CUSTOM_SEARCH_FRAGMENT) {
             pager.setCurrentItem(TOP_STORIES_FRAGMENT, true)
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //This will be called when the Activity is started to ensure a channe is set for Android 8
+    //This will be called when the Activity is started to ensure a channel is set for Android 8
     fun createNotificationChannel() {
         val notfificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
