@@ -33,7 +33,6 @@ fun stringToUrl(urlString: String): URL? {
 
 //Accepts a URL and returns an HttpURLConnection.
 fun connectToSite(url: URL): HttpURLConnection? {
-    //val testConnection: HttpURLConnection
     try {
         val testConnection = url.openConnection() as HttpURLConnection
         return testConnection
@@ -67,6 +66,7 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
 
 }
 
+//This function checks if a network connection is available and returns a boolean.
 fun networkIsAvailable(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     var activeNetworkInformation: NetworkInfo? = null

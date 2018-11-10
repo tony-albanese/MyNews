@@ -24,4 +24,6 @@ class DateUnitTests {
         val formattedDate = formatArticleDate(COMPLEX_TEST_DATE_STRING)
         assertEquals("14/08/2018", formattedDate)
     }
+
+
 }

@@ -56,4 +56,5 @@ class ArticleArrayCreationTests {
         assertEquals(10, list.size)
     }
 
+    //TODO: Test array generation if there is no response.
 }
