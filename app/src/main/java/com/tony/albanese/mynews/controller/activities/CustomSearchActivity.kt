@@ -43,6 +43,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
 
         setupTextChangeListener()
 
+        //Set the listener for the button.
         btn_search.setOnClickListener { view ->
             if (networkIsAvailable(this)) {
                 launchSearchActivity()
@@ -53,6 +54,8 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         }
     }
 
+    //Function that generates the search paramaters and the search url and saves it to shared preferences
+    //Before the activity is launched.
     fun launchSearchActivity() {
         var searchTerms = searchEditText.text.toString()
         var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
@@ -65,6 +68,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         launchActivity()
     }
 
+    //Launches the MainActivity and puts the custom search tab number in the intent.
     fun launchActivity() {
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(TAB, CUSTOM_SEARCH_TAB)
@@ -72,12 +76,14 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         finish()
     }
 
+    //Creates the DatePicker dialog.
     fun createDatePicker(view: View) {
         selectedTextViewId = view.id
         val newFragment = DatePickerFragment()
         newFragment.show(supportFragmentManager, "datePicker")
     }
 
+    //Function that sets the date for the search terms when the user clicks on the text boxes.
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         calendar.set(year, month, dayOfMonth)
         val date: Date = calendar.time
@@ -95,6 +101,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         }
     }
 
+    //Set up the checkbox on click listener that adds news desks to the hashmap
     fun checkboxOnClickListener(view: View) {
         when (view.id) {
             R.id.check_box_arts -> {
@@ -148,6 +155,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         setSearchButtonClickable()
     }
 
+    //Set up the text change listener.
     fun setupTextChangeListener() {
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -164,6 +172,7 @@ class CustomSearchActivity : AppCompatActivity(), DatePickerDialog.OnDateSetList
         })
     }
 
+    //Set the clickability of the search button.
     fun setSearchButtonClickable() {
         if (searchEditText.text.isNotEmpty() && searchEditText.text.isNotBlank() && newsDesksHashMap.isNotEmpty()) {
             btn_search.isEnabled = true

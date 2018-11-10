@@ -22,6 +22,7 @@ class WebViewActivity : AppCompatActivity() {
         val intent = getIntent()
         if (intent != null && networkIsAvailable(this)) {
             val url = intent.extras.getString(URL_EXTRA)
+            //Set the visibility there is something wrong with the url.
             if (!url.isNullOrEmpty() && !url.isNullOrBlank()) {
                 article_web_view.loadUrl(url)
                 webView.visibility = View.VISIBLE

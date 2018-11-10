@@ -34,6 +34,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         calendar = Calendar.getInstance()
         searchEditText = findViewById(R.id.text_view_search_terms)
 
+        //Set the visibility for the components on this Activity.
         btn_search.visibility = View.GONE
         tv_start_date.visibility = View.INVISIBLE
         tv_end_date.visibility = View.INVISIBLE
@@ -42,11 +43,14 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         btn_notification_confirm.visibility = View.VISIBLE
 
         setupTextChangeListener()
+
+        //Set the click listener for the textview.
         tv_notification.setOnClickListener {
             val timePicker = TimePickerFragment()
             timePicker.show(supportFragmentManager, "time picker")
         }
 
+        //Set the click listener for the button. The activity is destroyed when the button is pressed.
         btn_notification_confirm.setOnClickListener {
             if (switch_auto_search.isChecked) {
                 startSearchAlarm(calendar)
@@ -57,6 +61,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         }
     }
 
+    //Restore the state when the activity is resumed.
     override fun onResume() {
         restoreActivityState()
         setupTextChangeListener()
@@ -64,11 +69,13 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         super.onResume()
     }
 
+    //Save on pause.
     override fun onPause() {
         saveActivityState()
         super.onPause()
     }
 
+    //Save the state
     override fun onDestroy() {
         saveActivityState()
         super.onDestroy()
@@ -91,6 +98,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         alarmManager.cancel(pendingIntent)
     }
 
+    //Callback for when the user sets a time for notifictions.
     override fun onTimeSet(view: TimePicker?, hourOfDay: Int, minute: Int) {
         val toast = Toast.makeText(this, "Time Set", Toast.LENGTH_SHORT)
         toast.show()
@@ -104,6 +112,9 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         }
     }
 
+    //Set the checkboxClickListener to add a news desk to the hashmap when the user clicks
+    //and remove it when it is unchecked.
+    //TODO: Move Strings to string resources.
     fun checkboxOnClickListener(view: View) {
         when (view.id) {
             R.id.check_box_arts -> {
@@ -157,6 +168,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         setConfirmationButtonClickable()
     }
 
+    //This function is run when the user changes the text in the search box.
     fun setupTextChangeListener() {
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -171,6 +183,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         })
     }
 
+    //This function checks the conditions that allow the save button to be clickable.
     fun setConfirmationButtonClickable() {
         if (searchEditText.text.isNotEmpty() && searchEditText.text.isNotBlank() && newsDesksHashMap.isNotEmpty()) {
             btn_notification_confirm.isEnabled = true
@@ -180,6 +193,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         }
     }
 
+    //This function saves the state of the Activity.
     fun saveActivityState() {
         val notificationActivityPreferences = getSharedPreferences(NOTIFICATION_PREFERENCES, Context.MODE_PRIVATE)
         with(notificationActivityPreferences.edit()) {
@@ -199,6 +213,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         }
     }
 
+    //This function restores the state of the Activity.
     fun restoreActivityState() {
         val prefs = getSharedPreferences(NOTIFICATION_PREFERENCES, Context.MODE_PRIVATE)
         val c = Calendar.getInstance()
@@ -217,6 +232,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         newsDesksHashMap = getMapFromPrefereces(prefs, NEWS_DESK_HASH_MAP)
     }
 
+    //This function creates the url for the Intent that will run when the user presses the save button.
     fun createIntentUrl(): String {
         var searchTerms = searchEditText.text.toString()
         var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
