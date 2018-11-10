@@ -34,7 +34,7 @@ class SearchAlarmReceiver : BroadcastReceiver() {
         val notificationPendingIntent = PendingIntent.getActivity(context, SEARCH_ALARM_CODE, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val builder = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
         builder.setSmallIcon(R.drawable.ic_stat_new_article)
-                .setContentTitle("My News App Messahr")
+                .setContentTitle("MyNews App Messanger")
                 .setContentText("You have new articles.")
                 .setContentIntent(notificationPendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
