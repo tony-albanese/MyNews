@@ -62,4 +62,9 @@ class ArticleFragment : Fragment() {
         }
         startActivity(intent)
     }
+
+    fun newInsance(): ArticleFragment {
+
+        return ArticleFragment()
+    }
 }
