@@ -44,8 +44,9 @@ class TopScienceStoriesFragment : Fragment() {
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
 
-        recyclerView.layoutManager = layoutManager
         recyclerView = fragment_recycler_view
+        recyclerView.layoutManager = layoutManager
+
         subjectView.text = "Top Science Stories"
         scienceUrl = generateSearchUrl(context!!, TOP_SCIENCE_SEARCH)
         preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
