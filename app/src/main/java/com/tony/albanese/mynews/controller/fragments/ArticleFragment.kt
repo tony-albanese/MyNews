@@ -63,8 +63,19 @@ class ArticleFragment : Fragment() {
         startActivity(intent)
     }
 
-    fun newInsance(): ArticleFragment {
+    //This function will set the parameters for a new fragment.
+    fun newInstance(searchType: Int, resultType: Int, articlePreferencesKey: String): ArticleFragment {
+        val bundle = Bundle()
+        bundle.putInt("search_type", searchType)
+        bundle.putInt("result_type", resultType)
+        bundle.putString("pref_key", articlePreferencesKey)
 
-        return ArticleFragment()
+        val fragment = ArticleFragment()
+        fragment.setArguments(bundle)
+        return fragment
+    }
+
+    fun getParametersFromBundle(bundle: Bundle) {
+        
     }
 }
