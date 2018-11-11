@@ -76,6 +76,7 @@ class CustomSearchFragment : Fragment() {
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 recyclerView.adapter = articleAdapter
                 swipeLayout.isRefreshing = false
+                setVisibilityEmptyView()
             }
         }
     }
@@ -128,6 +129,7 @@ class CustomSearchFragment : Fragment() {
             saveArrayListToSharedPreferences(articlePreferences, NEW_ARTICLE_KEY, newArticleList)
             recyclerView.adapter = articleAdapter
         }
+        setVisibilityEmptyView()
     }
 
     fun createNoArticleAlertDialog() {
@@ -140,5 +142,16 @@ class CustomSearchFragment : Fragment() {
             }
         }
         alertDialog.show()
+    }
+
+    //Function to check for empty list and set the visibility of the empty view.
+    fun setVisibilityEmptyView() {
+        if (list.isEmpty()) {
+            tv_fragment_empty_view.visibility = View.VISIBLE
+            fragment_recycler_view.visibility = View.GONE
+        } else {
+            tv_fragment_empty_view.visibility = View.GONE
+            fragment_recycler_view.visibility = View.VISIBLE
+        }
     }
 }
