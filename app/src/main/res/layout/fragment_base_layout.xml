@@ -18,7 +18,13 @@
         android:id="@+id/tv_fragment_empty_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_stat_error"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:paddingLeft="5dp"
         android:text="@string/empty_view_message"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="22sp"
         android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
