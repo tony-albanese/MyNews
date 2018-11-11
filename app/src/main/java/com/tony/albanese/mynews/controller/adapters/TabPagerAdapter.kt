@@ -6,10 +6,10 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.PagerAdapter
 import com.tony.albanese.mynews.R
-import com.tony.albanese.mynews.controller.fragments.CustomSearchFragment
-import com.tony.albanese.mynews.controller.fragments.MostPopularFragment
-import com.tony.albanese.mynews.controller.fragments.TopScienceStoriesFragment
-import com.tony.albanese.mynews.controller.fragments.TopStoriesFragment
+import com.tony.albanese.mynews.controller.fragments.*
+import com.tony.albanese.mynews.controller.utilities.TOP_STORIES_KEY
+import com.tony.albanese.mynews.controller.utilities.TOP_STORIES_RESULTS
+import com.tony.albanese.mynews.controller.utilities.TOP_STORIES_SEARCH
 
 class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : FragmentPagerAdapter(fragmentManager) {
 
@@ -20,7 +20,8 @@ class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : Frag
 
     override fun getItem(postion: Int): Fragment {
         when (postion) {
-            0 -> return TopStoriesFragment()
+            0 -> return ArticleFragment().newInstance(TOP_STORIES_SEARCH, TOP_STORIES_RESULTS, TOP_STORIES_KEY)
+            // 0 -> return TopStoriesFragment()
             1 -> return MostPopularFragment()
             2 -> return TopScienceStoriesFragment()
             3 -> return CustomSearchFragment()
