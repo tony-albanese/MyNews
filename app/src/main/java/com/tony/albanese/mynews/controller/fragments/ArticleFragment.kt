@@ -27,14 +27,16 @@ This class will serve as the basis for the other article fragments in order to r
 class ArticleFragment : Fragment() {
     lateinit var swipeLayout: SwipeRefreshLayout
     lateinit var recyclerView: RecyclerView
-    lateinit var preferences: SharedPreferences
+    lateinit var articlePreferences: SharedPreferences
     lateinit var articleAdapter: ArticleRecyclerAdapter
 
     lateinit var url: String
     lateinit var articlesType: String
+    lateinit var prefArticleKey: String
 
     var searchType = 0
     var resultType = 0
+
 
 
     var list = ArrayList<Article>()
@@ -85,12 +87,12 @@ class ArticleFragment : Fragment() {
     }
 
     fun setValuesFromBundle(bundle: Bundle) {
-        val searchType = bundle.getInt("search_type")
-        val resultType = bundle.getInt("result_type")
-        val prefKey = bundle.getString("pref_key")
+        searchType = bundle.getInt("search_type")
+        resultType = bundle.getInt("result_type")
+        prefArticleKey = bundle.getString("pref_key")
 
         url = generateSearchUrl(context!!, searchType)
-        preferences = activity!!.getSharedPreferences(prefKey, Context.MODE_PRIVATE)
+        articlePreferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, Context.MODE_PRIVATE)
 
         when (searchType) {
             TOP_STORIES_SEARCH -> articlesType = "Top Stories"
@@ -100,4 +102,16 @@ class ArticleFragment : Fragment() {
             else -> articlesType = "Articles"
         }
     }
+
+    fun initializeArticleArray() {
+        list = loadArrayListFromSharedPreferences(articlePreferences, prefArticleKey)
+        if (list.isEmpty() || list.size == 0) {
+            startSearch()
+        } else {
+            articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+            recyclerView.adapter = articleAdapter
+        }
+    }
+
+    
 }
