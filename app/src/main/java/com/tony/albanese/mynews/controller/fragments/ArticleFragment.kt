@@ -41,8 +41,6 @@ class ArticleFragment : Fragment() {
     var searchType = 0
     var resultType = 0
 
-
-
     var list = ArrayList<Article>()
     var tempList = ArrayList<Article>()
 
@@ -113,6 +111,7 @@ class ArticleFragment : Fragment() {
         }
     }
 
+    //Function loads the article array from shared preferences and searches for articles if the list is empty.
     fun initializeArticleArray() {
         list = loadArrayListFromSharedPreferences(articlePreferences, prefArticleKey)
         if (list.isEmpty() || list.size == 0) {
@@ -123,11 +122,18 @@ class ArticleFragment : Fragment() {
         }
     }
 
+    //Save the ArrayList to shared preferences if the user navigates away.
     override fun onPause() {
         saveArrayListToSharedPreferences(articlePreferences, prefArticleKey, list) //Save list to SharedPreferences
         super.onPause()
     }
 
+    override fun onResume() {
+        setVisibilityEmptyView()
+        super.onResume()
+    }
+
+    //Function for starting the search.
     fun startSearch() {
         var connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
@@ -149,11 +155,24 @@ class ArticleFragment : Fragment() {
             val result = readDataFromConnection(connection!!)
             uiThread {
                 tempList = generateArticleArray(resultType, result)
+                
                 list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 swipeLayout.isRefreshing = false
                 recyclerView.adapter = articleAdapter
+                setVisibilityEmptyView()
             }
+        }
+    }
+
+    //Function to check for empty list and set the visibility of the empty view.
+    fun setVisibilityEmptyView() {
+        if (list.isEmpty()) {
+            tv_fragment_empty_view.visibility = View.VISIBLE
+            fragment_recycler_view.visibility = View.GONE
+        } else {
+            tv_fragment_empty_view.visibility = View.GONE
+            fragment_recycler_view.visibility = View.VISIBLE
         }
     }
 }
