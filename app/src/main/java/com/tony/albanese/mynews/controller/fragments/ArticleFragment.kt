@@ -11,12 +11,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.activities.WebViewActivity
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
+import java.net.HttpURLConnection
 import java.util.*
 
 
@@ -61,7 +63,13 @@ class ArticleFragment : Fragment() {
         recyclerView.adapter = articleAdapter
         recyclerView.layoutManager = layoutManager
 
+        initializeArticleArray()
+
         subjectView.text = articlesType
+
+        swipeLayout.setOnRefreshListener {
+            startSearch()
+        }
     }
 
     //This function is calle when the user clicks an article.
@@ -110,6 +118,21 @@ class ArticleFragment : Fragment() {
         } else {
             articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
             recyclerView.adapter = articleAdapter
+        }
+    }
+
+    fun startSearch() {
+        var connection: HttpURLConnection?
+        //Check if the network is available. If it is, attempt the connection. If not, show a toast.
+        if (networkIsAvailable(context!!)) {
+            connection = connectToSite(stringToUrl(url)!!)
+            if (connection != null) {
+                fetchArticles(connection)
+            }
+        } else {
+            swipeLayout.isRefreshing = false
+            val toast = Toast.makeText(context!!, "Network Error", Toast.LENGTH_SHORT)
+            toast.show()
         }
     }
 
