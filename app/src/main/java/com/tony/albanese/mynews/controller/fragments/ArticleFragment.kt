@@ -18,6 +18,8 @@ import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
 import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import java.net.HttpURLConnection
 import java.util.*
 
@@ -121,6 +123,11 @@ class ArticleFragment : Fragment() {
         }
     }
 
+    override fun onPause() {
+        saveArrayListToSharedPreferences(articlePreferences, prefArticleKey, list) //Save list to SharedPreferences
+        super.onPause()
+    }
+
     fun startSearch() {
         var connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
@@ -136,5 +143,17 @@ class ArticleFragment : Fragment() {
         }
     }
 
-    
+    //This function gets the article in an async task managed by the Anko library.
+    fun fetchArticles(connection: HttpURLConnection?) {
+        doAsync {
+            val result = readDataFromConnection(connection!!)
+            uiThread {
+                tempList = generateArticleArray(resultType, result)
+                list = updateArrayList(list, tempList)
+                articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
+                swipeLayout.isRefreshing = false
+                recyclerView.adapter = articleAdapter
+            }
+        }
+    }
 }
