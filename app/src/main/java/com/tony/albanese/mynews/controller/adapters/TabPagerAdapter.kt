@@ -8,7 +8,6 @@ import android.support.v4.view.PagerAdapter
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.fragments.ArticleFragment
 import com.tony.albanese.mynews.controller.fragments.CustomSearchFragment
-import com.tony.albanese.mynews.controller.fragments.TopStoriesFragment
 import com.tony.albanese.mynews.controller.utilities.*
 
 class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : FragmentPagerAdapter(fragmentManager) {
@@ -24,7 +23,7 @@ class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : Frag
             1 -> return ArticleFragment().newInstance(MOST_POPULAR_SEARCH, MOST_POPULAR_RESULTS, MOST_POPULAR_KEY)
             2 -> return ArticleFragment().newInstance(TOP_SCIENCE_SEARCH, TOP_SCIENCE_RESULTS, TOP_SCIENCE_KEY)
             3 -> return CustomSearchFragment()
-            else -> return TopStoriesFragment()
+            else -> return ArticleFragment().newInstance(TOP_STORIES_SEARCH, TOP_STORIES_RESULTS, TOP_STORIES_KEY)
         }
     }
 
@@ -34,8 +33,7 @@ class TabPagerAdapter(fragmentManager: FragmentManager, context: Context) : Frag
             1 -> return mContext.getString(R.string.most_read_tab_title)
             2 -> return mContext.getString(R.string.science_tab_title)
             3 -> return mContext.getString(R.string.custom_search_title)
-            else -> return "Articles"
-
+            else -> return mContext.getString(R.string.default_title)
         }
     }
 
