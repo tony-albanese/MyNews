@@ -128,7 +128,7 @@ class ArticleFragment : Fragment() {
         saveArrayListToSharedPreferences(articlePreferences, prefArticleKey, list) //Save list to SharedPreferences
         super.onPause()
     }
-    
+
     //Function for starting the search.
     fun startSearch() {
         var connection: HttpURLConnection?
@@ -151,7 +151,6 @@ class ArticleFragment : Fragment() {
             val result = readDataFromConnection(connection!!)
             uiThread {
                 tempList = generateArticleArray(resultType, result)
-
                 list = updateArrayList(list, tempList)
                 articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
                 swipeLayout.isRefreshing = false
