@@ -12,6 +12,7 @@
     <string name="most_read_tab_title">Most Read</string>
     <string name="top_stories_tab_title">Top Stories</string>
     <string name="custom_search_title">Search Results</string>
+    <string name="default_title">Articles</string>
 
 
     <!--These strings are for the menu items. -->
