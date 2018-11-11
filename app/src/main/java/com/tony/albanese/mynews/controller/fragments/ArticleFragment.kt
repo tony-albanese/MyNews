@@ -1,5 +1,6 @@
 package com.tony.albanese.mynews.controller.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,8 +14,7 @@ import android.view.ViewGroup
 import com.tony.albanese.mynews.R
 import com.tony.albanese.mynews.controller.activities.WebViewActivity
 import com.tony.albanese.mynews.controller.adapters.ArticleRecyclerAdapter
-import com.tony.albanese.mynews.controller.utilities.ARTICLE_PREFERENCES
-import com.tony.albanese.mynews.controller.utilities.URL_EXTRA_KEY
+import com.tony.albanese.mynews.controller.utilities.*
 import com.tony.albanese.mynews.model.Article
 import kotlinx.android.synthetic.main.fragment_base_layout.*
 import java.util.*
@@ -30,6 +30,13 @@ class ArticleFragment : Fragment() {
     lateinit var preferences: SharedPreferences
     lateinit var articleAdapter: ArticleRecyclerAdapter
 
+    lateinit var url: String
+    lateinit var articlesType: String
+
+    var searchType = 0
+    var resultType = 0
+
+
     var list = ArrayList<Article>()
     var tempList = ArrayList<Article>()
 
@@ -41,16 +48,18 @@ class ArticleFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        arguments?.let { setValuesFromBundle(it) }
+
         val layoutManager = LinearLayoutManager(context)
         val subjectView = text_view_subject
+
         recyclerView = fragment_recycler_view
-        preferences = activity!!.getSharedPreferences(ARTICLE_PREFERENCES, 0)
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
         recyclerView.layoutManager = layoutManager
 
-        // topStoriesUrl = generateSearchUrl(context!!, TOP_STORIES_SEARCH)
-        // subjectView.text = "Top Stories"
+        subjectView.text = articlesType
     }
 
     //This function is calle when the user clicks an article.
@@ -75,7 +84,20 @@ class ArticleFragment : Fragment() {
         return fragment
     }
 
-    fun getParametersFromBundle(bundle: Bundle) {
-        
+    fun setValuesFromBundle(bundle: Bundle) {
+        val searchType = bundle.getInt("search_type")
+        val resultType = bundle.getInt("result_type")
+        val prefKey = bundle.getString("pref_key")
+
+        url = generateSearchUrl(context!!, searchType)
+        preferences = activity!!.getSharedPreferences(prefKey, Context.MODE_PRIVATE)
+
+        when (searchType) {
+            TOP_STORIES_SEARCH -> articlesType = "Top Stories"
+            TOP_SCIENCE_SEARCH -> articlesType = "Top Science Stories"
+            MOST_POPULAR_SEARCH -> articlesType = "Most Popular Stories"
+            CUSTOM_SEARCH_SEARCH -> articlesType = "Search Results"
+            else -> articlesType = "Articles"
+        }
     }
 }
