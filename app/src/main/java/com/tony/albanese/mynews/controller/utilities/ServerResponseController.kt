@@ -6,9 +6,10 @@ import com.tony.albanese.mynews.model.CustomSearchModel.CustomSearch
 import com.tony.albanese.mynews.model.MostPopularModel.MostPopular
 import com.tony.albanese.mynews.model.TopStoriesModel.TopStories
 
-
-//This is the function that populates an ArrayList of Articles after parsing the JSON response.
-//The model used depends on the type of result passed. (Not all JSON responses have the same structure.
+/**
+ * This function accepts a response string and creates article objects and places them in a ArrayList
+ * and then returns the ArrayList
+ */
 fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
     var list = ArrayList<Article>()
     val gson = Gson()
@@ -18,10 +19,8 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
     lateinit var url: String
     lateinit var imageUrl: String
 
-    //TODO: Make sure to include checks if arrays are empty before trying to fetch elements from them.
     when(resultType){
         1 -> {//Process MostPopular search results.
-
             val mostPopular = gson.fromJson(response, MostPopular::class.java)
             val resultsArray = mostPopular.results
             for (i in 0..(resultsArray.size - 1)) {
@@ -83,11 +82,12 @@ fun generateArticleArray(resultType: Int, response: String): ArrayList<Article>{
         }
         else -> return list
     }
-
-
 }
 
-//This function updates the ArrayList and adds new articles.
+/**
+ * Accepts two array lists and updates the oldList with articles in the newList after checking
+ * if the article exists in the old list (by title).
+ */
 fun updateArrayList(oldList: ArrayList<Article>, newList: ArrayList<Article>): ArrayList<Article> {
     //Load all of the titles in the old list into a list.
     var oldArticleTitleList = ArrayList<String>()
