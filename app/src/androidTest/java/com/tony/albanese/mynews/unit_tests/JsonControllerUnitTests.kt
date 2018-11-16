@@ -45,4 +45,16 @@ class JsonControllerUnitTests {
 
         Assert.assertEquals(testString, expectedString)
     }
+
+    @Test
+    fun getSearchParametersFromJsonWithInvalidKey() {
+        val termsString = "One Two Three"
+        val startDate = "10/10/10"
+        val endDate = "11/11/11"
+        val newsDesks = "Editorial Science Politics"
+        val jsonParameters = createSearchParametersJson(termsString, startDate, endDate, newsDesks)
+
+        val retrievedResult = getSearchParametersFromJson("invalid_key", jsonParameters)
+        Assert.assertNull(retrievedResult)
+    }
 }
