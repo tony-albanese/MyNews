@@ -85,7 +85,8 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         val currentCalendar = Calendar.getInstance()
         val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, SearchAlarmReceiver::class.java)
-        intent.putExtra("notification_url", createIntentUrl())
+        //intent.putExtra("notification_url", createIntentUrl())
+        setIntentExtras(intent)
         if (c.before(currentCalendar)) c.timeInMillis += 24 * 60 * 60 * 1000
         val pendingIntent = PendingIntent.getBroadcast(this, SEARCH_ALARM_CODE, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.timeInMillis, AlarmManager.INTERVAL_DAY, pendingIntent)
@@ -232,12 +233,11 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
     }
 
     //This function creates the url for the Intent that will run when the user presses the save button.
-    fun createIntentUrl(): String {
+    fun setIntentExtras(i: Intent) {
         var searchTerms = searchEditText.text.toString()
         var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
 
-        val jsonParameters = createSearchParametersJson(searchTerms, "", "", newsDesks)
-        url = generateSearchUrl(this, CUSTOM_SEARCH_SEARCH, jsonParameters)
-        return url
+        i.putExtra("search_terms", searchTerms)
+        i.putExtra("news_desks", newsDesks)
     }
 }
