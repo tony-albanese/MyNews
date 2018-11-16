@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 
-class DateUnitTests {
+class DateControllerIntegrationTest {
 
     val SIMPLE_TEST_DATE_STRING = "2018-08-10"
     val COMPLEX_TEST_DATE_STRING = "2018-08-14T05:30:12-04:00"
