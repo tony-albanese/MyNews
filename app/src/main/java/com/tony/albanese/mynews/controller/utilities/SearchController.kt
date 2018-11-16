@@ -5,7 +5,10 @@ import android.net.Uri
 import com.tony.albanese.mynews.R
 import org.json.JSONObject
 
-//Generates the search URL
+/**
+ * Function generates the search url depending on the searchType paramter. The parameters input is opotions
+ * because only a custom search needs them.
+ */
 fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSONObject()): String {
     val SCHEME = "https"
     val AUTHORITY = c.getString(R.string.AUTHORITY)
@@ -38,7 +41,6 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
             builder.appendEncodedPath(path)
             builder.appendQueryParameter("api-key", KEY)
 
-            //TODO: Implement safety checks to make sure values exist and for defaults.
             if (parameters != null) {
                 val startDate = getSearchParametersFromJson("start_date", parameters) ?: ""
                 val endDate = getSearchParametersFromJson("end_date", parameters) ?: ""
@@ -52,11 +54,10 @@ fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSON
                 if (endDate.isNotBlank() && endDate.isNotEmpty()) {
                     builder.appendQueryParameter("end_date", endDate)
                 }
-
                 return builder.toString()
-            } else return "No search parameters given."
+            } else return ERROR
         }
-        else -> return "Invalid search type."
+        else -> return ERROR
     }
 }
 
