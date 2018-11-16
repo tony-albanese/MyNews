@@ -61,7 +61,7 @@ class ServerResponseControllerUnitTests {
     }
 
     @Test
-    fun testTopStoriesArrayCreation() {
+    fun testTopStoriesArrayCreation() {//Test the article creation for top stories.
         val url = generateSearchUrl(appContext, 2)
         val connection = connectToSite(stringToUrl(url)!!)
         val response = readDataFromConnection(connection!!)
