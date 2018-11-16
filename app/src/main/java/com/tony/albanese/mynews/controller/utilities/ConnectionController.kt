@@ -25,7 +25,6 @@ fun stringToUrl(urlString: String): URL? {
     try {
         url = URL(urlString)
     } catch (e: MalformedURLException) {
-        Log.e("From stringToUrl()", "Malformed URL.")
         return null
     }
     return url
