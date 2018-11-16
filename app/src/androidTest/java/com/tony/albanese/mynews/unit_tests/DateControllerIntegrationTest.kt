@@ -12,6 +12,7 @@ class DateControllerIntegrationTest {
 
     val SIMPLE_TEST_DATE_STRING = "2018-08-10"
     val COMPLEX_TEST_DATE_STRING = "2018-08-14T05:30:12-04:00"
+    
     @Test
     fun simpleDateConversionTest() {
         val expectedDate = "10/08/2018"
@@ -24,6 +25,4 @@ class DateControllerIntegrationTest {
         val formattedDate = formatArticleDate(COMPLEX_TEST_DATE_STRING)
         assertEquals("14/08/2018", formattedDate)
     }
-
-
 }
