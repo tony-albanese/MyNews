@@ -1,6 +1,5 @@
 package com.tony.albanese.mynews.controller.utilities
 
-import android.util.Log
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -9,7 +8,6 @@ It will accept the search terms, dates, and news desk settings and packages them
 This JSON Object will get passed to the generate search URL.
  */
 
-//TODO: write test cases for this function by itself.
 fun createSearchParametersJson(terms: String, startDate: String = "", endDate: String = "", desks: String = ""): JSONObject {
     var json = JSONObject()
     try {
@@ -27,9 +25,8 @@ fun createSearchParametersJson(terms: String, startDate: String = "", endDate: S
 fun getSearchParametersFromJson(key: String, json: JSONObject): String? {
     try {
         return json.getString(key)
-
     } catch (e: JSONException) {
-        Log.e("getJsonValue()", "Error parsing JSON.")
+        e.printStackTrace()
     }
     return null
 }
