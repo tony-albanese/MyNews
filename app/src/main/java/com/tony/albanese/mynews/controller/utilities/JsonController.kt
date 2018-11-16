@@ -3,11 +3,9 @@ package com.tony.albanese.mynews.controller.utilities
 import org.json.JSONException
 import org.json.JSONObject
 
-/*This is one function that gets called when the user clicks the "Search" button.
-It will accept the search terms, dates, and news desk settings and packages them as a JSON Object.
-This JSON Object will get passed to the generate search URL.
+/**
+ * Creates JSON object from input search paramters.
  */
-
 fun createSearchParametersJson(terms: String, startDate: String = "", endDate: String = "", desks: String = ""): JSONObject {
     var json = JSONObject()
     try {
@@ -21,7 +19,9 @@ fun createSearchParametersJson(terms: String, startDate: String = "", endDate: S
     return json
 }
 
-//This function accepts a string key and a JSONObject and returns a string value corresponding to the key.
+/**
+ * Function accepts key and JSON object and returns the string that corresponds to that key. Returns null if the key is invalid.
+ */
 fun getSearchParametersFromJson(key: String, json: JSONObject): String? {
     try {
         return json.getString(key)
