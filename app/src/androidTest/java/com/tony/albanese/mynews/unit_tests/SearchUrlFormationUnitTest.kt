@@ -1,12 +1,8 @@
 package com.tony.albanese.mynews.unit_tests
-
-
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.tony.albanese.mynews.controller.utilities.createSearchParametersJson
 import com.tony.albanese.mynews.controller.utilities.generateSearchUrl
-import com.tony.albanese.mynews.controller.utilities.stringToUrl
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,34 +12,21 @@ import org.junit.runner.RunWith
 class SearchUrlFormationUnitTest {
     val appContext = InstrumentationRegistry.getTargetContext()
 
-    @Test //Test case: user enters a valid url string.
-    fun testValidUrl() {
-        val goodUrl = "http://www.google.de"
-        Assert.assertEquals(goodUrl, stringToUrl(goodUrl).toString())
-    }
-
-    @Test //Test case: user enters invalid url
-    fun badUrlTest() {
-        val badUrl = "htt www.foo" //A malformed url.
-        val result = stringToUrl(badUrl)
-        Assert.assertNull(result)
-    }
-
-    @Test //Test case: User selects TopStories search.
+    @Test //Test case: Generate top stories search url
     fun testTopStoriesUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 2)
         assertEquals(expectedUrl, url)
     }
 
-    @Test //Test case: User selects MostPopular search.
+    @Test //Test case: generate Most Popular search url
     fun testMostPopularUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/all-sections/1.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 1)
         assertEquals(expectedUrl, url)
     }
 
-    @Test //Test case: User selects Science stories search.
+    @Test //Test case: Generate science search url
     fun testScienceUrl() {
         val expectedUrl = "https://api.nytimes.com/svc/mostpopular/v2/mostviewed/Science/1.json?api-key=8768b5f889974203a05b462b8b7dc800"
         val url = generateSearchUrl(appContext, 3)
@@ -57,5 +40,4 @@ class SearchUrlFormationUnitTest {
         val expectedUrl = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=8768b5f889974203a05b462b8b7dc800&q=us%20trade%20deficit&fq=Business%20Foreign&begin_date=20161010&end_date=20171010"
         assertEquals(expectedUrl, url)
     }
-
 }
