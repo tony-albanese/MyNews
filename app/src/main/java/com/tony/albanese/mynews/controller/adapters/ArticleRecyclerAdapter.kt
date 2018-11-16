@@ -31,6 +31,7 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context, val
     override fun onBindViewHolder(viewHolder: ArticleViewHolder, i: Int) {
         //This where the date from the ArrayList gets bound to the individual views.
         var article = list[i]
+        viewHolder.itemView.setOnClickListener { clickListener(viewHolder.itemView, article) }
         with(viewHolder){
             if (article.mIsRead) {
                 itemView.setBackgroundColor(mContext.resources.getColor(R.color.colorIsRead))
@@ -41,7 +42,6 @@ class ArticleRecyclerAdapter(val list: ArrayList<Article>, context: Context, val
             with(mContext) {
                 Picasso.get().load(article.mImageUrl).fit().error(resources.getDrawable(R.mipmap.default_image)).into(articleImage)
             }
-            articleTitle.setOnClickListener { clickListener(itemView, article) }
         }
     }
 
