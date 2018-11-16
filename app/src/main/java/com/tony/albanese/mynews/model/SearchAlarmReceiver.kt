@@ -17,9 +17,10 @@ import java.net.HttpURLConnection
 
 class SearchAlarmReceiver : BroadcastReceiver() {
 
-
-
     override fun onReceive(context: Context?, intent: Intent?) {
+        //TODO: Get the news_desk and search_terms intent extras from the intent
+        //TODO: Then get the current date and generate the url
+        //TODO: Then get the news articles.
         val url = intent?.getStringExtra("notification_url")
         if (url != null && url.isNotEmpty() && url.isNotBlank()) {
             getNewArticles(context!!, url)
@@ -64,6 +65,5 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                 }
             }
         }
-
     }
 }
