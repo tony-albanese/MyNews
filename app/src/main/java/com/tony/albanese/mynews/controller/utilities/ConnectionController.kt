@@ -3,7 +3,6 @@ package com.tony.albanese.mynews.controller.utilities
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.util.Log
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -32,7 +31,6 @@ fun connectToSite(url: URL): HttpURLConnection? {
         val testConnection = url.openConnection() as HttpURLConnection
         return testConnection
     } catch (e: IOException) {
-        Log.e("From: connectToURl", e.toString())
         return null
     }
 }
