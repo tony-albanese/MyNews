@@ -11,15 +11,9 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-/*
-The functions in this file are resposible for connecting the site and fetching data from it.
-stringToUrl() -- converts string to URL object
-connectToSite() -- actually connects to the site.
-readDataFromConnection() -- reads the data and returns it as a string.
+/**
+ * Converts a given string to URL
  */
-
-
-//Converts a string to a URL object.
 fun stringToUrl(urlString: String): URL? {
     val url: URL
     try {
@@ -30,7 +24,9 @@ fun stringToUrl(urlString: String): URL? {
     return url
 }
 
-//Accepts a URL and returns an HttpURLConnection.
+/**
+ * Accepts a URL and returns an HTTP connection.
+ */
 fun connectToSite(url: URL): HttpURLConnection? {
     try {
         val testConnection = url.openConnection() as HttpURLConnection
@@ -39,10 +35,11 @@ fun connectToSite(url: URL): HttpURLConnection? {
         Log.e("From: connectToURl", e.toString())
         return null
     }
-
 }
 
-//Reads the data from connection and builds a JSON response string and returns it.
+/**
+ * Reads data from the connection and returns the response as a string.
+ */
 fun readDataFromConnection(connection: HttpURLConnection): String {
     val stringBuilder = StringBuilder()
     try {
@@ -56,16 +53,15 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
             if (line == null) break
             stringBuilder.append(line)
         }
-
         return stringBuilder.toString()
     } catch (e: Exception) {
-        Log.e("readDataFromConnection", e.toString())
         return ERROR
     }
-
 }
 
-//This function checks if a network connection is available and returns a boolean.
+/**
+ * Function checks if the network connection on the device is available and returns a boolean to reflect that.
+ */
 fun networkIsAvailable(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     var activeNetworkInformation: NetworkInfo? = null
