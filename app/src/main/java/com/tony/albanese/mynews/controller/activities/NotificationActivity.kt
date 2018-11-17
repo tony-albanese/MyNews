@@ -237,7 +237,7 @@ class NotificationActivity : AppCompatActivity(), OnTimeSetListener {
         var searchTerms = searchEditText.text.toString()
         var newsDesks = generateNewsDeskParameter(newsDesksHashMap)
 
-        i.putExtra("search_terms", searchTerms)
-        i.putExtra("news_desks", newsDesks)
+        i.putExtra(SEARCH_TERMS_INTENT_KEY, searchTerms)
+        i.putExtra(NEWS_DESK_INTENT_KEY, newsDesks)
     }
 }
