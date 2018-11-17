@@ -14,14 +14,19 @@ import com.tony.albanese.mynews.controller.utilities.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.net.HttpURLConnection
+import java.util.*
 
 class SearchAlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        //TODO: Get the news_desk and search_terms intent extras from the intent
-        //TODO: Then get the current date and generate the url
-        //TODO: Then get the news articles.
-        val url = intent?.getStringExtra("notification_url")
+        val searchTerms = intent?.getStringExtra(SEARCH_TERMS_INTENT_KEY)
+        val newsDesks = intent?.getStringExtra(NEWS_DESK_INTENT_KEY)
+
+        val date = Calendar.getInstance().time
+        val searchStartDate = convertDate(date, SEARCH_DATE_FORMAT)
+        val jsonPrameters = createSearchParametersJson(searchTerms
+                ?: "", searchStartDate, "", newsDesks ?: "")
+        val url = generateSearchUrl(context!!, CUSTOM_SEARCH_SEARCH, jsonPrameters)
         if (url != null && url.isNotEmpty() && url.isNotBlank()) {
             getNewArticles(context!!, url)
         }
