@@ -17,6 +17,9 @@ val MOST_POPULAR_KEY = "most_popular_key"
 val TOP_SCIENCE_KEY = "top_science_key"
 val CUSTOM_SEARCH_KEY = "custom_search_key"
 
+val NEWS_DESK_INTENT_KEY = "news_desks"
+val SEARCH_TERMS_INTENT_KEY = "search_terms"
+
 val MOST_POPULAR_SEARCH = 1
 val TOP_STORIES_SEARCH = 2
 val TOP_SCIENCE_SEARCH = 3
@@ -32,8 +35,6 @@ val CUSTOM_SEARCH_TAB = 3
 val SEARCH_DATE_FORMAT = "yyyMMdd"
 
 val TOP_STORIES_FRAGMENT = 0
-val MOST_POPULAR_FRAGMENT = 1
-val TOP_SCIENCE_STORIES_FRAGMENT = 2
 val CUSTOM_SEARCH_FRAGMENT = 3
 
 val SEARCH_ALARM_CODE = 100
