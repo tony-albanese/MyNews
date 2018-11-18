@@ -28,7 +28,7 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                 ?: "", searchStartDate, "", newsDesks ?: "")
         val url = generateSearchUrl(context!!, CUSTOM_SEARCH_SEARCH, jsonPrameters)
         if (url != null && url.isNotEmpty() && url.isNotBlank()) {
-            getNewArticles(context!!, url)
+            getNewArticles(context, url)
         }
 
     }
@@ -46,11 +46,11 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
-        notificationManager.notify(SEARCH_ALARM_CODE, builder.build());
+        notificationManager.notify(SEARCH_ALARM_CODE, builder.build())
     }
 
     fun getNewArticles(c: Context, url: String) {
-        var connection: HttpURLConnection?
+        val connection: HttpURLConnection?
         var result = ""
         if (networkIsAvailable(c)) {
             connection = connectToSite(stringToUrl(url)!!)
@@ -65,7 +65,7 @@ class SearchAlarmReceiver : BroadcastReceiver() {
                     if (tempList.isNotEmpty()) {
                         val prefs = c.getSharedPreferences(ARTICLE_PREFERENCES, MODE_PRIVATE)
                         saveArrayListToSharedPreferences(prefs, NEW_ARTICLE_KEY, tempList)
-                        sendNotification(c!!)
+                        sendNotification(c)
                     }
                 }
             }

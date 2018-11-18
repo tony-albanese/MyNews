@@ -13,8 +13,7 @@ fun formatArticleDate(date: String): String {
 
     try {
         val date = initialFormat.parse(date)
-        val formattedDate = dateFormat.format(date)
-        return formattedDate
+        return dateFormat.format(date)
     } catch (e: ParseException) {
         e.printStackTrace()
         return ERROR
@@ -27,7 +26,6 @@ fun formatArticleDate(date: String): String {
  */
 fun convertDate(date: Date, formatString: String = "dd/MM/yyy"): String {
     val dateFormat = SimpleDateFormat(formatString) //Date should be in 02/02/1982 format.
-    val dateString = dateFormat.format(date)
-    return dateString
+    return dateFormat.format(date)
 }
 

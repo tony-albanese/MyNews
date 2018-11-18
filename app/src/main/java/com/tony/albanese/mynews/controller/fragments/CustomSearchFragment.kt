@@ -52,7 +52,7 @@ class CustomSearchFragment : Fragment() {
         urlPreferences = this.activity!!.getSharedPreferences(URL_SHARED_PREFERENCES, Context.MODE_PRIVATE)
         articlePreferences = this.activity!!.getSharedPreferences(ARTICLE_PREFERENCES, Context.MODE_PRIVATE)
         recyclerView = fragment_recycler_view
-        recyclerView.layoutManager = layoutManager as RecyclerView.LayoutManager?
+        recyclerView.layoutManager = layoutManager
         articleAdapter = ArticleRecyclerAdapter(list, context!!, { view: View, article: Article -> onArticleClicked(view, article) })
         recyclerView.adapter = articleAdapter
     }
@@ -69,7 +69,7 @@ class CustomSearchFragment : Fragment() {
     
     fun fetchArticles(connection: HttpURLConnection) {
         doAsync {
-            val result = readDataFromConnection(connection!!)
+            val result = readDataFromConnection(connection)
             uiThread {
                 list = generateArticleArray(CUSTOM_SEARCH_RESULTS, result)
                 if (list.isEmpty()) createNoArticleAlertDialog()
@@ -99,7 +99,7 @@ class CustomSearchFragment : Fragment() {
     }
 
     fun startSearch() {
-        var connection: HttpURLConnection?
+        val connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
         if (networkIsAvailable(context!!) && activityCustomSearchUrl != "NONE") {
             connection = connectToSite(stringToUrl(activityCustomSearchUrl)!!)

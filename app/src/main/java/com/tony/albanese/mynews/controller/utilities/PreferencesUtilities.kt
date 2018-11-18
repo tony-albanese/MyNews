@@ -26,19 +26,17 @@ fun loadArrayListFromSharedPreferences(preferences: SharedPreferences, key: Stri
 
 fun mapToString(map: HashMap<Int, String>): String {
     val gson = Gson()
-    val mapString = gson.toJson(map)
-    return mapString
+    return gson.toJson(map)
 }
 
 fun getMapFromPrefereces(prefs: SharedPreferences, key: String): HashMap<Int, String> {
     val gson = Gson()
-    var map = HashMap<Int, String>()
+    val map = HashMap<Int, String>()
     val mapString = prefs.getString(key, "NONE")
     if (mapString.equals("NONE")) {
         return map
     } else {
         val type = object : TypeToken<HashMap<Int, String>>() {}.type
-        val map = gson.fromJson(mapString, type) as HashMap<Int, String>
-        return map
+        return gson.fromJson(mapString, type) as HashMap<Int, String>
     }
 }

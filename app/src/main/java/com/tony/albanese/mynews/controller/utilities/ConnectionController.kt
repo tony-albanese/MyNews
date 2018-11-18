@@ -28,8 +28,7 @@ fun stringToUrl(urlString: String): URL? {
  */
 fun connectToSite(url: URL): HttpURLConnection? {
     try {
-        val testConnection = url.openConnection() as HttpURLConnection
-        return testConnection
+        return url.openConnection() as HttpURLConnection
     } catch (e: IOException) {
         return null
     }
@@ -43,12 +42,11 @@ fun readDataFromConnection(connection: HttpURLConnection): String {
     try {
         connection.connect()
 
-        var inStream = connection.inputStream
-        var reader = BufferedReader(InputStreamReader(inStream))
+        val inStream = connection.inputStream
+        val reader = BufferedReader(InputStreamReader(inStream))
 
         while (true) {
-            var line = reader.readLine()
-            if (line == null) break
+            var line: String? = reader.readLine() ?: break
             stringBuilder.append(line)
         }
         return stringBuilder.toString()

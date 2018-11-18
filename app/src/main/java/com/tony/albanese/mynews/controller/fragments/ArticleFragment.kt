@@ -131,7 +131,7 @@ class ArticleFragment : Fragment() {
 
     //Function for starting the search.
     fun startSearch() {
-        var connection: HttpURLConnection?
+        val connection: HttpURLConnection?
         //Check if the network is available. If it is, attempt the connection. If not, show a toast.
         if (networkIsAvailable(context!!)) {
             connection = connectToSite(stringToUrl(url)!!)
