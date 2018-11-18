@@ -6,7 +6,7 @@ import com.tony.albanese.mynews.R
 import org.json.JSONObject
 
 /**
- * Function generates the search url depending on the searchType paramter. The parameters input is opotions
+ * Function generates the search url depending on the searchType parameter. The parameters input is options
  * because only a custom search needs them.
  */
 fun generateSearchUrl(c: Context, searchType: Int, parameters: JSONObject = JSONObject()): String {

@@ -72,7 +72,7 @@ class ArticleFragment : Fragment() {
         }
     }
 
-    //This function is calle when the user clicks an article.
+    //This function is called when the user clicks an article.
     fun onArticleClicked(view: View, article: Article) {
         view.setBackgroundColor(resources.getColor(R.color.colorIsRead))
         article.mIsRead = true

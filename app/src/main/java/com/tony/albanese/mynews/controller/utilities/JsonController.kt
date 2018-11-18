@@ -4,7 +4,7 @@ import org.json.JSONException
 import org.json.JSONObject
 
 /**
- * Creates JSON object from input search paramters.
+ * Creates JSON object from input search parameters.
  */
 fun createSearchParametersJson(terms: String, startDate: String = "", endDate: String = "", desks: String = ""): JSONObject {
     var json = JSONObject()

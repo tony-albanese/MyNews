@@ -13,7 +13,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class ServerResponseControllerUnitTests {
     /*
-    Intialize the appContext objects and some test lists for unit tests.
+    Initialize the appContext objects and some test lists for unit tests.
      */
     val appContext = InstrumentationRegistry.getTargetContext()
 

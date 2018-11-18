@@ -7,7 +7,7 @@
     <string name="TOP_SCIENCE_PATH">svc/mostpopular/v2/mostviewed/Science/1.json</string>
     <string name="ARTICLE_SEARCH_PATH">svc/search/v2/articlesearch.json</string>
 
-    <!--These strings are the titles of the tabs for each fragmen. -->
+    <!--These strings are the titles of the tabs for each fragment. -->
     <string name="science_tab_title">Science</string>
     <string name="most_read_tab_title">Most Read</string>
     <string name="top_stories_tab_title">Top Stories</string>

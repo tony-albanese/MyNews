@@ -29,7 +29,7 @@ class WebViewActivity : AppCompatActivity() {
                 emptyView.visibility = View.GONE
             }
         } else {
-            val toast = Toast.makeText(this, "An error occured", Toast.LENGTH_SHORT)
+            val toast = Toast.makeText(this, "An error occurred", Toast.LENGTH_SHORT)
             toast.show()
             webView.visibility = View.GONE
             emptyView.visibility = View.VISIBLE
