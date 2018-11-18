@@ -5,4 +5,4 @@ A detailed document containing the functional description of this app can be fou
 
 [Functional Documentation - Google Doc](https://drive.google.com/open?id=1YyRlPtEOHO6t98cfqjYF1nRSldeqjdczVYLE1qRKAfg)
 
-[Functional Documentation - PDF]()
+[Functional Documentation - PDF](https://drive.google.com/open?id=1Tfj7jWl6sBCRuuKAOi1O_6T0cz6mFtHz)
