@@ -10,4 +10,5 @@ A detailed document containing the functional description of this app can be fou
 ## Presentation
 
 You can also find a presentation in Google Slides where you can see the app at work.
+
 [MyNews - Presentation](https://docs.google.com/presentation/d/1v5OvX5GnR0J-TrUb4UFguLvYCP9cEWHuS-0NW_JyyUE/edit?usp=sharing)
