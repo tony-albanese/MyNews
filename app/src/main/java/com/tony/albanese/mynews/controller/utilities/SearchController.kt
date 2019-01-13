@@ -75,6 +75,4 @@ fun generateNewsDeskParameter(map: HashMap<Int, String>): String {
 
     builder.append(")")
     return builder.toString()
-
-
 }
